@@ -1,0 +1,15 @@
+# Local Codex and browser state
+.agents/
+.codex/
+.chrome-*/
+.firecrawl/
+.tools/
+tmp/
+
+# Local agent instructions and planning notes
+AGENTS.md
+docs/superpowers/
+
+# Windows metadata
+Thumbs.db
+Desktop.ini
