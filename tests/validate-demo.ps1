@@ -33,6 +33,33 @@ for ($i = 1; $i -lt $positions.Count; $i++) {
   }
 }
 
+@(
+  '100 East Broadway 12 FL New York NY 10002',
+  '(888)909-6899',
+  '(917)915-0189',
+  'Sales@aiya.us',
+  'yryou@aiya.us'
+) | ForEach-Object {
+  if ($html -notmatch [regex]::Escape($_)) {
+    throw "Missing updated contact detail: $_"
+  }
+}
+@(
+  'href="tel:+18889096899"',
+  'href="tel:+19179150189"',
+  'href="mailto:Sales@aiya.us"',
+  'href="mailto:yryou@aiya.us"'
+) | ForEach-Object {
+  if ($html -notmatch [regex]::Escape($_)) {
+    throw "Missing contact link: $_"
+  }
+}
+@('marketing@aiya.us', '888-622-0811', '36-16 Main St', 'Flushing, NY 11354') | ForEach-Object {
+  if ($html -match [regex]::Escape($_)) {
+    throw "Outdated contact detail is still present: $_"
+  }
+}
+
 if (([regex]::Matches($html, '<article class="hero-slide(?: active)?"')).Count -ne 3) {
   throw 'Hero must contain exactly three slides.'
 }
