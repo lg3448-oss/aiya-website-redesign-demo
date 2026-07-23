@@ -41,6 +41,54 @@ const products = {
   marketing: { kicker: 'GROWTH · STRATEGY', title: 'AIYA Marketing', description: 'Digital strategy and creative execution connected to the technology behind the business.', image: 'assets/service-marketing.png', monogram: 'MKT' }
 };
 
+const megaMenuData = {
+  products: {
+    defaultKey: 'pos',
+    items: ['pos', 'pad', 'robot', 'scan', 'marketing'].map(key => ({
+      key,
+      label: products[key].title,
+      eyebrow: products[key].kicker,
+      description: products[key].description,
+      image: products[key].image
+    }))
+  },
+  services: {
+    defaultKey: 'integration',
+    items: [
+      {
+        key: 'integration',
+        label: 'Integration & Connectivity',
+        description: 'Connect platforms, business data, and customer experiences through reliable integrations.',
+        links: ['API Integrations', 'Data Connectivity']
+      },
+      {
+        key: 'payments',
+        label: 'Payments & FinTech',
+        description: 'Build secure payment experiences and financial technology that support modern commerce.',
+        links: ['Payment APIs', 'FinTech Solutions', 'Secure Payment Processing']
+      },
+      {
+        key: 'ai',
+        label: 'AI & Automation',
+        description: 'Apply practical intelligence and automation to workflows, decisions, and daily operations.',
+        links: ['AI Software Solutions', 'Artificial Intelligence', 'Automation', 'Workflow Automation']
+      },
+      {
+        key: 'cloud',
+        label: 'Cloud & Enterprise',
+        description: 'Create resilient cloud foundations and enterprise platforms designed to scale.',
+        links: ['Cloud Technologies', 'Enterprise Solutions', 'Scalable Software Platforms']
+      },
+      {
+        key: 'digital',
+        label: 'Digital Development',
+        description: 'Modernize customer and operational experiences with purposeful software development.',
+        links: ['Digital Transformation', 'Modern Software Development']
+      }
+    ]
+  }
+};
+
 const marketingSubitem = document.querySelector('#marketing-subitem');
 
 function activateProduct(key) {
@@ -61,10 +109,162 @@ function activateProduct(key) {
 
 document.querySelectorAll('.product-selector [data-product]').forEach(button => button.addEventListener('click', () => activateProduct(button.dataset.product)));
 
+function buildMegaDetail(type, item) {
+  const detail = document.createElement('div');
+  detail.className = `mega-detail-content mega-detail-${type}`;
+
+  if (type === 'products') {
+    const image = document.createElement('img');
+    image.src = item.image;
+    image.alt = `${item.label} product preview`;
+
+    const copy = document.createElement('div');
+    const eyebrow = document.createElement('small');
+    eyebrow.textContent = item.eyebrow;
+    const title = document.createElement('h3');
+    title.textContent = item.label;
+    const description = document.createElement('p');
+    description.textContent = item.description;
+    const link = document.createElement('a');
+    link.href = '#products';
+    link.dataset.productDestination = item.key;
+    link.textContent = 'View Product \u2192';
+    copy.append(eyebrow, title, description, link);
+    detail.append(image, copy);
+    return detail;
+  }
+
+  const title = document.createElement('h3');
+  title.textContent = item.label;
+  const description = document.createElement('p');
+  description.textContent = item.description;
+  const links = document.createElement('div');
+  links.className = 'mega-detail-links';
+  item.links.forEach(label => {
+    const link = document.createElement('a');
+    link.href = '#services';
+    link.textContent = label;
+    links.append(link);
+  });
+  detail.append(title, description, links);
+  return detail;
+}
+
+function selectMegaItem(type, key, { focus = false } = {}) {
+  const root = document.querySelector(`[data-mega-menu="${type}"]`);
+  const item = megaMenuData[type].items.find(candidate => candidate.key === key);
+  if (!root || !item) return;
+
+  root.dataset.activeItem = key;
+  root.querySelectorAll('[data-mega-item]').forEach(button => {
+    const selected = button.dataset.megaItem === key;
+    button.classList.toggle('active', selected);
+    button.setAttribute('aria-selected', String(selected));
+    button.tabIndex = selected ? 0 : -1;
+    if (selected && focus) button.focus();
+  });
+
+  const detail = root.querySelector('.mega-menu-detail');
+  detail.replaceChildren(buildMegaDetail(type, item));
+}
+
+function renderMegaList(type) {
+  const root = document.querySelector(`[data-mega-menu="${type}"]`);
+  if (!root) return;
+  const list = root.querySelector('.mega-menu-list');
+  const items = megaMenuData[type].items.map(item => {
+    const listItem = document.createElement('li');
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.dataset.megaItem = item.key;
+    button.textContent = item.label;
+    button.addEventListener('pointerenter', () => selectMegaItem(type, item.key));
+    button.addEventListener('focus', () => selectMegaItem(type, item.key));
+    button.addEventListener('click', () => selectMegaItem(type, item.key));
+    listItem.append(button);
+    return listItem;
+  });
+  list.replaceChildren(...items);
+  selectMegaItem(type, megaMenuData[type].defaultKey);
+}
+
+let openMenuType = null;
+let megaCloseTimer;
+const megaCloseDelay = 200;
+
+function openMegaMenu(type) {
+  window.clearTimeout(megaCloseTimer);
+  document.querySelectorAll('[data-mega-menu]').forEach(root => {
+    const open = root.dataset.megaMenu === type;
+    root.classList.toggle('open', open);
+    root.querySelector('.mega-trigger').setAttribute('aria-expanded', String(open));
+    root.querySelector('.mega-menu').hidden = !open;
+  });
+  openMenuType = type;
+}
+
+function closeMegaMenu({ restoreFocus = false } = {}) {
+  const trigger = openMenuType
+    ? document.querySelector(`[data-mega-trigger="${openMenuType}"]`)
+    : null;
+  document.querySelectorAll('[data-mega-menu]').forEach(root => {
+    root.classList.remove('open');
+    root.querySelector('.mega-trigger').setAttribute('aria-expanded', 'false');
+    root.querySelector('.mega-menu').hidden = true;
+  });
+  openMenuType = null;
+  if (restoreFocus) trigger?.focus();
+}
+
+Object.keys(megaMenuData).forEach(type => {
+  renderMegaList(type);
+  const root = document.querySelector(`[data-mega-menu="${type}"]`);
+  const trigger = root.querySelector('.mega-trigger');
+  trigger.addEventListener('pointerenter', () => openMegaMenu(type));
+  trigger.addEventListener('focus', event => {
+    if (!root.contains(event.relatedTarget)) openMegaMenu(type);
+  });
+  trigger.addEventListener('click', event => {
+    event.preventDefault();
+    if (openMenuType === type) closeMegaMenu();
+    else openMegaMenu(type);
+  });
+  root.addEventListener('pointerenter', () => window.clearTimeout(megaCloseTimer));
+  root.addEventListener('pointerleave', () => {
+    window.clearTimeout(megaCloseTimer);
+    megaCloseTimer = window.setTimeout(() => closeMegaMenu(), megaCloseDelay);
+  });
+  root.addEventListener('keydown', event => {
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      closeMegaMenu({ restoreFocus: true });
+      return;
+    }
+    if (!['ArrowUp', 'ArrowDown'].includes(event.key)) return;
+    const buttons = [...root.querySelectorAll('[data-mega-item]')];
+    const currentIndex = buttons.indexOf(document.activeElement);
+    if (currentIndex < 0) return;
+    event.preventDefault();
+    const step = event.key === 'ArrowDown' ? 1 : -1;
+    const next = buttons[(currentIndex + step + buttons.length) % buttons.length];
+    selectMegaItem(type, next.dataset.megaItem, { focus: true });
+  });
+});
+
+document.addEventListener('pointerdown', event => {
+  if (openMenuType && !event.target.closest('[data-mega-menu]')) closeMegaMenu();
+});
+
+document.addEventListener('click', event => {
+  const productLink = event.target.closest('[data-product-destination]');
+  if (productLink) activateProduct(productLink.dataset.productDestination);
+  if (event.target.closest('.main-nav a')) closeMegaMenu();
+});
+
 const services = {
   api: { code: 'API', kicker: 'CONNECTED SYSTEMS', title: 'Make every system work together.', description: 'Secure integrations connect platforms, payments, and business data without adding operational friction.', tags: ['REST APIs', 'Data Sync', 'System Integration'] },
-  payment: { code: 'PAY', kicker: 'SECURE COMMERCE', title: 'Connect every payment moment.', description: 'Payment integrations support reliable transactions across digital and in-person customer journeys.', tags: ['Payment APIs', 'Clover POS', 'Processing'] },
-  ai: { code: 'AI', kicker: 'INTELLIGENT OPERATIONS', title: 'Automate the work behind growth.', description: 'AI-powered software reduces repetitive tasks and helps teams turn operational data into action.', tags: ['AI Workflows', 'Automation', 'Insights'] },
+  payment: { code: 'PAY', kicker: 'SECURE COMMERCE', title: 'Connect every payment moment.', description: 'Payment integrations support reliable transactions across digital and in-person customer journeys.', tags: ["Payment APIs", 'Clover POS', 'Processing'] },
+  ai: { code: 'AI', kicker: 'INTELLIGENT OPERATIONS', title: 'Automate the work behind growth.', description: 'AI-powered software reduces repetitive tasks and helps teams turn operational data into action.', tags: ['AI Workflows', "Automation", 'Insights'] },
   mobile: { code: 'APP', kicker: 'MOBILE PRODUCTS', title: 'Build experiences people keep using.', description: 'Product strategy, UX, and development come together in intuitive iOS and Android applications.', tags: ['iOS', 'Android', 'UX / UI'] },
   web: { code: 'WEB', kicker: 'DIGITAL PRESENCE', title: 'Make the first interaction count.', description: 'High-performance websites clarify the brand story and guide visitors toward the right next step.', tags: ['Web Design', 'Development', 'SEO'] },
   enterprise: { code: 'ENT', kicker: 'SCALABLE SOFTWARE', title: 'Turn complex operations into one platform.', description: 'Purpose-built enterprise systems connect teams, workflows, data, and customer experiences.', tags: ['Platforms', 'Workflows', 'Architecture'] },
