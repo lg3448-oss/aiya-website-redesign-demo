@@ -33,6 +33,43 @@ for ($i = 1; $i -lt $positions.Count; $i++) {
   }
 }
 
+$megaMenuArrow = [string]([char]0x00E2) + [char]0x2020 + [char]0x2019
+$megaMenus = @(
+  @{
+    Type = 'products'
+    Label = 'Products'
+    Id = 'mega-products'
+    ListLabel = 'Products menu'
+    FooterHref = '#products'
+    FooterLabel = 'View All Products ' + $megaMenuArrow
+  }
+  @{
+    Type = 'services'
+    Label = 'Services'
+    Id = 'mega-services'
+    ListLabel = 'Services menu'
+    FooterHref = '#services'
+    FooterLabel = 'View All Services ' + $megaMenuArrow
+  }
+)
+
+foreach ($menu in $megaMenus) {
+  $contract = '<div class="nav-menu-item" data-mega-menu="' + $menu.Type + '">\s*' +
+    '<button class="mega-trigger" type="button" data-mega-trigger="' + $menu.Type + '" aria-haspopup="true" aria-expanded="false" aria-controls="' + $menu.Id + '">' + $menu.Label + '</button>\s*' +
+    '<div class="mega-menu" id="' + $menu.Id + '" data-menu-panel="' + $menu.Type + '" hidden>\s*' +
+    '<div class="mega-menu-inner">\s*' +
+    '<ul class="mega-menu-list" aria-label="' + $menu.ListLabel + '">\s*</ul>\s*' +
+    '<div class="mega-menu-detail" aria-live="polite">\s*</div>\s*' +
+    '<a href="' + [regex]::Escape($menu.FooterHref) + '">' + [regex]::Escape($menu.FooterLabel) + '</a>\s*' +
+    '</div>\s*</div>\s*</div>'
+  if ($html -notmatch ('(?s)' + $contract)) {
+    throw "$($menu.Label) mega menu must contain the required empty accessible shell."
+  }
+}
+if (([regex]::Matches($html, '<div class="mega-menu-detail" aria-live="polite">\s*</div>')).Count -ne 2) {
+  throw 'Mega menus must contain exactly two empty live detail panels.'
+}
+
 @(
   '100 East Broadway 12 FL New York NY 10002',
   '(888)909-6899',

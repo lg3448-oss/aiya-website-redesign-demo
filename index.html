@@ -19,8 +19,26 @@
     </button>
     <nav class="main-nav" id="main-nav" aria-label="Main navigation">
       <a class="active" href="#home">Home</a>
-      <a href="#products">Products</a>
-      <a href="#services">Services</a>
+      <div class="nav-menu-item" data-mega-menu="products">
+        <button class="mega-trigger" type="button" data-mega-trigger="products" aria-haspopup="true" aria-expanded="false" aria-controls="mega-products">Products</button>
+        <div class="mega-menu" id="mega-products" data-menu-panel="products" hidden>
+          <div class="mega-menu-inner">
+            <ul class="mega-menu-list" aria-label="Products menu"></ul>
+            <div class="mega-menu-detail" aria-live="polite"></div>
+            <a href="#products">View All Products →</a>
+          </div>
+        </div>
+      </div>
+      <div class="nav-menu-item" data-mega-menu="services">
+        <button class="mega-trigger" type="button" data-mega-trigger="services" aria-haspopup="true" aria-expanded="false" aria-controls="mega-services">Services</button>
+        <div class="mega-menu" id="mega-services" data-menu-panel="services" hidden>
+          <div class="mega-menu-inner">
+            <ul class="mega-menu-list" aria-label="Services menu"></ul>
+            <div class="mega-menu-detail" aria-live="polite"></div>
+            <a href="#services">View All Services →</a>
+          </div>
+        </div>
+      </div>
       <a href="#company">Company</a>
       <a href="#contact">Contact</a>
     </nav>
