@@ -56,3 +56,65 @@
 @media(max-width:760px){.hero{padding-bottom:102px;grid-template-rows:auto minmax(0,1fr)}.hero::before{display:none}.hero-copy,.hero-slide{width:100%;max-width:100%}.hero-slide p{max-width:100%}.hero-visual{--hero-visual-height:clamp(150px,22vh,190px);height:var(--hero-visual-height);min-height:0;margin-top:0}.hero-visual>img{width:auto;height:var(--hero-visual-height);max-width:112%;max-height:none;object-fit:contain}.partner-marquee{left:18px;right:18px;bottom:18px;padding:8px 0 3px;background:linear-gradient(90deg,rgba(248,244,236,.98),rgba(248,244,236,.94),rgba(248,244,236,.98));backdrop-filter:blur(8px)}.partner-label{margin-bottom:8px;font-size:10px;letter-spacing:.06em}.partner-window{-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 10%,#000 90%,transparent 100%);mask-image:linear-gradient(90deg,transparent 0,#000 10%,#000 90%,transparent 100%)}.partner-motion{animation-duration:38s}.partner-track{gap:34px;padding-right:34px}.partner-logo{height:28px;max-width:150px}.partner-logo-tall{height:31px}}
 @media(max-width:760px) and (max-height:720px){.hero{padding-top:calc(var(--header-h) + 12px);padding-bottom:88px}.hero .eyebrow{margin-bottom:8px}.hero-slides{min-height:225px}.hero h1{font-size:clamp(34px,9.5vw,42px)}.hero-slide p{font-size:12px;line-height:1.5;margin-top:12px}.hero-actions{margin-top:6px}.hero .button{min-height:42px}.hero-controls{margin-top:10px}.hero .brand-line{display:none}.hero-visual{--hero-visual-height:145px;height:var(--hero-visual-height)}.partner-marquee{bottom:14px}.partner-label{margin-bottom:5px}.partner-logo{height:26px}.partner-logo-tall{height:29px}}
 @media(prefers-reduced-motion:reduce){.partner-motion{animation:none;transform:none}.partner-track[aria-hidden="true"]{display:none}.partner-window{overflow-x:auto;overscroll-behavior-inline:contain;-webkit-mask-image:none;mask-image:none;scrollbar-width:thin}.partner-logo{transition:none}}
+
+/* Layout and kiosk readability refresh */
+:root{--frame:min(1320px,calc(100vw - 96px));--text-dense:12px;--text-small:13px;--text-ui:14px}
+.site-header{padding-left:max(48px,calc((100vw - 1320px)/2));padding-right:max(48px,calc((100vw - 1320px)/2))}
+.scene{padding-left:max(48px,calc((100vw - 1320px)/2));padding-right:max(48px,calc((100vw - 1320px)/2))}
+.scene::before,.scene-heading.compact{left:max(48px,calc((100vw - 1320px)/2))}
+.scroll-cue,.disclosure{right:max(48px,calc((100vw - 1320px)/2))}
+.contact footer{left:max(48px,calc((100vw - 1320px)/2));right:max(48px,calc((100vw - 1320px)/2))}
+.main-nav a{font-size:16px}
+.header-cta{font-size:15px}
+.button,.text-link{font-size:var(--text-ui)}
+.hero-slide p{font-size:17px}
+.scene-heading>p,.ordering-copy>p,.ecosystem-heading>p,.company-copy p,.contact-copy p{font-size:16px}
+.product-meta p,.service-stage p{font-size:15px}
+.results-grid p{font-size:13px}
+.scene-heading h2,.hero h1,.contact h2,.company h2,.ecosystem h2{font-size:clamp(46px,4.7vw,72px)}
+.scene-heading.compact h2{font-size:clamp(40px,3.8vw,60px)}
+.hero h1{font-size:clamp(50px,5.2vw,76px)}
+.ordering-copy h2{font-size:clamp(47px,4.7vw,70px)}
+.hero{padding-bottom:5vh}
+.hero>*,.capabilities>*,.ordering>*,.why>*,.company>*,.contact>*{min-width:0}
+.ordering-visual>img{width:100%;max-width:100%;max-height:68vh;margin-left:0;object-fit:contain}
+.kiosk-visual{height:min(68vh,650px);display:grid;grid-template-rows:minmax(0,1fr) auto auto;align-items:center}
+.kiosk-visual>img{width:100%;height:100%;min-height:0;object-fit:contain}
+.kiosk-visual .flow-track{position:relative;left:auto;right:auto;bottom:auto;justify-self:stretch;margin-top:-6px}
+.kiosk-visual>small{margin-top:8px}
+.contact{padding-bottom:190px}
+.contact .partner-marquee{position:absolute;z-index:8;left:max(48px,calc((100vw - 1320px)/2));right:max(48px,calc((100vw - 1320px)/2));bottom:82px;min-width:0}
+
+@media(max-width:1020px){
+  .site-header{padding-left:32px;padding-right:32px}
+  .scene{padding-left:32px;padding-right:32px}
+  .scene::before,.scene-heading.compact{left:32px}
+  .scroll-cue,.disclosure{right:32px}
+  .contact footer,.contact .partner-marquee{left:32px;right:32px}
+}
+
+@media(max-width:760px){
+  .site-header{padding-left:18px;padding-right:18px}
+  .scene{padding-left:18px;padding-right:18px}
+  .scene::before,.scene-heading.compact{left:18px}
+  .main-nav a{font-size:16px}
+  .hero{padding-bottom:32px;grid-template-rows:auto minmax(0,1fr)}
+  .hero h1{font-size:clamp(40px,11.2vw,54px)}
+  .hero-slide p{font-size:14px}
+  .scene-heading h2,.ordering-copy h2,.company-copy h2,.contact-copy h2,.ecosystem-heading h2{font-size:clamp(40px,11.2vw,54px)}
+  .scene-heading>p,.ordering-copy>p,.ecosystem-heading>p,.company-copy p,.contact-copy p{font-size:14px}
+  .product-meta p,.service-stage p{font-size:15px}
+  .selector-list button span,.selector-list button.active span{font-size:14px}
+  .product-stage{height:auto;min-height:470px;grid-template-columns:1fr;grid-template-rows:auto minmax(230px,1fr);padding:24px}
+  .product-object{position:relative;right:auto;bottom:auto;width:100%;height:230px;opacity:1}
+  .product-meta{padding-right:0}
+  .ordering-visual>img{width:100%;max-height:42vh;margin:0}
+  .kiosk-visual{height:48vh;min-height:360px;margin-top:24px}
+  .contact{padding-bottom:230px}
+  .contact .partner-marquee{left:18px;right:18px;bottom:92px;padding:8px 0 3px}
+  .contact footer{left:18px;right:18px}
+}
+
+@media(max-width:760px) and (max-height:720px){
+  .hero{padding-bottom:24px}
+}
