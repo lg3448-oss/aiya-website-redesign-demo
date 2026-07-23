@@ -7,7 +7,7 @@ $js = Get-Content (Join-Path $root 'script.js') -Raw
 $sceneIds = @(
   'home',
   'capabilities',
-  'online-ordering',
+  'kiosk',
   'products',
   'services',
   'ecosystem',
@@ -63,11 +63,53 @@ for ($i = 1; $i -lt $positions.Count; $i++) {
 if (([regex]::Matches($html, '<article class="hero-slide(?: active)?"')).Count -ne 3) {
   throw 'Hero must contain exactly three slides.'
 }
+if ($html -match 'class="hero-controls"') {
+  throw 'Hero slide controls and progress lines must be removed.'
+}
+if ($js -notmatch 'setInterval\(\(\)\s*=>\s*showHero\(activeSlide\s*\+\s*1\),\s*7000\)') {
+  throw 'The three hero messages must continue rotating every seven seconds.'
+}
+if ($html -notmatch '(?s)<section class="scene contact"[^>]*>.*?<div class="partner-marquee".*?<footer>') {
+  throw 'The partner marquee must sit in the contact scene above the footer.'
+}
+if ($html -match '(?s)<section class="scene hero"[^>]*>.*?<div class="partner-marquee".*?</section>') {
+  throw 'The partner marquee must no longer appear in the hero.'
+}
+@(
+  'AIYA Kiosk',
+  'Self-Service Ordering',
+  'Customizable Menu',
+  'Integrated Payments',
+  'POS Order Sync'
+) | ForEach-Object {
+  if ($html -notmatch [regex]::Escape($_)) {
+    throw "Missing approved kiosk content: $_"
+  }
+}
+if ($html -match 'Online Ordering\.' -or $html -match 'Connected to Clover\.') {
+  throw 'The old featured online-ordering heading is still present.'
+}
+if (-not (Test-Path (Join-Path $root 'assets\aiya-kiosk.png'))) {
+  throw 'Missing AIYA Kiosk product image.'
+}
+$primaryHeadings = [regex]::Matches($html, '(?s)<h[12][^>]*>(.*?)</h[12]>')
+foreach ($heading in $primaryHeadings) {
+  $plainText = [regex]::Replace($heading.Groups[1].Value, '<[^>]+>', '').Trim()
+  if ($plainText.EndsWith('.')) {
+    throw "Primary heading still ends with a period: $plainText"
+  }
+}
+if ($css -notmatch '--frame:min\(1320px,calc\(100vw - 96px\)\)') {
+  throw 'The desktop frame must expand to 1320px.'
+}
+if ($css -notmatch '\.main-nav a\s*\{[^}]*font-size\s*:\s*16px') {
+  throw 'Main navigation must be 16px.'
+}
+if ($css -notmatch '\.header-cta\s*\{[^}]*font-size\s*:\s*15px') {
+  throw 'Header CTA must be 15px.'
+}
 if ($html -match 'vertical-tagline') {
   throw 'Vertical primary text is prohibited.'
-}
-if ($html -notmatch 'Clover') {
-  throw 'Clover must be central to online ordering.'
 }
 if ($html -notmatch 'Demo result|Placeholder') {
   throw 'Demo outcomes must be disclosed.'
@@ -86,9 +128,6 @@ if ($css -notmatch 'overflow-x\s*:\s*hidden') {
 }
 if ($css -notmatch '\.hero-slides\s*\{[^}]*height\s*:\s*auto' -or $css -notmatch '\.hero-slide\.active\s*\{[^}]*position\s*:\s*relative') {
   throw 'The active hero slide must size its container so copy cannot cover the CTA buttons.'
-}
-if ($html -notmatch '(?s)<section class="scene hero"[^>]*>.*?<div class="partner-marquee".*?</section>') {
-  throw 'The partner marquee must live inside the first hero viewport.'
 }
 if (([regex]::Matches($html, '<div class="partner-track"')).Count -ne 2) {
   throw 'The marquee needs exactly two matching tracks for a seamless loop.'
@@ -110,9 +149,6 @@ if ($css -notmatch '\.partner-window:hover\s+\.partner-motion\s*\{[^}]*animation
 if ($css -notmatch '\.partner-logo\s*\{[^}]*opacity\s*:\s*\.9[^}]*filter\s*:\s*none') {
   throw 'Partner logos must show their approved original colors by default.'
 }
-if ($css -notmatch '\.partner-marquee\s*\{[^}]*bottom\s*:\s*88px') {
-  throw 'The desktop partner strip must sit directly below the hero brand line.'
-}
 if ($css -notmatch '\.partner-window\s*\{[^}]*(?:-webkit-)?mask-image\s*:\s*linear-gradient') {
   throw 'The partner marquee needs a background-aware edge fade mask.'
 }
@@ -125,20 +161,11 @@ if ($css -notmatch '(?s)@media\(prefers-reduced-motion:reduce\).*?\.partner-moti
   }
 }
 @(
-  '--text-dense:11px',
-  '--text-small:12px',
-  '--text-ui:12px'
+  '--text-dense:12px',
+  '--text-small:13px',
+  '--text-ui:14px'
 ) | ForEach-Object {
   if ($css -notmatch [regex]::Escape($_)) { throw "Missing readability token: $_" }
-}
-if ($css -notmatch '\.main-nav a\s*\{[^}]*font-size\s*:\s*14px') {
-  throw 'Main navigation must be 14px.'
-}
-if ($css -notmatch '\.header-cta[^}]*font-size\s*:\s*var\(--text-ui\)') {
-  throw 'Header CTA must use the 12px UI text token.'
-}
-if ($css -notmatch 'font-size\s*:\s*clamp\(44px,4\.5vw,68px\)') {
-  throw 'The established primary heading scale changed.'
 }
 @('online', 'order', 'reserve', 'gift') | ForEach-Object {
   if ($html -match "data-product=[`"']$([regex]::Escape($_))[`"']" -or $js -match "(?m)^\s*$([regex]::Escape($_))\s*:") {
