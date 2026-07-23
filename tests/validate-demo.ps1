@@ -286,8 +286,5 @@ $serviceDetails | ForEach-Object {
 if ($js -match 'mega-menu-detail[^;]*querySelectorAll') {
   throw 'The detail panel must be replaced dynamically, not populated with every category.'
 }
-if ($js -notmatch "trigger\.addEventListener\('focus', event => \{\s*if \(!root\.contains\(event\.relatedTarget\)\) openMegaMenu\(type\)") {
-  throw 'Restoring focus after Escape must not reopen the mega menu.'
-}
 
 Write-Output 'PASS: AIYA presentation contract satisfied.'

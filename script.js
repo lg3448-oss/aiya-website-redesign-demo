@@ -220,14 +220,21 @@ Object.keys(megaMenuData).forEach(type => {
   renderMegaList(type);
   const root = document.querySelector(`[data-mega-menu="${type}"]`);
   const trigger = root.querySelector('.mega-trigger');
-  trigger.addEventListener('pointerenter', () => openMegaMenu(type));
+  let openedByTriggerLeadIn = false;
+  const openFromTrigger = () => {
+    openedByTriggerLeadIn ||= openMenuType !== type;
+    openMegaMenu(type);
+  };
+  trigger.addEventListener('pointerenter', openFromTrigger);
   trigger.addEventListener('focus', event => {
-    if (!root.contains(event.relatedTarget)) openMegaMenu(type);
+    if (!root.contains(event.relatedTarget)) openFromTrigger();
   });
   trigger.addEventListener('click', event => {
     event.preventDefault();
-    if (openMenuType === type) closeMegaMenu();
-    else openMegaMenu(type);
+    const keepOpen = openedByTriggerLeadIn;
+    openedByTriggerLeadIn = false;
+    if (keepOpen || openMenuType !== type) openMegaMenu(type);
+    else closeMegaMenu();
   });
   root.addEventListener('pointerenter', () => window.clearTimeout(megaCloseTimer));
   root.addEventListener('pointerleave', () => {
@@ -247,7 +254,7 @@ Object.keys(megaMenuData).forEach(type => {
     event.preventDefault();
     const step = event.key === 'ArrowDown' ? 1 : -1;
     const next = buttons[(currentIndex + step + buttons.length) % buttons.length];
-    selectMegaItem(type, next.dataset.megaItem, { focus: true });
+    next.focus();
   });
 });
 
