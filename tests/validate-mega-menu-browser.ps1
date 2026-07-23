@@ -12,19 +12,65 @@ $tempRoot = [IO.Path]::GetTempPath()
 $profile = Join-Path $tempRoot "aiya-mega-browser-$runId"
 $stdout = Join-Path $tempRoot "aiya-mega-browser-$runId.html"
 $stderr = Join-Path $tempRoot "aiya-mega-browser-$runId.log"
+$mobileProfile = Join-Path $tempRoot "aiya-mega-mobile-browser-$runId"
+$mobileStdout = Join-Path $tempRoot "aiya-mega-mobile-browser-$runId.html"
+$mobileStderr = Join-Path $tempRoot "aiya-mega-mobile-browser-$runId.log"
 
 $resolvedRoot = [IO.Path]::GetFullPath($root).TrimEnd('\')
 $resolvedTempRoot = [IO.Path]::GetFullPath($tempRoot).TrimEnd('\')
 if ([IO.Path]::GetDirectoryName([IO.Path]::GetFullPath($fixture)) -ne $resolvedRoot) {
   throw "Refusing fixture path outside repository root: $fixture"
 }
-@($profile, $stdout, $stderr) | ForEach-Object {
+@($profile, $stdout, $stderr, $mobileProfile, $mobileStdout, $mobileStderr) | ForEach-Object {
   if ([IO.Path]::GetDirectoryName([IO.Path]::GetFullPath($_)) -ne $resolvedTempRoot) {
     throw "Refusing test path outside temp root: $_"
   }
   if ([IO.Path]::GetFileName($_) -notlike "*$runId*") {
     throw "Refusing test path without unique run id: $_"
   }
+}
+
+function Receive-CdpMessage {
+  param([System.Net.WebSockets.ClientWebSocket]$Socket)
+
+  $buffer = New-Object byte[] 1048576
+  $stream = New-Object System.IO.MemoryStream
+  try {
+    do {
+      $segment = [ArraySegment[byte]]::new($buffer)
+      $result = $Socket.ReceiveAsync($segment, [Threading.CancellationToken]::None).GetAwaiter().GetResult()
+      $stream.Write($buffer, 0, $result.Count)
+    } until ($result.EndOfMessage)
+    [Text.Encoding]::UTF8.GetString($stream.ToArray()) | ConvertFrom-Json
+  }
+  finally {
+    $stream.Dispose()
+  }
+}
+
+function Invoke-Cdp {
+  param(
+    [System.Net.WebSockets.ClientWebSocket]$Socket,
+    [int]$Id,
+    [string]$Method,
+    [hashtable]$Parameters = @{}
+  )
+
+  $payload = @{ id = $Id; method = $Method; params = $Parameters } | ConvertTo-Json -Compress -Depth 12
+  $bytes = [Text.Encoding]::UTF8.GetBytes($payload)
+  $Socket.SendAsync(
+    [ArraySegment[byte]]::new($bytes),
+    [Net.WebSockets.WebSocketMessageType]::Text,
+    $true,
+    [Threading.CancellationToken]::None
+  ).GetAwaiter().GetResult() | Out-Null
+  do {
+    $message = Receive-CdpMessage -Socket $Socket
+  } until ($message.id -eq $Id)
+  if ($message.error) {
+    throw "$Method failed: $($message.error.message)"
+  }
+  $message.result
 }
 
 $runner = @'
@@ -99,6 +145,12 @@ $runner = @'
     assert(finalOpeningStyle.opacity === '1', 'opening opacity must finish at 1');
     assert(finalOpeningStyle.transform === 'none', 'opening transform must finish at none');
     closeOutside();
+
+    focusOutside();
+    pointerEnter(trigger('products'));
+    document.activeElement.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
+    assert(trigger('products').getAttribute('aria-expanded') === 'false', 'outside-focused Escape must close a hover-opened menu');
+    assert(document.activeElement === trigger('products'), 'outside-focused Escape must restore the open menu trigger focus');
 
     focusOutside();
     trigger('products').focus();
@@ -207,6 +259,86 @@ $runner = @'
 </script>
 '@
 
+$mobileRunner = @'
+<script>
+(async () => {
+  const assert = (condition, message) => {
+    if (!condition) throw new Error(message);
+  };
+  const trigger = type => document.querySelector(`[data-mega-trigger="${type}"]`);
+  const root = type => document.querySelector(`[data-mega-menu="${type}"]`);
+  const activeRoot = () => document.querySelector('.nav-menu-item.open');
+  const navToggle = document.querySelector('.nav-toggle');
+  const mainNav = document.querySelector('.main-nav');
+  const wait = milliseconds => new Promise(resolve => window.setTimeout(resolve, milliseconds));
+  const openNavigation = () => {
+    if (!mainNav.classList.contains('open')) navToggle.click();
+    assert(mainNav.classList.contains('open'), 'hamburger must open the mobile navigation');
+    assert(navToggle.getAttribute('aria-expanded') === 'true', 'hamburger ARIA state must become true');
+  };
+
+  try {
+    assert(window.innerWidth === 390 && window.innerHeight === 667, `mobile test must run at 390x667; observed ${window.innerWidth}x${window.innerHeight}`);
+    assert(
+      JSON.stringify([...root('products').querySelectorAll('[data-mega-item]')].map(button => button.textContent)) ===
+        JSON.stringify(['AIYAPOS', 'AIYAPad', 'AIYARobot', 'AIYAScan', 'AIYA Marketing']),
+      'mobile product order must match the approved order'
+    );
+    assert(root('products').dataset.activeItem === 'pos', 'mobile product default must be AIYAPOS');
+    assert(root('services').dataset.activeItem === 'integration', 'mobile service default must be Integration & Connectivity');
+
+    openNavigation();
+    trigger('services').click();
+    root('services').querySelector('[data-mega-item="payments"]').click();
+    assert(document.querySelectorAll('.nav-menu-item.open').length === 1, 'only one mobile top-level nested menu may be open');
+    assert(activeRoot().querySelectorAll('.mega-menu-item.active').length === 1, 'the open mobile menu must have one active nested item');
+    assert(activeRoot().querySelector('.mega-menu-detail').childElementCount === 1, 'the open mobile menu must have one active detail subtree');
+    assert(root('services').dataset.activeItem === 'payments', 'mobile service test must select a non-default detail');
+    root('services').querySelector('.mega-menu-detail a').click();
+    assert(!mainNav.classList.contains('open'), 'dynamic service destination must close the mobile navigation');
+    assert(navToggle.getAttribute('aria-expanded') === 'false', 'dynamic service destination must collapse hamburger ARIA state');
+    assert(trigger('services').getAttribute('aria-expanded') === 'false', 'dynamic service destination must close its mega menu');
+    assert(window.location.hash === '#services', 'dynamic service destination must preserve #services');
+
+    openNavigation();
+    trigger('products').click();
+    root('products').querySelector('[data-mega-item="pad"]').click();
+    root('products').querySelector('[data-product-destination]').click();
+    assert(!mainNav.classList.contains('open'), 'dynamic product destination must close the mobile navigation');
+    assert(navToggle.getAttribute('aria-expanded') === 'false', 'dynamic product destination must collapse hamburger ARIA state');
+    assert(trigger('products').getAttribute('aria-expanded') === 'false', 'dynamic product destination must close its mega menu');
+    assert(window.location.hash === '#products', 'dynamic product destination must preserve #products');
+    assert(document.querySelector('#product-stage').dataset.product === 'pad', 'dynamic product destination must activate the non-default product');
+    await wait(0);
+    assert(trigger('products').classList.contains('active'), 'Products trigger must show the active section state');
+
+    openNavigation();
+    trigger('services').click();
+    root('services').querySelector('[data-mega-item="payments"]').click();
+    const navStyle = getComputedStyle(mainNav);
+    assert(navStyle.overflowY === 'auto', `mobile navigation overflow-y must be auto; observed ${navStyle.overflowY}`);
+    assert(navStyle.maxHeight === '599px', `mobile navigation max-height must equal the viewport below the header; observed ${navStyle.maxHeight}`);
+    assert(document.documentElement.scrollWidth === document.documentElement.clientWidth, 'mobile document must have zero horizontal overflow');
+    const maximumScrollTop = mainNav.scrollHeight - mainNav.clientHeight;
+    assert(maximumScrollTop > 0, 'an expanded mobile nested menu must create a reachable nav scroll range');
+    mainNav.scrollTop = maximumScrollTop;
+    await wait(0);
+    assert(Math.abs(mainNav.scrollTop - maximumScrollTop) <= 1, 'mobile navigation must reach the end of its scroll height');
+    const navRect = mainNav.getBoundingClientRect();
+    const contactRect = mainNav.querySelector('a[href="#contact"]').getBoundingClientRect();
+    assert(contactRect.top >= navRect.top - 1 && contactRect.bottom <= navRect.bottom + 1, 'Contact must be reachable inside the mobile nav scroll container');
+
+    root('services').querySelector('.mega-menu-detail a').click();
+    await wait(0);
+    assert(trigger('services').classList.contains('active'), 'Services trigger must show the active section state');
+    document.body.dataset.megaMobileTest = 'PASS';
+  } catch (error) {
+    document.body.dataset.megaMobileTest = `FAIL: ${error.message}`;
+  }
+})();
+</script>
+'@
+
 try {
   $html = Get-Content -Raw -LiteralPath (Join-Path $root 'index.html')
   $scriptTag = '<script src="script.js"></script>'
@@ -241,22 +373,117 @@ try {
   if ($result.Groups[1].Value -ne 'PASS') {
     throw $result.Groups[1].Value
   }
+
+  $mobileFixtureHtml = $html.Replace($scriptTag, "$scriptTag`r`n$mobileRunner")
+  [IO.File]::WriteAllText($fixture, $mobileFixtureHtml, [Text.UTF8Encoding]::new($false))
+
+  $portReservation = [Net.Sockets.TcpListener]::new([Net.IPAddress]::Loopback, 0)
+  $portReservation.Start()
+  $mobilePort = ([Net.IPEndPoint]$portReservation.LocalEndpoint).Port
+  $portReservation.Stop()
+  $mobileArguments = @(
+    '--headless=new',
+    '--disable-gpu',
+    '--no-sandbox',
+    '--disable-crash-reporter',
+    '--disable-breakpad',
+    "--user-data-dir=`"$mobileProfile`"",
+    '--remote-debugging-address=127.0.0.1',
+    "--remote-debugging-port=$mobilePort",
+    'about:blank'
+  )
+  $mobileProcess = Start-Process -FilePath $chrome -ArgumentList $mobileArguments -WindowStyle Hidden -PassThru -RedirectStandardOutput $mobileStdout -RedirectStandardError $mobileStderr
+  $mobileSocket = $null
+  try {
+    $targets = $null
+    for ($attempt = 0; $attempt -lt 30 -and -not $targets; $attempt++) {
+      try {
+        $targets = Invoke-RestMethod "http://127.0.0.1:$mobilePort/json/list"
+      }
+      catch {
+        Start-Sleep -Milliseconds 100
+      }
+    }
+    if (-not $targets) {
+      throw "Mobile Chrome DevTools endpoint did not start: $(Get-Content -Raw -LiteralPath $mobileStderr)"
+    }
+
+    $page = $targets | Where-Object type -eq 'page' | Select-Object -First 1
+    $mobileSocket = [Net.WebSockets.ClientWebSocket]::new()
+    $mobileSocket.ConnectAsync([Uri]$page.webSocketDebuggerUrl, [Threading.CancellationToken]::None).GetAwaiter().GetResult() | Out-Null
+    $id = 1
+    Invoke-Cdp -Socket $mobileSocket -Id $id -Method 'Emulation.setDeviceMetricsOverride' -Parameters @{
+      width = 390
+      height = 667
+      deviceScaleFactor = 1
+      mobile = $true
+      screenWidth = 390
+      screenHeight = 667
+    } | Out-Null
+    $id++
+    Invoke-Cdp -Socket $mobileSocket -Id $id -Method 'Page.navigate' -Parameters @{ url = $fixtureUri } | Out-Null
+
+    $mobileResult = ''
+    for ($attempt = 0; $attempt -lt 30 -and -not $mobileResult; $attempt++) {
+      Start-Sleep -Milliseconds 100
+      $id++
+      $evaluation = Invoke-Cdp -Socket $mobileSocket -Id $id -Method 'Runtime.evaluate' -Parameters @{
+        expression = "document.body?.dataset.megaMobileTest || ''"
+        returnByValue = $true
+      }
+      $mobileResult = [string]$evaluation.result.value
+    }
+    if (-not $mobileResult) {
+      throw 'The mobile browser test did not publish a result.'
+    }
+    if ($mobileResult -ne 'PASS') {
+      throw $mobileResult
+    }
+  }
+  finally {
+    if ($mobileSocket) {
+      try {
+        $id++
+        Invoke-Cdp -Socket $mobileSocket -Id $id -Method 'Browser.close' | Out-Null
+      }
+      catch {
+      }
+      $mobileSocket.Dispose()
+    }
+    if ($mobileProcess -and -not $mobileProcess.HasExited) {
+      if (-not $mobileProcess.WaitForExit(3000)) {
+        Stop-Process -Id $mobileProcess.Id -Force
+        $mobileProcess.WaitForExit()
+      }
+    }
+  }
 }
 finally {
   if (Test-Path -LiteralPath $fixture) {
     Remove-Item -LiteralPath $fixture -Force
   }
-  @($stdout, $stderr) | ForEach-Object {
+  @($stdout, $stderr, $mobileStdout, $mobileStderr) | ForEach-Object {
     if (Test-Path -LiteralPath $_) {
-      Remove-Item -LiteralPath $_ -Force
+      for ($attempt = 0; $attempt -lt 10; $attempt++) {
+        try {
+          Remove-Item -LiteralPath $_ -Force -ErrorAction Stop
+          break
+        }
+        catch {
+          if ($attempt -eq 9) { throw }
+          Start-Sleep -Milliseconds 100
+        }
+      }
     }
   }
-  if (Test-Path -LiteralPath $profile) {
-    Remove-Item -LiteralPath $profile -Recurse -Force
+  @($profile, $mobileProfile) | ForEach-Object {
+    if (Test-Path -LiteralPath $_) {
+      Remove-Item -LiteralPath $_ -Recurse -Force
+    }
   }
 }
 
-@($fixture, $profile, $stdout, $stderr) | ForEach-Object {
+@($fixture, $profile, $stdout, $stderr, $mobileProfile, $mobileStdout, $mobileStderr) | ForEach-Object {
   if (Test-Path -LiteralPath $_) {
     throw "Test artifact was not removed: $_"
   }

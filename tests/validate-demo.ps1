@@ -281,5 +281,11 @@ if ($css -notmatch '@starting-style\s*\{[^}]*\.nav-menu-item\.open\s+\.mega-menu
 if ($css -notmatch '(?s)@media\(prefers-reduced-motion:reduce\).*?\.mega-menu\s*\{[^}]*transition\s*:\s*none') {
   throw 'Reduced-motion mode must disable the mega-menu transition.'
 }
+if ($css -notmatch '(?s)@media\(max-width:760px\).*?\.main-nav\s*\{[^}]*max-height\s*:\s*calc\(100svh\s*-\s*var\(--header-h\)\)[^}]*overflow-y\s*:\s*auto') {
+  throw 'Mobile navigation must be constrained and vertically scrollable below the header.'
+}
+if ($js -match 'tags:\s*\["Payment APIs"' -or $js -match 'tags:\s*\[[^\]]*"Automation"') {
+  throw 'Mega-menu work must not retain unrelated quote-only service data changes.'
+}
 
 Write-Output 'PASS: AIYA presentation contract satisfied.'

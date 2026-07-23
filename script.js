@@ -208,13 +208,13 @@ function closeMegaMenu({ restoreFocus = false } = {}) {
   const trigger = openMenuType
     ? document.querySelector(`[data-mega-trigger="${openMenuType}"]`)
     : null;
+  if (restoreFocus) trigger?.focus();
   document.querySelectorAll('[data-mega-menu]').forEach(root => {
     root.classList.remove('open');
     root.querySelector('.mega-trigger').setAttribute('aria-expanded', 'false');
     root.querySelector('.mega-menu').hidden = true;
   });
   openMenuType = null;
-  if (restoreFocus) trigger?.focus();
 }
 
 Object.keys(megaMenuData).forEach(type => {
@@ -243,11 +243,6 @@ Object.keys(megaMenuData).forEach(type => {
     megaCloseTimer = window.setTimeout(() => closeMegaMenu(), megaCloseDelay);
   });
   root.addEventListener('keydown', event => {
-    if (event.key === 'Escape') {
-      event.preventDefault();
-      closeMegaMenu({ restoreFocus: true });
-      return;
-    }
     if (!['ArrowUp', 'ArrowDown'].includes(event.key)) return;
     const buttons = [...root.querySelectorAll('[data-mega-item]')];
     const currentIndex = buttons.indexOf(document.activeElement);
@@ -257,6 +252,12 @@ Object.keys(megaMenuData).forEach(type => {
     const next = buttons[(currentIndex + step + buttons.length) % buttons.length];
     next.focus();
   });
+});
+
+document.addEventListener('keydown', event => {
+  if (event.key !== 'Escape' || !openMenuType) return;
+  event.preventDefault();
+  closeMegaMenu({ restoreFocus: true });
 });
 
 document.addEventListener('pointerdown', event => {
@@ -271,8 +272,8 @@ document.addEventListener('click', event => {
 
 const services = {
   api: { code: 'API', kicker: 'CONNECTED SYSTEMS', title: 'Make every system work together.', description: 'Secure integrations connect platforms, payments, and business data without adding operational friction.', tags: ['REST APIs', 'Data Sync', 'System Integration'] },
-  payment: { code: 'PAY', kicker: 'SECURE COMMERCE', title: 'Connect every payment moment.', description: 'Payment integrations support reliable transactions across digital and in-person customer journeys.', tags: ["Payment APIs", 'Clover POS', 'Processing'] },
-  ai: { code: 'AI', kicker: 'INTELLIGENT OPERATIONS', title: 'Automate the work behind growth.', description: 'AI-powered software reduces repetitive tasks and helps teams turn operational data into action.', tags: ['AI Workflows', "Automation", 'Insights'] },
+  payment: { code: 'PAY', kicker: 'SECURE COMMERCE', title: 'Connect every payment moment.', description: 'Payment integrations support reliable transactions across digital and in-person customer journeys.', tags: ['Payment APIs', 'Clover POS', 'Processing'] },
+  ai: { code: 'AI', kicker: 'INTELLIGENT OPERATIONS', title: 'Automate the work behind growth.', description: 'AI-powered software reduces repetitive tasks and helps teams turn operational data into action.', tags: ['AI Workflows', 'Automation', 'Insights'] },
   mobile: { code: 'APP', kicker: 'MOBILE PRODUCTS', title: 'Build experiences people keep using.', description: 'Product strategy, UX, and development come together in intuitive iOS and Android applications.', tags: ['iOS', 'Android', 'UX / UI'] },
   web: { code: 'WEB', kicker: 'DIGITAL PRESENCE', title: 'Make the first interaction count.', description: 'High-performance websites clarify the brand story and guide visitors toward the right next step.', tags: ['Web Design', 'Development', 'SEO'] },
   enterprise: { code: 'ENT', kicker: 'SCALABLE SOFTWARE', title: 'Turn complex operations into one platform.', description: 'Purpose-built enterprise systems connect teams, workflows, data, and customer experiences.', tags: ['Platforms', 'Workflows', 'Architecture'] },
@@ -296,10 +297,12 @@ document.querySelectorAll('.service-selector [data-service]').forEach(button => 
 
 const sections = [...document.querySelectorAll('.scene')];
 const navLinks = [...document.querySelectorAll('.main-nav a')];
+const megaTriggers = [...document.querySelectorAll('.mega-trigger')];
 const progressLinks = [...document.querySelectorAll('.scene-nav a')];
 function setActiveScene(id) {
   progressLinks.forEach(link => link.classList.toggle('active', link.getAttribute('href') === `#${id}`));
   navLinks.forEach(link => link.classList.toggle('active', link.getAttribute('href') === `#${id}`));
+  megaTriggers.forEach(trigger => trigger.classList.toggle('active', trigger.dataset.megaTrigger === id));
 }
 const sectionObserver = new IntersectionObserver(entries => {
   entries.forEach(entry => {
@@ -315,10 +318,11 @@ navToggle.addEventListener('click', () => {
   const open = mainNav.classList.toggle('open');
   navToggle.setAttribute('aria-expanded', String(open));
 });
-mainNav.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
+mainNav.addEventListener('click', event => {
+  if (!event.target.closest('a')) return;
   mainNav.classList.remove('open');
   navToggle.setAttribute('aria-expanded', 'false');
-}));
+});
 
 function scrollToScene(hash, behavior = 'smooth') {
   const target = hash && document.querySelector(hash);

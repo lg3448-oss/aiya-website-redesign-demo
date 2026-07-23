@@ -124,7 +124,7 @@
 .nav-menu-item{height:100%;display:flex;align-items:center;position:relative}
 .mega-trigger{height:100%;border:0;background:none;padding:0;color:#332f2b;font:inherit;font-size:16px;font-weight:700;cursor:pointer;position:relative}
 .mega-trigger::after{content:"";position:absolute;left:50%;right:50%;bottom:17px;height:2px;background:var(--orange);transition:250ms}
-.nav-menu-item.open .mega-trigger::after,.mega-trigger:hover::after{left:0;right:0}
+.nav-menu-item.open .mega-trigger::after,.mega-trigger:hover::after,.mega-trigger.active::after{left:0;right:0}
 .mega-menu{position:fixed;z-index:60;top:var(--header-h);left:max(48px,calc((100vw - 1320px)/2));right:max(48px,calc((100vw - 1320px)/2));max-height:calc(100svh - var(--header-h) - 24px);overflow:auto;background:#f8f4ec;border:1px solid rgba(55,39,24,.12);box-shadow:0 24px 65px rgba(55,39,24,.16);opacity:0;transform:translateY(-6px);transition:opacity 180ms ease,transform 180ms ease}
 .nav-menu-item.open .mega-menu{opacity:1;transform:none}
 @starting-style{.nav-menu-item.open .mega-menu{opacity:0;transform:translateY(-6px)}}
@@ -145,6 +145,7 @@
 .mega-detail-links{display:flex;flex-direction:column;align-items:flex-start;gap:4px}
 
 @media(max-width:760px){
+  .main-nav{max-height:calc(100svh - var(--header-h));overflow-y:auto}
   .nav-menu-item{height:auto;display:block}
   .mega-trigger{width:100%;min-height:48px;text-align:left;font-size:16px}
   .mega-trigger::after{display:none}
