@@ -254,4 +254,20 @@ if ($js -match 'mega-menu-detail[^;]*querySelectorAll') {
   throw 'The detail panel must be replaced dynamically, not populated with every category.'
 }
 
+if ($css -notmatch '\.mega-menu-inner\s*\{[^}]*grid-template-columns\s*:\s*minmax\(0,35%\)\s+minmax\(0,65%\)') {
+  throw 'Desktop mega menu must use the approved 35/65 cascade.'
+}
+if ($css -notmatch 'transition\s*:\s*opacity\s+180ms') {
+  throw 'Mega-menu opening transition must be 180ms.'
+}
+if ($css -notmatch '\.mega-trigger:focus-visible' -or $css -notmatch '\.mega-menu-item:focus-visible') {
+  throw 'Mega-menu keyboard focus must be visible.'
+}
+if ($css -notmatch '(?s)@media\(max-width:760px\).*?\.mega-menu-inner\s*\{[^}]*grid-template-columns\s*:\s*1fr') {
+  throw 'Mobile mega menus must become a single-column nested accordion.'
+}
+if ($css -notmatch '(?s)@media\(max-width:760px\).*?\.mega-menu\s*\{[^}]*max-width\s*:\s*100%') {
+  throw 'Mobile mega menus must protect against horizontal overflow.'
+}
+
 Write-Output 'PASS: AIYA presentation contract satisfied.'
