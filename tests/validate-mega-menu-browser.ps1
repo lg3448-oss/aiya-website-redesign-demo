@@ -74,11 +74,30 @@ $runner = @'
     document.querySelectorAll('.mega-menu-detail').forEach(detail => {
       assert(detail.childElementCount === 1, 'each menu must render one detail subtree');
     });
+    assert(document.querySelectorAll('.mega-menu-footer').length === 2, 'both menu footers must use the integrated footer class');
 
     closeOutside();
     focusOutside();
     pointerEnter(trigger('products'));
     assert(trigger('products').getAttribute('aria-expanded') === 'true', 'hover alone must open the menu');
+    const openingPanel = root('products').querySelector('.mega-menu');
+    const openingTransitions = openingPanel.getAnimations().filter(animation =>
+      ['opacity', 'transform'].includes(animation.transitionProperty)
+    );
+    assert(openingTransitions.length === 2, 'opening must create opacity and transform transitions');
+    openingTransitions.forEach(animation => {
+      animation.currentTime = Number(animation.effect.getTiming().duration) / 2;
+    });
+    const intermediateOpeningStyle = getComputedStyle(openingPanel);
+    const intermediateOpeningOpacity = Number.parseFloat(intermediateOpeningStyle.opacity);
+    assert(
+      intermediateOpeningOpacity > 0 && intermediateOpeningOpacity < 1 && intermediateOpeningStyle.transform !== 'none',
+      `opening must paint a real intermediate opacity and transform state; observed ${intermediateOpeningStyle.opacity}|${intermediateOpeningStyle.transform}`
+    );
+    openingTransitions.forEach(animation => animation.finish());
+    const finalOpeningStyle = getComputedStyle(openingPanel);
+    assert(finalOpeningStyle.opacity === '1', 'opening opacity must finish at 1');
+    assert(finalOpeningStyle.transform === 'none', 'opening transform must finish at none');
     closeOutside();
 
     focusOutside();

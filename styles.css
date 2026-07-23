@@ -127,13 +127,14 @@
 .nav-menu-item.open .mega-trigger::after,.mega-trigger:hover::after{left:0;right:0}
 .mega-menu{position:fixed;z-index:60;top:var(--header-h);left:max(48px,calc((100vw - 1320px)/2));right:max(48px,calc((100vw - 1320px)/2));max-height:calc(100svh - var(--header-h) - 24px);overflow:auto;background:#f8f4ec;border:1px solid rgba(55,39,24,.12);box-shadow:0 24px 65px rgba(55,39,24,.16);opacity:0;transform:translateY(-6px);transition:opacity 180ms ease,transform 180ms ease}
 .nav-menu-item.open .mega-menu{opacity:1;transform:none}
+@starting-style{.nav-menu-item.open .mega-menu{opacity:0;transform:translateY(-6px)}}
 .mega-menu-inner{display:grid;grid-template-columns:minmax(0,35%) minmax(0,65%);min-width:0}
 .mega-menu-list{margin:0;padding:24px;border-right:1px solid var(--line);list-style:none}
 .mega-menu-detail{min-width:0;padding:32px 38px}
 .mega-menu-item{width:100%;min-height:52px;padding:0 12px;border:0;border-bottom:1px solid var(--line);background:transparent;text-align:left;font-size:15px;font-weight:750;cursor:pointer}
 .mega-menu-item.active{color:var(--orange)}
 .mega-trigger:focus-visible,.mega-menu-item:focus-visible,.mega-menu a:focus-visible{outline:3px solid rgba(241,90,36,.42);outline-offset:3px}
-.mega-menu-footer{min-height:52px;padding:0 28px;border-top:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;font-size:14px;font-weight:850}
+.mega-menu-footer{grid-column:1/-1;min-height:52px;padding:0 28px;border-top:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;font-size:14px;font-weight:850}
 .mega-detail-products{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:32px;align-items:center;min-width:0}
 .mega-detail-products>div{min-width:0}
 .mega-detail-products img{display:block;width:100%;max-height:300px;object-fit:contain}
@@ -155,4 +156,8 @@
   .mega-product-detail,.mega-detail-products{grid-template-columns:1fr}
   .mega-product-detail img,.mega-detail-products img{max-height:180px}
   .mega-menu-footer{padding:0 14px}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .mega-menu{transition:none}
 }

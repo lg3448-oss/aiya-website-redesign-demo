@@ -60,7 +60,7 @@ foreach ($menu in $megaMenus) {
     '<div class="mega-menu-inner">\s*' +
     '<ul class="mega-menu-list" aria-label="' + $menu.ListLabel + '">\s*</ul>\s*' +
     '<div class="mega-menu-detail" aria-live="polite">\s*</div>\s*' +
-    '<a href="' + [regex]::Escape($menu.FooterHref) + '">' + [regex]::Escape($menu.FooterLabel) + '</a>\s*' +
+    '<a class="mega-menu-footer" href="' + [regex]::Escape($menu.FooterHref) + '">' + [regex]::Escape($menu.FooterLabel) + '</a>\s*' +
     '</div>\s*</div>\s*</div>'
   if ($html -notmatch ('(?s)' + $contract)) {
     throw "$($menu.Label) mega menu must contain the required empty accessible shell."
@@ -268,6 +268,15 @@ if ($css -notmatch '(?s)@media\(max-width:760px\).*?\.mega-menu-inner\s*\{[^}]*g
 }
 if ($css -notmatch '(?s)@media\(max-width:760px\).*?\.mega-menu\s*\{[^}]*max-width\s*:\s*100%') {
   throw 'Mobile mega menus must protect against horizontal overflow.'
+}
+if ($css -notmatch '\.mega-menu-footer\s*\{[^}]*grid-column\s*:\s*1\s*/\s*-1') {
+  throw 'Mega-menu footer links must span both cascade columns.'
+}
+if ($css -notmatch '@starting-style\s*\{[^}]*\.nav-menu-item\.open\s+\.mega-menu\s*\{[^}]*opacity\s*:\s*0[^}]*transform\s*:\s*translateY\(-6px\)') {
+  throw 'Mega-menu opening must paint from its initial opacity and transform.'
+}
+if ($css -notmatch '(?s)@media\(prefers-reduced-motion:reduce\).*?\.mega-menu\s*\{[^}]*transition\s*:\s*none') {
+  throw 'Reduced-motion mode must disable the mega-menu transition.'
 }
 
 Write-Output 'PASS: AIYA presentation contract satisfied.'
