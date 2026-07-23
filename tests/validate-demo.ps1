@@ -110,6 +110,9 @@ if ($css -notmatch '\.main-nav a\s*\{[^}]*font-size\s*:\s*16px') {
 if ($css -notmatch '\.header-cta\s*\{[^}]*font-size\s*:\s*15px') {
   throw 'Header CTA must be 15px.'
 }
+if ($css -notmatch '\.contact \.button\s*\{[^}]*font-size\s*:\s*16px') {
+  throw 'Contact CTA must use 16px text.'
+}
 if ($html -match 'vertical-tagline') {
   throw 'Vertical primary text is prohibited.'
 }
