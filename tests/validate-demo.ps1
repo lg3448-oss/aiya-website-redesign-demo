@@ -250,6 +250,9 @@ if ($js -notmatch 'activateService') {
 ) | ForEach-Object {
   if ($js -notmatch [regex]::Escape($_)) { throw "Missing mega-menu controller: $_" }
 }
+if ($js -notmatch "button\.className\s*=\s*'mega-menu-item'") {
+  throw 'Rendered mega-menu controls must receive the class that provides their layout and interaction styling.'
+}
 if ($js -match 'mega-menu-detail[^;]*querySelectorAll') {
   throw 'The detail panel must be replaced dynamically, not populated with every category.'
 }

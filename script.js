@@ -176,6 +176,7 @@ function renderMegaList(type) {
     const listItem = document.createElement('li');
     const button = document.createElement('button');
     button.type = 'button';
+    button.className = 'mega-menu-item';
     button.dataset.megaItem = item.key;
     button.textContent = item.label;
     button.addEventListener('pointerenter', () => selectMegaItem(type, item.key));
