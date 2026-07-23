@@ -2,7 +2,6 @@ const snapPage = document.querySelector('#snap-page');
 const initialHash = window.location.hash;
 if (initialHash) history.replaceState(null, '', `${window.location.pathname}${window.location.search}`);
 const slides = [...document.querySelectorAll('.hero-slide')];
-const heroControls = [...document.querySelectorAll('.hero-controls button')];
 const motionReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 let activeSlide = 0;
 let heroTimer;
@@ -11,15 +10,10 @@ let jumpTimer;
 function showHero(index) {
   activeSlide = (index + slides.length) % slides.length;
   slides.forEach((slide, i) => slide.classList.toggle('active', i === activeSlide));
-  heroControls.forEach((button, i) => {
-    button.classList.remove('active');
-    if (i === activeSlide) requestAnimationFrame(() => button.classList.add('active'));
-  });
   clearInterval(heroTimer);
   if (!motionReduced) heroTimer = setInterval(() => showHero(activeSlide + 1), 7000);
 }
 
-heroControls.forEach((button, index) => button.addEventListener('click', () => showHero(index)));
 if (!motionReduced) heroTimer = setInterval(() => showHero(activeSlide + 1), 7000);
 
 const capabilityContent = {

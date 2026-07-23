@@ -69,10 +69,12 @@ if ($html -match 'class="hero-controls"') {
 if ($js -notmatch 'setInterval\(\(\)\s*=>\s*showHero\(activeSlide\s*\+\s*1\),\s*7000\)') {
   throw 'The three hero messages must continue rotating every seven seconds.'
 }
-if ($html -notmatch '(?s)<section class="scene contact"[^>]*>.*?<div class="partner-marquee".*?<footer>') {
+$heroSection = [regex]::Match($html, '(?s)<section class="scene hero"[^>]*>.*?</section>').Value
+$contactSection = [regex]::Match($html, '(?s)<section class="scene contact"[^>]*>.*?</section>').Value
+if ($contactSection -notmatch '(?s)<div class="partner-marquee".*?<footer>') {
   throw 'The partner marquee must sit in the contact scene above the footer.'
 }
-if ($html -match '(?s)<section class="scene hero"[^>]*>.*?<div class="partner-marquee".*?</section>') {
+if ($heroSection -match '<div class="partner-marquee"') {
   throw 'The partner marquee must no longer appear in the hero.'
 }
 @(
