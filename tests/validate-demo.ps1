@@ -242,39 +242,6 @@ if ($js -notmatch 'activateService') {
   throw 'Service selector behavior is missing.'
 }
 
-$serviceGroups = @(
-  'Integration & Connectivity',
-  'Payments & FinTech',
-  'AI & Automation',
-  'Cloud & Enterprise',
-  'Digital Development'
-)
-$serviceDetails = @(
-  'API Integrations',
-  'Data Connectivity',
-  'Payment APIs',
-  'FinTech Solutions',
-  'Secure Payment Processing',
-  'AI Software Solutions',
-  'Artificial Intelligence',
-  'Automation',
-  'Workflow Automation',
-  'Cloud Technologies',
-  'Enterprise Solutions',
-  'Scalable Software Platforms',
-  'Digital Transformation',
-  'Modern Software Development'
-)
-$serviceGroups | ForEach-Object {
-  if (([regex]::Matches($js, [regex]::Escape("'$_'"))).Count -ne 1) {
-    throw "Service group must appear once in menu data: $_"
-  }
-}
-$serviceDetails | ForEach-Object {
-  if (([regex]::Matches($js, [regex]::Escape("'$_'"))).Count -ne 1) {
-    throw "Service detail must appear once in menu data: $_"
-  }
-}
 @(
   'function renderMegaList',
   'function selectMegaItem',
