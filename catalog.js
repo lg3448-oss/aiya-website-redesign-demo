@@ -2,7 +2,7 @@ window.aiyaCatalog = {
   products: [
     {
       key: 'commerce', group: 'Business Platforms', title: 'AIYA Commerce', url: 'products/aiya-commerce.html',
-      kicker: 'COMMERCE · OPERATIONS', monogram: 'COM', image: 'assets/service-platform.png',
+      kicker: 'COMMERCE · OPERATIONS', monogram: 'COM', image: 'assets/aiya-commerce.png',
       summary: 'A unified commerce system connecting customer experience with daily operations.',
       capabilities: ['Online Storefront', 'Custom Checkout', 'Catalog & Inventory', 'Orders & Fulfillment', 'Customer Accounts', 'B2B & Global Commerce'],
       deliverables: ['Custom storefronts and headless commerce', 'Checkout and customer-account experiences', 'Catalog, inventory, order, and fulfillment workflows', 'B2B pricing, purchasing, and global-market configuration'],

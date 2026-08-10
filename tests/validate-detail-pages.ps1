@@ -57,4 +57,27 @@ foreach ($forbiddenUnderlineSelector in @('.mega-trigger.active::after', '.main-
   }
 }
 
+$commerceAsset = 'assets/aiya-commerce.png'
+$catalog = Get-Content -Raw -LiteralPath (Join-Path $root 'catalog.js')
+if ($catalog -notmatch "key: 'commerce'[\s\S]{0,240}image: '$([regex]::Escape($commerceAsset))'") {
+  throw "Commerce catalog entry must use $commerceAsset"
+}
+if ($index -notmatch "id=`"product-image`" src=`"$([regex]::Escape($commerceAsset))`"") {
+  throw "Initial Commerce preview must use $commerceAsset"
+}
+$commerceAssetPath = Join-Path $root $commerceAsset
+if (-not (Test-Path -LiteralPath $commerceAssetPath)) {
+  throw "Missing Commerce artwork: $commerceAsset"
+}
+Add-Type -AssemblyName System.Drawing
+$commerceImage = [System.Drawing.Image]::FromFile($commerceAssetPath)
+try {
+  if ($commerceImage.Width -lt 1200 -or $commerceImage.Height -lt 700) {
+    throw "Commerce artwork must be at least 1200x700; observed $($commerceImage.Width)x$($commerceImage.Height)"
+  }
+}
+finally {
+  $commerceImage.Dispose()
+}
+
 Write-Output "Validated $($pages.Count) detail pages."
