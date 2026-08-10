@@ -140,17 +140,20 @@
         <h2>One platform family<br><em>Built around business</em></h2>
       </div>
       <div class="selector-layout product-layout">
-        <div class="product-stage" id="product-stage" data-product="marketing">
-          <div class="product-meta"><small id="product-kicker">GROWTH · STRATEGY</small><h3 id="product-title">AIYA Marketing</h3><p id="product-description">Digital strategy and creative execution connected to the technology behind the business.</p></div>
-          <div class="product-object"><img id="product-image" src="assets/service-marketing.png" alt="AIYA Marketing product preview"><div class="product-monogram" id="product-monogram">MKT</div></div>
+        <div class="product-stage" id="product-stage" data-product="commerce">
+          <div class="product-meta"><small id="product-kicker">COMMERCE · OPERATIONS</small><h3 id="product-title">AIYA Commerce</h3><p id="product-description">A unified commerce system connecting customer experience with daily operations.</p></div>
+          <div class="product-object"><img id="product-image" src="assets/service-platform.png" alt="AIYA Commerce product preview"><div class="product-monogram" id="product-monogram">COM</div></div>
         </div>
-        <div class="selector-list product-selector" role="tablist" aria-label="AIYA products">
-          <button type="button" data-product="pos"><b>01</b><span>AIYAPOS</span><i>↗</i></button>
-          <button type="button" data-product="pad"><b>02</b><span>AIYAPad</span><i>↗</i></button>
-          <button type="button" data-product="robot"><b>03</b><span>AIYARobot</span><i>↗</i></button>
-          <button type="button" data-product="scan"><b>04</b><span>AIYAScan</span><i>↗</i></button>
+        <div class="selector-list product-selector" aria-label="AIYA products">
+          <small class="selector-group">BUSINESS PLATFORMS</small>
+          <a class="active" data-product="commerce" href="products/aiya-commerce.html"><b>01</b><span>AIYA Commerce</span><i>↗</i></a>
+          <a data-product="revenue" href="products/aiya-revenue.html"><b>02</b><span>AIYA Revenue</span><i>↗</i></a>
+          <small class="selector-group">AIYA PRODUCTS</small>
+          <a data-product="pad" href="products/aiya-pad.html"><b>03</b><span>AIYAPad</span><i>↗</i></a>
+          <a data-product="robot" href="products/aiya-robot.html"><b>04</b><span>AIYARobot</span><i>↗</i></a>
+          <a data-product="scan" href="products/aiya-scan.html"><b>05</b><span>AIYAScan</span><i>↗</i></a>
           <div class="product-option product-option-marketing">
-            <button class="active" type="button" data-product="marketing"><b>05</b><span>AIYA Marketing</span><i>↗</i></button>
+            <a data-product="marketing" href="products/aiya-marketing.html"><b>06</b><span>AIYA Marketing</span><i>↗</i></a>
             <div class="product-subitem" id="marketing-subitem" aria-live="polite"><small>MARKETING INCLUDES</small><strong>AIYA Gift Card</strong></div>
           </div>
         </div>
@@ -163,22 +166,19 @@
         <h2>Expertise where<br><em>technology meets growth</em></h2>
       </div>
       <div class="selector-layout service-layout">
-        <div class="selector-list service-selector" role="tablist" aria-label="AIYA services">
-          <button class="active" type="button" data-service="api"><b>01</b><span>API Integration</span><i>↗</i></button>
-          <button type="button" data-service="payment"><b>02</b><span>Payment Integration</span><i>↗</i></button>
-          <button type="button" data-service="ai"><b>03</b><span>AI Software Development</span><i>↗</i></button>
-          <button type="button" data-service="mobile"><b>04</b><span>Mobile App Development</span><i>↗</i></button>
-          <button type="button" data-service="web"><b>05</b><span>Website Development</span><i>↗</i></button>
-          <button type="button" data-service="enterprise"><b>06</b><span>Enterprise Platforms</span><i>↗</i></button>
-          <button type="button" data-service="cloud"><b>07</b><span>Cloud Solutions</span><i>↗</i></button>
-          <button type="button" data-service="marketing"><b>08</b><span>Digital Marketing</span><i>↗</i></button>
+        <div class="selector-list service-selector" aria-label="AIYA services">
+          <a class="active" data-service="strategy" href="services/strategy-experience.html"><b>01</b><span>Strategy &amp; Experience</span><i>↗</i></a>
+          <a data-service="engineering" href="services/software-engineering.html"><b>02</b><span>Software Engineering</span><i>↗</i></a>
+          <a data-service="integration" href="services/integration-automation.html"><b>03</b><span>Integration &amp; Automation</span><i>↗</i></a>
+          <a data-service="cloud" href="services/cloud-operations.html"><b>04</b><span>Cloud &amp; Operations</span><i>↗</i></a>
+          <a data-service="growth" href="services/growth.html"><b>05</b><span>Growth</span><i>↗</i></a>
         </div>
-        <div class="service-stage" data-service="api">
-          <div class="service-symbol"><span id="service-code">API</span><i></i><i></i><i></i></div>
-          <small id="service-kicker">CONNECTED SYSTEMS</small>
-          <h3 id="service-title">Make every system work together.</h3>
-          <p id="service-description">Secure integrations connect platforms, payments, and business data without adding operational friction.</p>
-          <div class="service-tags" id="service-tags"><span>REST APIs</span><span>Data Sync</span><span>System Integration</span></div>
+        <div class="service-stage" data-service="strategy">
+          <div class="service-symbol"><span id="service-code">S/E</span><i></i><i></i><i></i></div>
+          <small id="service-kicker">PLAN BEFORE BUILDING</small>
+          <h3 id="service-title">Strategy &amp; Experience</h3>
+          <p id="service-description">Define the right product, customer journey, and interface before development begins.</p>
+          <div class="service-tags" id="service-tags"><span>Product Strategy</span><span>UX / UI Design</span><span>Conversion Optimization</span></div>
         </div>
       </div>
     </section>
@@ -297,6 +297,7 @@
     </section>
   </main>
 
+  <script src="catalog.js"></script>
   <script src="script.js"></script>
 </body>
 </html>

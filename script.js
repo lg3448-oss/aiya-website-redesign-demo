@@ -33,63 +33,29 @@ document.querySelectorAll('[data-capability]').forEach(button => button.addEvent
   document.querySelector('#cap-node-three').textContent = capabilityContent[key].nodes[2];
 }));
 
-const products = {
-  pos: { kicker: 'OPERATIONS · PAYMENTS', title: 'AIYAPOS', description: 'A reliable point-of-sale foundation that keeps payments, orders, and reporting connected.', image: 'assets/product-pos.png', monogram: 'POS' },
-  pad: { kicker: 'SERVICE · MOBILITY', title: 'AIYAPad', description: 'Flexible server and table-side ordering tools designed for faster hospitality service.', image: 'assets/product-pad.png', monogram: 'PAD' },
-  robot: { kicker: 'AUTOMATION · SERVICE', title: 'AIYARobot', description: 'Automated delivery support that helps teams focus attention where customers need it.', image: 'assets/product-robot.png', monogram: 'BOT' },
-  scan: { kicker: 'QR · SELF SERVICE', title: 'AIYAScan', description: 'Simple QR ordering that connects dine-in customers directly to the restaurant workflow.', image: 'assets/product-scan.png', monogram: 'QR' },
-  marketing: { kicker: 'GROWTH · STRATEGY', title: 'AIYA Marketing', description: 'Digital strategy and creative execution connected to the technology behind the business.', image: 'assets/service-marketing.png', monogram: 'MKT' }
-};
+const products = Object.fromEntries(window.aiyaCatalog.products.map(item => [item.key, item]));
+const services = Object.fromEntries(window.aiyaCatalog.services.map(item => [item.key, item]));
 
 const megaMenuData = {
   products: {
-    defaultKey: 'pos',
-    items: ['pos', 'pad', 'robot', 'scan', 'marketing'].map(key => ({
-      key,
-      label: products[key].title,
-      eyebrow: products[key].kicker,
-      description: products[key].description,
-      image: products[key].image
+    defaultKey: 'commerce',
+    items: window.aiyaCatalog.products.map(item => ({
+      ...item,
+      label: item.title,
+      eyebrow: item.kicker,
+      description: item.summary
     }))
   },
   services: {
-    defaultKey: 'integration',
-    items: [
-      {
-        key: 'integration',
-        label: 'Integration & Connectivity',
-        description: 'Connect platforms, business data, and customer experiences through reliable integrations.',
-        links: ['API Integrations', 'Data Connectivity']
-      },
-      {
-        key: 'payments',
-        label: 'Payments & FinTech',
-        description: 'Build secure payment experiences and financial technology that support modern commerce.',
-        links: ['Payment APIs', 'FinTech Solutions', 'Secure Payment Processing']
-      },
-      {
-        key: 'ai',
-        label: 'AI & Automation',
-        description: 'Apply practical intelligence and automation to workflows, decisions, and daily operations.',
-        links: ['AI Software Solutions', 'Artificial Intelligence', 'Automation', 'Workflow Automation']
-      },
-      {
-        key: 'cloud',
-        label: 'Cloud & Enterprise',
-        description: 'Create resilient cloud foundations and enterprise platforms designed to scale.',
-        links: ['Cloud Technologies', 'Enterprise Solutions', 'Scalable Software Platforms']
-      },
-      {
-        key: 'digital',
-        label: 'Digital Development',
-        description: 'Modernize customer and operational experiences with purposeful software development.',
-        links: ['Digital Transformation', 'Modern Software Development']
-      }
-    ]
+    defaultKey: 'strategy',
+    items: window.aiyaCatalog.services.map(item => ({
+      ...item,
+      label: item.title,
+      eyebrow: item.kicker,
+      description: item.summary
+    }))
   }
 };
-
-const marketingSubitem = document.querySelector('#marketing-subitem');
 
 function activateProduct(key) {
   const product = products[key];
@@ -99,15 +65,16 @@ function activateProduct(key) {
   stage.dataset.product = key;
   document.querySelector('#product-kicker').textContent = product.kicker;
   document.querySelector('#product-title').textContent = product.title;
-  document.querySelector('#product-description').textContent = product.description;
+  document.querySelector('#product-description').textContent = product.summary;
   const image = document.querySelector('#product-image');
   image.src = product.image;
   image.alt = `${product.title} product preview`;
   document.querySelector('#product-monogram').textContent = product.monogram;
-  marketingSubitem.hidden = key !== 'marketing';
 }
 
-document.querySelectorAll('.product-selector [data-product]').forEach(button => button.addEventListener('click', () => activateProduct(button.dataset.product)));
+document.querySelectorAll('.product-selector [data-product]').forEach(link => {
+  ['mouseenter', 'focus'].forEach(eventName => link.addEventListener(eventName, () => activateProduct(link.dataset.product)));
+});
 
 function buildMegaDetail(type, item) {
   const detail = document.createElement('div');
@@ -126,8 +93,7 @@ function buildMegaDetail(type, item) {
     const description = document.createElement('p');
     description.textContent = item.description;
     const link = document.createElement('a');
-    link.href = '#products';
-    link.dataset.productDestination = item.key;
+    link.href = item.url;
     link.textContent = 'View Product \u2192';
     copy.append(eyebrow, title, description, link);
     detail.append(image, copy);
@@ -138,15 +104,17 @@ function buildMegaDetail(type, item) {
   title.textContent = item.label;
   const description = document.createElement('p');
   description.textContent = item.description;
-  const links = document.createElement('div');
-  links.className = 'mega-detail-links';
-  item.links.forEach(label => {
-    const link = document.createElement('a');
-    link.href = '#services';
-    link.textContent = label;
-    links.append(link);
+  const capabilities = document.createElement('div');
+  capabilities.className = 'mega-detail-links';
+  item.capabilities.forEach(label => {
+    const span = document.createElement('span');
+    span.textContent = label;
+    capabilities.append(span);
   });
-  detail.append(title, description, links);
+  const link = document.createElement('a');
+  link.href = item.url;
+  link.textContent = 'View Service \u2192';
+  detail.append(title, description, capabilities, link);
   return detail;
 }
 
@@ -265,21 +233,8 @@ document.addEventListener('pointerdown', event => {
 });
 
 document.addEventListener('click', event => {
-  const productLink = event.target.closest('[data-product-destination]');
-  if (productLink) activateProduct(productLink.dataset.productDestination);
   if (event.target.closest('.main-nav a')) closeMegaMenu();
 });
-
-const services = {
-  api: { code: 'API', kicker: 'CONNECTED SYSTEMS', title: 'Make every system work together.', description: 'Secure integrations connect platforms, payments, and business data without adding operational friction.', tags: ['REST APIs', 'Data Sync', 'System Integration'] },
-  payment: { code: 'PAY', kicker: 'SECURE COMMERCE', title: 'Connect every payment moment.', description: 'Payment integrations support reliable transactions across digital and in-person customer journeys.', tags: ['Payment APIs', 'Clover POS', 'Processing'] },
-  ai: { code: 'AI', kicker: 'INTELLIGENT OPERATIONS', title: 'Automate the work behind growth.', description: 'AI-powered software reduces repetitive tasks and helps teams turn operational data into action.', tags: ['AI Workflows', 'Automation', 'Insights'] },
-  mobile: { code: 'APP', kicker: 'MOBILE PRODUCTS', title: 'Build experiences people keep using.', description: 'Product strategy, UX, and development come together in intuitive iOS and Android applications.', tags: ['iOS', 'Android', 'UX / UI'] },
-  web: { code: 'WEB', kicker: 'DIGITAL PRESENCE', title: 'Make the first interaction count.', description: 'High-performance websites clarify the brand story and guide visitors toward the right next step.', tags: ['Web Design', 'Development', 'SEO'] },
-  enterprise: { code: 'ENT', kicker: 'SCALABLE SOFTWARE', title: 'Turn complex operations into one platform.', description: 'Purpose-built enterprise systems connect teams, workflows, data, and customer experiences.', tags: ['Platforms', 'Workflows', 'Architecture'] },
-  cloud: { code: 'CLD', kicker: 'MODERN INFRASTRUCTURE', title: 'Create a foundation ready to scale.', description: 'Flexible cloud solutions give digital products the performance and resilience growth requires.', tags: ['Cloud', 'Scale', 'Reliability'] },
-  marketing: { code: 'MKT', kicker: 'CONNECTED GROWTH', title: 'Align the message with the experience.', description: 'Strategy, content, and digital campaigns work alongside the technology that supports conversion.', tags: ['Strategy', 'Content', 'Campaigns'] }
-};
 
 function activateService(key) {
   const service = services[key];
@@ -289,11 +244,13 @@ function activateService(key) {
   document.querySelector('#service-code').textContent = service.code;
   document.querySelector('#service-kicker').textContent = service.kicker;
   document.querySelector('#service-title').textContent = service.title;
-  document.querySelector('#service-description').textContent = service.description;
-  document.querySelector('#service-tags').innerHTML = service.tags.map(tag => `<span>${tag}</span>`).join('');
+  document.querySelector('#service-description').textContent = service.summary;
+  document.querySelector('#service-tags').innerHTML = service.capabilities.map(tag => `<span>${tag}</span>`).join('');
 }
 
-document.querySelectorAll('.service-selector [data-service]').forEach(button => button.addEventListener('click', () => activateService(button.dataset.service)));
+document.querySelectorAll('.service-selector [data-service]').forEach(link => {
+  ['mouseenter', 'focus'].forEach(eventName => link.addEventListener(eventName, () => activateService(link.dataset.service)));
+});
 
 const sections = [...document.querySelectorAll('.scene')];
 const navLinks = [...document.querySelectorAll('.main-nav a')];
