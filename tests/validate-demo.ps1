@@ -80,7 +80,10 @@ $megaMenus = @(
 
 foreach ($menu in $megaMenus) {
   $contract = '<div class="nav-menu-item" data-mega-menu="' + $menu.Type + '">\s*' +
-    '<button class="mega-trigger" type="button" data-mega-trigger="' + $menu.Type + '" aria-haspopup="true" aria-expanded="false" aria-controls="' + $menu.Id + '">' + $menu.Label + '</button>\s*' +
+    '<div class="mega-trigger-group">\s*' +
+    '<a class="mega-trigger" data-mega-link="' + $menu.Type + '" href="' + [regex]::Escape($menu.FooterHref) + '">' + $menu.Label + '</a>\s*' +
+    '<button class="mega-toggle" type="button" data-mega-trigger="' + $menu.Type + '" aria-label="Toggle ' + $menu.Type + ' menu" aria-haspopup="true" aria-expanded="false" aria-controls="' + $menu.Id + '"><span aria-hidden="true">⌄</span></button>\s*' +
+    '</div>\s*' +
     '<div class="mega-menu" id="' + $menu.Id + '" data-menu-panel="' + $menu.Type + '" hidden>\s*' +
     '<div class="mega-menu-inner">\s*' +
     '<ul class="mega-menu-list" aria-label="' + $menu.ListLabel + '">\s*</ul>\s*' +
@@ -287,7 +290,7 @@ if ($js -notmatch 'activateService') {
 ) | ForEach-Object {
   if ($js -notmatch [regex]::Escape($_)) { throw "Missing mega-menu controller: $_" }
 }
-if ($js -notmatch "button\.className\s*=\s*'mega-menu-item'") {
+if ($js -notmatch "link\.className\s*=\s*'mega-menu-item'" -or $js -notmatch 'link\.href\s*=\s*item\.url') {
   throw 'Rendered mega-menu controls must receive the class that provides their layout and interaction styling.'
 }
 if ($js -match 'mega-menu-detail[^;]*querySelectorAll') {
