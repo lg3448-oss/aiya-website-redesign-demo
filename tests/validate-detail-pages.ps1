@@ -33,6 +33,15 @@ foreach ($page in $pages) {
   if ($html -notmatch '<meta name="description" content="[^"]{40,160}">') { throw "Invalid meta description: $($page.Path)" }
   if ($html -notmatch 'href="../index.html#contact"') { throw "Missing contact CTA: $($page.Path)" }
   if ($html -notmatch '<script src="../catalog.js"></script>\s*<script src="../detail.js"></script>') { throw "Wrong shared script order: $($page.Path)" }
+  $navigation = '<nav class="detail-nav" aria-label="Primary navigation">' +
+    '<a href="../index.html#home">Home</a>' +
+    '<a href="../index.html#products">Products</a>' +
+    '<a href="../index.html#services">Services</a>' +
+    '<a href="../index.html#company">Company</a>' +
+    '</nav><a class="header-cta" href="../index.html#contact">Let''s Talk <span>↗</span></a>'
+  if (-not $html.Contains($navigation)) {
+    throw "Incomplete or unordered detail navigation: $($page.Path)"
+  }
 }
 
 $publicFiles = @('index.html', 'script.js', 'catalog.js', 'detail.js', 'styles.css') + $pages.Path
