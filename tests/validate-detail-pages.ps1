@@ -41,4 +41,20 @@ foreach ($path in $publicFiles) {
   if ($text -match '(?i)AIYAPOS|Shopify|Stripe') { throw "Forbidden public copy in $path" }
 }
 
+$index = Get-Content -Raw -LiteralPath (Join-Path $root 'index.html')
+foreach ($page in $pages) {
+  $attribute = if ($page.Kind -eq 'product') { 'data-product' } else { 'data-service' }
+  $expectedLink = "<$([char]97)[^>]*$attribute=`"$($page.Key)`"[^>]*href=`"$($page.Path)`""
+  if ($index -notmatch $expectedLink) {
+    throw "Homepage $($page.Kind) name must link directly: $($page.Path)"
+  }
+}
+
+$styles = Get-Content -Raw -LiteralPath (Join-Path $root 'styles.css')
+foreach ($forbiddenUnderlineSelector in @('.mega-trigger.active::after', '.main-nav a.active::after')) {
+  if ($styles.Contains($forbiddenUnderlineSelector)) {
+    throw "Persistent active underline selector remains: $forbiddenUnderlineSelector"
+  }
+}
+
 Write-Output "Validated $($pages.Count) detail pages."

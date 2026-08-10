@@ -142,15 +142,14 @@ function renderMegaList(type) {
   const list = root.querySelector('.mega-menu-list');
   const items = megaMenuData[type].items.map(item => {
     const listItem = document.createElement('li');
-    const button = document.createElement('button');
-    button.type = 'button';
-    button.className = 'mega-menu-item';
-    button.dataset.megaItem = item.key;
-    button.textContent = item.label;
-    button.addEventListener('pointerenter', () => selectMegaItem(type, item.key));
-    button.addEventListener('focus', () => selectMegaItem(type, item.key));
-    button.addEventListener('click', () => selectMegaItem(type, item.key));
-    listItem.append(button);
+    const link = document.createElement('a');
+    link.className = 'mega-menu-item';
+    link.dataset.megaItem = item.key;
+    link.href = item.url;
+    link.textContent = item.label;
+    link.addEventListener('pointerenter', () => selectMegaItem(type, item.key));
+    link.addEventListener('focus', () => selectMegaItem(type, item.key));
+    listItem.append(link);
     return listItem;
   });
   list.replaceChildren(...items);
@@ -166,20 +165,20 @@ function openMegaMenu(type) {
   document.querySelectorAll('[data-mega-menu]').forEach(root => {
     const open = root.dataset.megaMenu === type;
     root.classList.toggle('open', open);
-    root.querySelector('.mega-trigger').setAttribute('aria-expanded', String(open));
+    root.querySelector('.mega-toggle').setAttribute('aria-expanded', String(open));
     root.querySelector('.mega-menu').hidden = !open;
   });
   openMenuType = type;
 }
 
 function closeMegaMenu({ restoreFocus = false } = {}) {
-  const trigger = openMenuType
-    ? document.querySelector(`[data-mega-trigger="${openMenuType}"]`)
+  const destination = openMenuType
+    ? document.querySelector(`[data-mega-link="${openMenuType}"]`)
     : null;
-  if (restoreFocus) trigger?.focus();
+  if (restoreFocus) destination?.focus();
   document.querySelectorAll('[data-mega-menu]').forEach(root => {
     root.classList.remove('open');
-    root.querySelector('.mega-trigger').setAttribute('aria-expanded', 'false');
+    root.querySelector('.mega-toggle').setAttribute('aria-expanded', 'false');
     root.querySelector('.mega-menu').hidden = true;
   });
   openMenuType = null;
@@ -188,36 +187,33 @@ function closeMegaMenu({ restoreFocus = false } = {}) {
 Object.keys(megaMenuData).forEach(type => {
   renderMegaList(type);
   const root = document.querySelector(`[data-mega-menu="${type}"]`);
-  const trigger = root.querySelector('.mega-trigger');
-  let openedByTriggerLeadIn = false;
-  const openFromTrigger = () => {
-    openedByTriggerLeadIn ||= openMenuType !== type;
-    openMegaMenu(type);
-  };
-  trigger.addEventListener('pointerenter', openFromTrigger);
-  trigger.addEventListener('focus', event => {
-    if (!root.contains(event.relatedTarget)) openFromTrigger();
-  });
-  trigger.addEventListener('click', event => {
-    event.preventDefault();
-    const keepOpen = openedByTriggerLeadIn;
-    openedByTriggerLeadIn = false;
-    if (keepOpen || openMenuType !== type) openMegaMenu(type);
-    else closeMegaMenu();
+  const destination = root.querySelector('.mega-trigger');
+  const toggle = root.querySelector('.mega-toggle');
+  destination.addEventListener('pointerenter', event => {
+    if (event.pointerType !== 'touch') openMegaMenu(type);
   });
   root.addEventListener('pointerenter', () => window.clearTimeout(megaCloseTimer));
+  destination.addEventListener('focus', event => {
+    if (!root.contains(event.relatedTarget) && window.matchMedia('(min-width: 761px)').matches) openMegaMenu(type);
+  });
+  toggle.addEventListener('click', event => {
+    event.preventDefault();
+    event.stopPropagation();
+    if (openMenuType !== type) openMegaMenu(type);
+    else closeMegaMenu();
+  });
   root.addEventListener('pointerleave', () => {
     window.clearTimeout(megaCloseTimer);
     megaCloseTimer = window.setTimeout(() => closeMegaMenu(), megaCloseDelay);
   });
   root.addEventListener('keydown', event => {
     if (!['ArrowUp', 'ArrowDown'].includes(event.key)) return;
-    const buttons = [...root.querySelectorAll('[data-mega-item]')];
-    const currentIndex = buttons.indexOf(document.activeElement);
+    const links = [...root.querySelectorAll('[data-mega-item]')];
+    const currentIndex = links.indexOf(document.activeElement);
     if (currentIndex < 0) return;
     event.preventDefault();
     const step = event.key === 'ArrowDown' ? 1 : -1;
-    const next = buttons[(currentIndex + step + buttons.length) % buttons.length];
+    const next = links[(currentIndex + step + links.length) % links.length];
     next.focus();
   });
 });
@@ -253,13 +249,13 @@ document.querySelectorAll('.service-selector [data-service]').forEach(link => {
 });
 
 const sections = [...document.querySelectorAll('.scene')];
-const navLinks = [...document.querySelectorAll('.main-nav a')];
-const megaTriggers = [...document.querySelectorAll('.mega-trigger')];
+const navLinks = [...document.querySelectorAll('.main-nav > a, [data-mega-link]')];
+const megaLinks = [...document.querySelectorAll('[data-mega-link]')];
 const progressLinks = [...document.querySelectorAll('.scene-nav a')];
 function setActiveScene(id) {
   progressLinks.forEach(link => link.classList.toggle('active', link.getAttribute('href') === `#${id}`));
   navLinks.forEach(link => link.classList.toggle('active', link.getAttribute('href') === `#${id}`));
-  megaTriggers.forEach(trigger => trigger.classList.toggle('active', trigger.dataset.megaTrigger === id));
+  megaLinks.forEach(link => link.classList.toggle('active', link.dataset.megaLink === id));
 }
 const sectionObserver = new IntersectionObserver(entries => {
   entries.forEach(entry => {

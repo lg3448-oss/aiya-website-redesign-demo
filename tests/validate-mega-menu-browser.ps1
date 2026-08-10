@@ -79,6 +79,7 @@ $runner = @'
   const assert = (condition, message) => {
     if (!condition) throw new Error(message);
   };
+  const destination = type => document.querySelector(`[data-mega-link="${type}"]`);
   const trigger = type => document.querySelector(`[data-mega-trigger="${type}"]`);
   const root = type => document.querySelector(`[data-mega-menu="${type}"]`);
   const wait = milliseconds => new Promise(resolve => window.setTimeout(resolve, milliseconds));
@@ -91,25 +92,11 @@ $runner = @'
   const pointerEnter = (element, pointerType = 'mouse') => {
     element.dispatchEvent(new PointerEvent('pointerenter', { pointerType, bubbles: false }));
   };
-  const activatePointerFromClosed = (type, pointerType) => {
+  const openFromClosed = type => {
     closeOutside();
     focusOutside();
-    const button = trigger(type);
-    pointerEnter(button, pointerType);
-    button.click();
-    assert(button.getAttribute('aria-expanded') === 'true', `${pointerType} click from closed must stay open`);
-  };
-  const activateKeyboardFromClosed = (type, key) => {
-    closeOutside();
-    focusOutside();
-    const button = trigger(type);
-    const code = key === ' ' ? 'Space' : key;
-    button.focus();
-    button.dispatchEvent(new KeyboardEvent('keydown', { key, code, bubbles: true }));
-    if (key === 'Enter') button.click();
-    button.dispatchEvent(new KeyboardEvent('keyup', { key, code, bubbles: true }));
-    if (key === ' ') button.click();
-    assert(button.getAttribute('aria-expanded') === 'true', `${key === ' ' ? 'Space' : key} activation from closed must stay open`);
+    pointerEnter(destination(type));
+    assert(trigger(type).getAttribute('aria-expanded') === 'true', `${type} hover must open its menu`);
   };
 
   try {
@@ -128,6 +115,8 @@ $runner = @'
       ['Cloud & Operations', 'services/cloud-operations.html'],
       ['Growth', 'services/growth.html']
     ];
+    assert(destination('products')?.getAttribute('href') === '#products', 'Products text must target its homepage section');
+    assert(destination('services')?.getAttribute('href') === '#services', 'Services text must target its homepage section');
     assert(document.querySelectorAll('[data-mega-item]').length === 11, 'must render eleven menu items');
     document.querySelectorAll('.mega-menu-detail').forEach(detail => {
       assert(detail.childElementCount === 1, 'each menu must render one detail subtree');
@@ -136,7 +125,7 @@ $runner = @'
 
     closeOutside();
     focusOutside();
-    pointerEnter(trigger('products'));
+    pointerEnter(destination('products'));
     assert(trigger('products').getAttribute('aria-expanded') === 'true', 'hover alone must open the menu');
     const openingPanel = root('products').querySelector('.mega-menu');
     const openingTransitions = openingPanel.getAnimations().filter(animation =>
@@ -159,25 +148,22 @@ $runner = @'
     closeOutside();
 
     focusOutside();
-    pointerEnter(trigger('products'));
+    pointerEnter(destination('products'));
     document.activeElement.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
     assert(trigger('products').getAttribute('aria-expanded') === 'false', 'outside-focused Escape must close a hover-opened menu');
-    assert(document.activeElement === trigger('products'), 'outside-focused Escape must restore the open menu trigger focus');
+    assert(document.activeElement === destination('products'), 'outside-focused Escape must restore the open menu destination focus');
 
     focusOutside();
-    trigger('products').focus();
+    destination('products').focus();
     assert(trigger('products').getAttribute('aria-expanded') === 'true', 'focus alone must open the menu');
     closeOutside();
 
-    activatePointerFromClosed('products', 'mouse');
-    trigger('products').click();
-    assert(trigger('products').getAttribute('aria-expanded') === 'false', 'click on an already-open menu must close it');
-    activatePointerFromClosed('products', 'touch');
-    activateKeyboardFromClosed('products', 'Enter');
-    activateKeyboardFromClosed('products', ' ');
+    openFromClosed('products');
+    clickWithoutNavigation(destination('products'));
+    assert(trigger('products').getAttribute('aria-expanded') === 'false', 'Products text click must close its open menu');
 
     closeOutside();
-    pointerEnter(trigger('products'));
+    pointerEnter(destination('products'));
     root('products').dispatchEvent(new PointerEvent('pointerleave', { bubbles: false }));
     await wait(100);
     assert(trigger('products').getAttribute('aria-expanded') === 'true', 'pointer leave must not close before 200ms');
@@ -186,63 +172,66 @@ $runner = @'
     assert(trigger('products').getAttribute('aria-expanded') === 'true', 'pointer re-entry must cancel delayed close');
     closeOutside();
 
-    pointerEnter(trigger('products'));
+    pointerEnter(destination('products'));
     root('products').dispatchEvent(new PointerEvent('pointerleave', { bubbles: false }));
     await wait(225);
     assert(trigger('products').getAttribute('aria-expanded') === 'false', 'pointer leave must close after 200ms');
 
-    trigger('products').click();
+    openFromClosed('products');
     pointerEnter(root('products').querySelector('[data-mega-item="pad"]'));
     assert(root('products').dataset.activeItem === 'pad', 'left-item hover must select its item');
     root('products').querySelector('[data-mega-item="robot"]').focus();
     assert(root('products').dataset.activeItem === 'robot', 'left-item focus must select its item');
-    root('products').querySelector('[data-mega-item="scan"]').click();
-    assert(root('products').dataset.activeItem === 'scan', 'left-item click must select its item');
+    pointerEnter(root('products').querySelector('[data-mega-item="scan"]'));
+    assert(root('products').dataset.activeItem === 'scan', 'left-item hover must select its item');
 
-    const productButtons = [...root('products').querySelectorAll('[data-mega-item]')];
+    const productItems = [...root('products').querySelectorAll('[data-mega-item]')];
     assert(
-      JSON.stringify(productButtons.map(button => button.textContent)) === JSON.stringify(expectedProducts.map(([label]) => label)),
+      JSON.stringify(productItems.map(item => item.textContent)) === JSON.stringify(expectedProducts.map(([label]) => label)),
       'rendered products must match approved labels and order'
     );
     expectedProducts.forEach(([label, expectedHref], index) => {
-      pointerEnter(productButtons[index]);
+      assert(productItems[index].tagName === 'A', `${label} menu item must be an anchor`);
+      assert(productItems[index].getAttribute('href') === expectedHref, `${label} menu item must navigate directly`);
+      pointerEnter(productItems[index]);
       const detail = root('products').querySelector('.mega-menu-detail');
       assert(detail.querySelector('h3').textContent === label, `product detail title must match ${label}`);
       assert(detail.querySelector('a').getAttribute('href') === expectedHref, `${label} must link to ${expectedHref}`);
     });
 
     closeOutside();
-    activatePointerFromClosed('products', 'mouse');
+    openFromClosed('products');
     const serviceTrigger = trigger('services');
-    pointerEnter(serviceTrigger);
-    serviceTrigger.click();
-    assert(serviceTrigger.getAttribute('aria-expanded') === 'true', 'second menu must remain open after click');
+    pointerEnter(destination('services'));
+    assert(serviceTrigger.getAttribute('aria-expanded') === 'true', 'hovering Services must open its menu');
     assert(trigger('products').getAttribute('aria-expanded') === 'false', 'opening services must close products');
 
     root('services').querySelector('[data-mega-item].active').focus();
     root('services').dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
     assert(serviceTrigger.getAttribute('aria-expanded') === 'false', 'Escape must close the open menu');
-    assert(document.activeElement === serviceTrigger, 'Escape must restore trigger focus');
+    assert(document.activeElement === destination('services'), 'Escape must restore destination focus');
 
-    activatePointerFromClosed('products', 'mouse');
+    openFromClosed('products');
     closeOutside();
     assert(trigger('products').getAttribute('aria-expanded') === 'false', 'outside pointerdown must close the menu');
 
-    activatePointerFromClosed('products', 'mouse');
+    openFromClosed('products');
     pointerEnter(root('products').querySelector('[data-mega-item="pad"]'));
     const productDestination = root('products').querySelector('.mega-menu-detail a');
     assert(productDestination.getAttribute('href') === 'products/aiya-pad.html', 'product destination must use the AIYAPad detail URL');
     clickWithoutNavigation(productDestination);
     assert(trigger('products').getAttribute('aria-expanded') === 'false', 'destination click must close the menu');
 
-    activatePointerFromClosed('services', 'mouse');
-    const serviceButtons = [...root('services').querySelectorAll('[data-mega-item]')];
+    openFromClosed('services');
+    const serviceItems = [...root('services').querySelectorAll('[data-mega-item]')];
     assert(
-      JSON.stringify(serviceButtons.map(button => button.textContent)) === JSON.stringify(expectedServices.map(([label]) => label)),
+      JSON.stringify(serviceItems.map(item => item.textContent)) === JSON.stringify(expectedServices.map(([label]) => label)),
       'rendered service groups must match approved labels and order'
     );
     expectedServices.forEach(([label, expectedHref], index) => {
-      pointerEnter(serviceButtons[index]);
+      assert(serviceItems[index].tagName === 'A', `${label} menu item must be an anchor`);
+      assert(serviceItems[index].getAttribute('href') === expectedHref, `${label} menu item must navigate directly`);
+      pointerEnter(serviceItems[index]);
       const detail = root('services').querySelector('.mega-menu-detail');
       assert(detail.querySelector('h3').textContent === label, `service detail title must match ${label}`);
       assert(detail.querySelector('a').getAttribute('href') === expectedHref, `${label} must link to ${expectedHref}`);
@@ -253,7 +242,7 @@ $runner = @'
     clickWithoutNavigation(root('services').querySelector('.mega-menu-detail a'));
     assert(serviceTrigger.getAttribute('aria-expanded') === 'false', 'service destination must close the menu');
 
-    activatePointerFromClosed('products', 'mouse');
+    openFromClosed('products');
     const lastItem = root('products').querySelector('[data-mega-item="marketing"]');
     lastItem.focus();
     const detail = root('products').querySelector('.mega-menu-detail');
@@ -268,7 +257,7 @@ $runner = @'
     assert(root('products').dataset.activeItem === 'marketing', 'ArrowUp must wrap from first to last');
     assert(detail.childElementCount === 1, 'arrow selection must preserve one detail subtree');
 
-    activatePointerFromClosed('products', 'mouse');
+    openFromClosed('products');
     document.querySelector('.main-nav > a[href="#company"]').click();
     assert(trigger('products').getAttribute('aria-expanded') === 'false', 'unrelated navigation must close the menu');
     assert(window.location.hash === '#company', 'unrelated navigation must retain its destination');
@@ -287,6 +276,7 @@ $mobileRunner = @'
   const assert = (condition, message) => {
     if (!condition) throw new Error(message);
   };
+  const destination = type => document.querySelector(`[data-mega-link="${type}"]`);
   const trigger = type => document.querySelector(`[data-mega-trigger="${type}"]`);
   const root = type => document.querySelector(`[data-mega-menu="${type}"]`);
   const activeRoot = () => document.querySelector('.nav-menu-item.open');
@@ -296,6 +286,9 @@ $mobileRunner = @'
   const clickWithoutNavigation = link => {
     link.addEventListener('click', event => event.preventDefault(), { once: true });
     link.click();
+  };
+  const pointerEnter = element => {
+    element.dispatchEvent(new PointerEvent('pointerenter', { pointerType: 'touch', bubbles: false }));
   };
   const openNavigation = () => {
     if (!mainNav.classList.contains('open')) navToggle.click();
@@ -314,8 +307,12 @@ $mobileRunner = @'
     assert(root('services').dataset.activeItem === 'strategy', 'mobile service default must be Strategy & Experience');
 
     openNavigation();
+    clickWithoutNavigation(destination('products'));
+    assert(!mainNav.classList.contains('open'), 'Products text must close the mobile navigation and scroll');
+
+    openNavigation();
     trigger('services').click();
-    root('services').querySelector('[data-mega-item="engineering"]').click();
+    pointerEnter(root('services').querySelector('[data-mega-item="engineering"]'));
     assert(document.querySelectorAll('.nav-menu-item.open').length === 1, 'only one mobile top-level nested menu may be open');
     assert(activeRoot().querySelectorAll('.mega-menu-item.active').length === 1, 'the open mobile menu must have one active nested item');
     assert(activeRoot().querySelector('.mega-menu-detail').childElementCount === 1, 'the open mobile menu must have one active detail subtree');
@@ -329,7 +326,7 @@ $mobileRunner = @'
 
     openNavigation();
     trigger('products').click();
-    root('products').querySelector('[data-mega-item="pad"]').click();
+    pointerEnter(root('products').querySelector('[data-mega-item="pad"]'));
     const productDestination = root('products').querySelector('.mega-menu-detail a');
     assert(productDestination.getAttribute('href') === 'products/aiya-pad.html', 'mobile product destination must use its detail URL');
     clickWithoutNavigation(productDestination);
@@ -340,7 +337,7 @@ $mobileRunner = @'
 
     openNavigation();
     trigger('services').click();
-    root('services').querySelector('[data-mega-item="engineering"]').click();
+    pointerEnter(root('services').querySelector('[data-mega-item="engineering"]'));
     const navStyle = getComputedStyle(mainNav);
     assert(navStyle.overflowY === 'auto', `mobile navigation overflow-y must be auto; observed ${navStyle.overflowY}`);
     assert(navStyle.maxHeight === '599px', `mobile navigation max-height must equal the viewport below the header; observed ${navStyle.maxHeight}`);
