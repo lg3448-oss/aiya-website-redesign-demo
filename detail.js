@@ -36,4 +36,5 @@ if (detailPage) {
   renderList('#detail-capabilities', item.capabilities, 'detail-capability');
   renderList('#detail-deliverables', item.deliverables, 'detail-list-item');
   renderList('#detail-use-cases', item.useCases, 'detail-list-item');
+  window.initializeAiyaMegaMenus({ pathPrefix: '../' });
 }

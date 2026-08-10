@@ -29,6 +29,34 @@ const publishDetailTest = () => {
     assert(document.querySelector('#detail-use-cases').children.length >= 3, 'use cases were not rendered');
     assert(getComputedStyle(document.body).overflowY !== 'hidden', 'detail page cannot scroll');
     assert(document.documentElement.scrollWidth === document.documentElement.clientWidth, 'horizontal overflow detected');
+    const menuRoot = type => document.querySelector(`[data-mega-menu="${type}"]`);
+    const menuLink = type => document.querySelector(`[data-mega-link="${type}"]`);
+    const menuToggle = type => document.querySelector(`[data-mega-trigger="${type}"]`);
+    const pointerEnter = element => element.dispatchEvent(new PointerEvent('pointerenter', { pointerType: 'mouse', bubbles: false }));
+    assert(document.querySelectorAll('[data-mega-item]').length === 11, 'detail page must render eleven mega-menu items');
+    assert(menuLink('products').getAttribute('href') === '../index.html#products', 'detail Products text must return to homepage Products');
+    assert(menuLink('services').getAttribute('href') === '../index.html#services', 'detail Services text must return to homepage Services');
+    if (window.innerWidth > 760) {
+      pointerEnter(menuLink('products'));
+      assert(menuToggle('products').getAttribute('aria-expanded') === 'true', 'desktop detail Products hover must open its menu');
+      const pad = menuRoot('products').querySelector('[data-mega-item="pad"]');
+      assert(pad.getAttribute('href') === '../products/aiya-pad.html', 'detail product item must use parent-relative URL');
+      pointerEnter(pad);
+      assert(menuRoot('products').querySelector('.mega-menu-detail h3').textContent === 'AIYAPad', 'detail hover must update product preview');
+      document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
+      assert(menuToggle('products').getAttribute('aria-expanded') === 'false', 'Escape must close detail mega menu');
+    } else {
+      const navToggle = document.querySelector('.nav-toggle');
+      const mainNav = document.querySelector('.main-nav');
+      assert(getComputedStyle(navToggle).display !== 'none', 'detail mobile hamburger must be visible');
+      navToggle.click();
+      assert(mainNav.classList.contains('open'), 'detail mobile hamburger must open navigation');
+      menuToggle('services').click();
+      assert(menuToggle('services').getAttribute('aria-expanded') === 'true', 'detail mobile Services arrow must expand menu');
+      assert(menuRoot('services').querySelector('[data-mega-item="engineering"]').getAttribute('href') === '../services/software-engineering.html', 'detail service item must use parent-relative URL');
+      assert(getComputedStyle(mainNav.querySelector('.nav-contact')).display !== 'none', 'detail mobile Contact must be visible');
+      assert(document.documentElement.scrollWidth === document.documentElement.clientWidth, 'expanded detail navigation must not overflow horizontally');
+    }
     document.body.dataset.detailBrowserTest = 'PASS';
   } catch (error) {
     document.body.dataset.detailBrowserTest = 'FAIL: ' + error.message;

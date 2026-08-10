@@ -14,7 +14,7 @@ $pages = @(
   @{ Path = 'services/growth.html'; Key = 'growth'; Title = 'Growth | AIYA Technology'; Kind = 'service' }
 )
 
-foreach ($requiredFile in @('catalog.js', 'detail.js', 'styles.css')) {
+foreach ($requiredFile in @('catalog.js', 'mega-menu.js', 'detail.js', 'styles.css')) {
   if (-not (Test-Path -LiteralPath (Join-Path $root $requiredFile))) {
     throw "Missing shared detail runtime: $requiredFile"
   }
@@ -32,19 +32,36 @@ foreach ($page in $pages) {
   }
   if ($html -notmatch '<meta name="description" content="[^"]{40,160}">') { throw "Invalid meta description: $($page.Path)" }
   if ($html -notmatch 'href="../index.html#contact"') { throw "Missing contact CTA: $($page.Path)" }
-  if ($html -notmatch '<script src="../catalog.js"></script>\s*<script src="../detail.js"></script>') { throw "Wrong shared script order: $($page.Path)" }
-  $navigation = '<nav class="detail-nav" aria-label="Primary navigation">' +
-    '<a href="../index.html#home">Home</a>' +
-    '<a href="../index.html#products">Products</a>' +
-    '<a href="../index.html#services">Services</a>' +
-    '<a href="../index.html#company">Company</a>' +
-    '</nav><a class="header-cta" href="../index.html#contact">Let''s Talk <span>↗</span></a>'
-  if (-not $html.Contains($navigation)) {
-    throw "Incomplete or unordered detail navigation: $($page.Path)"
+  if ($html -notmatch '<script src="../catalog.js"></script>\s*<script src="../mega-menu.js"></script>\s*<script src="../detail.js"></script>') { throw "Wrong shared script order: $($page.Path)" }
+  foreach ($navigationHook in @(
+    'class="nav-toggle"',
+    'class="main-nav" id="main-nav"',
+    'data-mega-menu="products"',
+    'data-mega-trigger="products"',
+    'id="mega-products"',
+    'aria-label="Products menu"',
+    'data-mega-menu="services"',
+    'data-mega-trigger="services"',
+    'id="mega-services"',
+    'aria-label="Services menu"',
+    'class="nav-contact" href="../index.html#contact"'
+  )) {
+    if (-not $html.Contains($navigationHook)) {
+      throw "Missing detail mega-menu hook $navigationHook in $($page.Path)"
+    }
+  }
+  if ($html -notmatch 'class="mega-menu-footer" href="../index\.html#products">View All Products' -or
+      $html -notmatch 'class="mega-menu-footer" href="../index\.html#services">View All Services') {
+    throw "Missing detail View All destinations: $($page.Path)"
   }
 }
 
-$publicFiles = @('index.html', 'script.js', 'catalog.js', 'detail.js', 'styles.css') + $pages.Path
+$detailRuntime = Get-Content -Raw -LiteralPath (Join-Path $root 'detail.js')
+if ($detailRuntime -notmatch "initializeAiyaMegaMenus\(\{\s*pathPrefix:\s*'\.\./'\s*\}\)") {
+  throw 'Detail runtime must initialize shared mega menus with the parent path prefix.'
+}
+
+$publicFiles = @('index.html', 'script.js', 'mega-menu.js', 'catalog.js', 'detail.js', 'styles.css') + $pages.Path
 foreach ($path in $publicFiles) {
   $text = Get-Content -Raw -LiteralPath (Join-Path $root $path)
   if ($text -match '(?i)AIYAPOS|Shopify|Stripe') { throw "Forbidden public copy in $path" }
