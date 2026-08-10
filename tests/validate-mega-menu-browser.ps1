@@ -83,6 +83,10 @@ $runner = @'
   const root = type => document.querySelector(`[data-mega-menu="${type}"]`);
   const wait = milliseconds => new Promise(resolve => window.setTimeout(resolve, milliseconds));
   const closeOutside = () => document.body.dispatchEvent(new PointerEvent('pointerdown', { bubbles: true }));
+  const clickWithoutNavigation = link => {
+    link.addEventListener('click', event => event.preventDefault(), { once: true });
+    link.click();
+  };
   const focusOutside = () => document.querySelector('.main-nav > a[href="#company"]').focus();
   const pointerEnter = (element, pointerType = 'mouse') => {
     element.dispatchEvent(new PointerEvent('pointerenter', { pointerType, bubbles: false }));
@@ -109,14 +113,22 @@ $runner = @'
   };
 
   try {
-    const expectedServices = [
-      ['Integration & Connectivity', ['API Integrations', 'Data Connectivity']],
-      ['Payments & FinTech', ['Payment APIs', 'FinTech Solutions', 'Secure Payment Processing']],
-      ['AI & Automation', ['AI Software Solutions', 'Artificial Intelligence', 'Automation', 'Workflow Automation']],
-      ['Cloud & Enterprise', ['Cloud Technologies', 'Enterprise Solutions', 'Scalable Software Platforms']],
-      ['Digital Development', ['Digital Transformation', 'Modern Software Development']]
+    const expectedProducts = [
+      ['AIYA Commerce', 'products/aiya-commerce.html'],
+      ['AIYA Revenue', 'products/aiya-revenue.html'],
+      ['AIYAPad', 'products/aiya-pad.html'],
+      ['AIYARobot', 'products/aiya-robot.html'],
+      ['AIYAScan', 'products/aiya-scan.html'],
+      ['AIYA Marketing', 'products/aiya-marketing.html']
     ];
-    assert(document.querySelectorAll('[data-mega-item]').length === 10, 'must render ten menu items');
+    const expectedServices = [
+      ['Strategy & Experience', 'services/strategy-experience.html'],
+      ['Software Engineering', 'services/software-engineering.html'],
+      ['Integration & Automation', 'services/integration-automation.html'],
+      ['Cloud & Operations', 'services/cloud-operations.html'],
+      ['Growth', 'services/growth.html']
+    ];
+    assert(document.querySelectorAll('[data-mega-item]').length === 11, 'must render eleven menu items');
     document.querySelectorAll('.mega-menu-detail').forEach(detail => {
       assert(detail.childElementCount === 1, 'each menu must render one detail subtree');
     });
@@ -187,6 +199,18 @@ $runner = @'
     root('products').querySelector('[data-mega-item="scan"]').click();
     assert(root('products').dataset.activeItem === 'scan', 'left-item click must select its item');
 
+    const productButtons = [...root('products').querySelectorAll('[data-mega-item]')];
+    assert(
+      JSON.stringify(productButtons.map(button => button.textContent)) === JSON.stringify(expectedProducts.map(([label]) => label)),
+      'rendered products must match approved labels and order'
+    );
+    expectedProducts.forEach(([label, expectedHref], index) => {
+      pointerEnter(productButtons[index]);
+      const detail = root('products').querySelector('.mega-menu-detail');
+      assert(detail.querySelector('h3').textContent === label, `product detail title must match ${label}`);
+      assert(detail.querySelector('a').getAttribute('href') === expectedHref, `${label} must link to ${expectedHref}`);
+    });
+
     closeOutside();
     activatePointerFromClosed('products', 'mouse');
     const serviceTrigger = trigger('services');
@@ -206,10 +230,10 @@ $runner = @'
 
     activatePointerFromClosed('products', 'mouse');
     pointerEnter(root('products').querySelector('[data-mega-item="pad"]'));
-    root('products').querySelector('[data-product-destination]').click();
-    assert(document.querySelector('#product-stage').dataset.product === 'pad', 'product destination must activate non-default pad');
+    const productDestination = root('products').querySelector('.mega-menu-detail a');
+    assert(productDestination.getAttribute('href') === 'products/aiya-pad.html', 'product destination must use the AIYAPad detail URL');
+    clickWithoutNavigation(productDestination);
     assert(trigger('products').getAttribute('aria-expanded') === 'false', 'destination click must close the menu');
-    assert(window.location.hash === '#products', 'product destination must navigate to #products');
 
     activatePointerFromClosed('services', 'mouse');
     const serviceButtons = [...root('services').querySelectorAll('[data-mega-item]')];
@@ -217,19 +241,17 @@ $runner = @'
       JSON.stringify(serviceButtons.map(button => button.textContent)) === JSON.stringify(expectedServices.map(([label]) => label)),
       'rendered service groups must match approved labels and order'
     );
-    expectedServices.forEach(([label, expectedLinks], index) => {
+    expectedServices.forEach(([label, expectedHref], index) => {
       pointerEnter(serviceButtons[index]);
       const detail = root('services').querySelector('.mega-menu-detail');
-      const renderedLinks = [...detail.querySelectorAll('a')].map(link => link.textContent);
       assert(detail.querySelector('h3').textContent === label, `service detail title must match ${label}`);
-      assert(JSON.stringify(renderedLinks) === JSON.stringify(expectedLinks), `${label} must render only its approved links`);
+      assert(detail.querySelector('a').getAttribute('href') === expectedHref, `${label} must link to ${expectedHref}`);
       assert(detail.childElementCount === 1, `${label} must keep one detail subtree`);
     });
 
-    pointerEnter(root('services').querySelector('[data-mega-item="payments"]'));
-    root('services').querySelector('.mega-menu-detail a').click();
+    pointerEnter(root('services').querySelector('[data-mega-item="engineering"]'));
+    clickWithoutNavigation(root('services').querySelector('.mega-menu-detail a'));
     assert(serviceTrigger.getAttribute('aria-expanded') === 'false', 'service destination must close the menu');
-    assert(window.location.hash === '#services', 'service destination must navigate to #services');
 
     activatePointerFromClosed('products', 'mouse');
     const lastItem = root('products').querySelector('[data-mega-item="marketing"]');
@@ -241,8 +263,8 @@ $runner = @'
     const replacements = observer.takeRecords().filter(record => record.type === 'childList').length;
     observer.disconnect();
     assert(replacements === 1, `ArrowDown must replace detail once, observed ${replacements}`);
-    assert(root('products').dataset.activeItem === 'pos', 'ArrowDown must wrap from last to first');
-    root('products').querySelector('[data-mega-item="pos"]').dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowUp', bubbles: true }));
+    assert(root('products').dataset.activeItem === 'commerce', 'ArrowDown must wrap from last to first');
+    root('products').querySelector('[data-mega-item="commerce"]').dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowUp', bubbles: true }));
     assert(root('products').dataset.activeItem === 'marketing', 'ArrowUp must wrap from first to last');
     assert(detail.childElementCount === 1, 'arrow selection must preserve one detail subtree');
 
@@ -271,6 +293,10 @@ $mobileRunner = @'
   const navToggle = document.querySelector('.nav-toggle');
   const mainNav = document.querySelector('.main-nav');
   const wait = milliseconds => new Promise(resolve => window.setTimeout(resolve, milliseconds));
+  const clickWithoutNavigation = link => {
+    link.addEventListener('click', event => event.preventDefault(), { once: true });
+    link.click();
+  };
   const openNavigation = () => {
     if (!mainNav.classList.contains('open')) navToggle.click();
     assert(mainNav.classList.contains('open'), 'hamburger must open the mobile navigation');
@@ -281,40 +307,40 @@ $mobileRunner = @'
     assert(window.innerWidth === 390 && window.innerHeight === 667, `mobile test must run at 390x667; observed ${window.innerWidth}x${window.innerHeight}`);
     assert(
       JSON.stringify([...root('products').querySelectorAll('[data-mega-item]')].map(button => button.textContent)) ===
-        JSON.stringify(['AIYAPOS', 'AIYAPad', 'AIYARobot', 'AIYAScan', 'AIYA Marketing']),
+        JSON.stringify(['AIYA Commerce', 'AIYA Revenue', 'AIYAPad', 'AIYARobot', 'AIYAScan', 'AIYA Marketing']),
       'mobile product order must match the approved order'
     );
-    assert(root('products').dataset.activeItem === 'pos', 'mobile product default must be AIYAPOS');
-    assert(root('services').dataset.activeItem === 'integration', 'mobile service default must be Integration & Connectivity');
+    assert(root('products').dataset.activeItem === 'commerce', 'mobile product default must be AIYA Commerce');
+    assert(root('services').dataset.activeItem === 'strategy', 'mobile service default must be Strategy & Experience');
 
     openNavigation();
     trigger('services').click();
-    root('services').querySelector('[data-mega-item="payments"]').click();
+    root('services').querySelector('[data-mega-item="engineering"]').click();
     assert(document.querySelectorAll('.nav-menu-item.open').length === 1, 'only one mobile top-level nested menu may be open');
     assert(activeRoot().querySelectorAll('.mega-menu-item.active').length === 1, 'the open mobile menu must have one active nested item');
     assert(activeRoot().querySelector('.mega-menu-detail').childElementCount === 1, 'the open mobile menu must have one active detail subtree');
-    assert(root('services').dataset.activeItem === 'payments', 'mobile service test must select a non-default detail');
-    root('services').querySelector('.mega-menu-detail a').click();
+    assert(root('services').dataset.activeItem === 'engineering', 'mobile service test must select a non-default detail');
+    const serviceDestination = root('services').querySelector('.mega-menu-detail a');
+    assert(serviceDestination.getAttribute('href') === 'services/software-engineering.html', 'mobile service destination must use its detail URL');
+    clickWithoutNavigation(serviceDestination);
     assert(!mainNav.classList.contains('open'), 'dynamic service destination must close the mobile navigation');
     assert(navToggle.getAttribute('aria-expanded') === 'false', 'dynamic service destination must collapse hamburger ARIA state');
     assert(trigger('services').getAttribute('aria-expanded') === 'false', 'dynamic service destination must close its mega menu');
-    assert(window.location.hash === '#services', 'dynamic service destination must preserve #services');
 
     openNavigation();
     trigger('products').click();
     root('products').querySelector('[data-mega-item="pad"]').click();
-    root('products').querySelector('[data-product-destination]').click();
+    const productDestination = root('products').querySelector('.mega-menu-detail a');
+    assert(productDestination.getAttribute('href') === 'products/aiya-pad.html', 'mobile product destination must use its detail URL');
+    clickWithoutNavigation(productDestination);
     assert(!mainNav.classList.contains('open'), 'dynamic product destination must close the mobile navigation');
     assert(navToggle.getAttribute('aria-expanded') === 'false', 'dynamic product destination must collapse hamburger ARIA state');
     assert(trigger('products').getAttribute('aria-expanded') === 'false', 'dynamic product destination must close its mega menu');
-    assert(window.location.hash === '#products', 'dynamic product destination must preserve #products');
-    assert(document.querySelector('#product-stage').dataset.product === 'pad', 'dynamic product destination must activate the non-default product');
     await wait(0);
-    assert(trigger('products').classList.contains('active'), 'Products trigger must show the active section state');
 
     openNavigation();
     trigger('services').click();
-    root('services').querySelector('[data-mega-item="payments"]').click();
+    root('services').querySelector('[data-mega-item="engineering"]').click();
     const navStyle = getComputedStyle(mainNav);
     assert(navStyle.overflowY === 'auto', `mobile navigation overflow-y must be auto; observed ${navStyle.overflowY}`);
     assert(navStyle.maxHeight === '599px', `mobile navigation max-height must equal the viewport below the header; observed ${navStyle.maxHeight}`);
@@ -328,9 +354,8 @@ $mobileRunner = @'
     const contactRect = mainNav.querySelector('a[href="#contact"]').getBoundingClientRect();
     assert(contactRect.top >= navRect.top - 1 && contactRect.bottom <= navRect.bottom + 1, 'Contact must be reachable inside the mobile nav scroll container');
 
-    root('services').querySelector('.mega-menu-detail a').click();
+    clickWithoutNavigation(root('services').querySelector('.mega-menu-detail a'));
     await wait(0);
-    assert(trigger('services').classList.contains('active'), 'Services trigger must show the active section state');
     document.body.dataset.megaMobileTest = 'PASS';
   } catch (error) {
     document.body.dataset.megaMobileTest = `FAIL: ${error.message}`;

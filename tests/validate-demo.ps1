@@ -3,6 +3,31 @@ $root = Split-Path $PSScriptRoot -Parent
 $html = Get-Content (Join-Path $root 'index.html') -Raw
 $css = Get-Content (Join-Path $root 'styles.css') -Raw
 $js = Get-Content (Join-Path $root 'script.js') -Raw
+$catalogPath = Join-Path $root 'catalog.js'
+if (-not (Test-Path -LiteralPath $catalogPath)) {
+  throw 'Missing shared catalog.js.'
+}
+$catalog = Get-Content -LiteralPath $catalogPath -Raw
+
+$expectedProducts = @(
+  @{ Key = 'commerce'; Label = 'AIYA Commerce'; Url = 'products/aiya-commerce.html' },
+  @{ Key = 'revenue'; Label = 'AIYA Revenue'; Url = 'products/aiya-revenue.html' },
+  @{ Key = 'pad'; Label = 'AIYAPad'; Url = 'products/aiya-pad.html' },
+  @{ Key = 'robot'; Label = 'AIYARobot'; Url = 'products/aiya-robot.html' },
+  @{ Key = 'scan'; Label = 'AIYAScan'; Url = 'products/aiya-scan.html' },
+  @{ Key = 'marketing'; Label = 'AIYA Marketing'; Url = 'products/aiya-marketing.html' }
+)
+$expectedServices = @(
+  @{ Key = 'strategy'; Label = 'Strategy & Experience'; Url = 'services/strategy-experience.html' },
+  @{ Key = 'engineering'; Label = 'Software Engineering'; Url = 'services/software-engineering.html' },
+  @{ Key = 'integration'; Label = 'Integration & Automation'; Url = 'services/integration-automation.html' },
+  @{ Key = 'cloud'; Label = 'Cloud & Operations'; Url = 'services/cloud-operations.html' },
+  @{ Key = 'growth'; Label = 'Growth'; Url = 'services/growth.html' }
+)
+
+if ($html -notmatch '<script src="catalog\.js"></script>\s*<script src="script\.js"></script>') {
+  throw 'catalog.js must load immediately before script.js.'
+}
 
 $sceneIds = @(
   'home',
@@ -209,30 +234,42 @@ if ($css -notmatch '(?s)@media\(prefers-reduced-motion:reduce\).*?\.partner-moti
 ) | ForEach-Object {
   if ($css -notmatch [regex]::Escape($_)) { throw "Missing readability token: $_" }
 }
-@('online', 'order', 'reserve', 'gift') | ForEach-Object {
-  if ($html -match "data-product=[`"']$([regex]::Escape($_))[`"']" -or $js -match "(?m)^\s*$([regex]::Escape($_))\s*:") {
+@('pos', 'online', 'order', 'reserve', 'gift') | ForEach-Object {
+  if ($html -match "data-product=[`"']$([regex]::Escape($_))[`"']" -or $js -match "(?m)^\s*$([regex]::Escape($_))\s*:" -or $catalog -match "key:\s*[`"']$([regex]::Escape($_))[`"']") {
     throw "Removed top-level product is still present: $_"
   }
 }
-if (([regex]::Matches($html, '<button[^>]+data-product=')).Count -ne 5) {
-  throw 'Products must contain exactly five top-level choices.'
+if ($html -match '(?i)AIYAPOS') {
+  throw 'AIYAPOS must be removed from the public homepage.'
 }
-if ($html -notmatch 'id="product-stage"\s+data-product="marketing"') {
-  throw 'AIYA Marketing must be the default product.'
+if (([regex]::Matches($html, '<a[^>]+data-product=')).Count -ne $expectedProducts.Count) {
+  throw "Products must contain exactly $($expectedProducts.Count) direct links."
+}
+if (([regex]::Matches($html, '<a[^>]+data-service=')).Count -ne $expectedServices.Count) {
+  throw "Services must contain exactly $($expectedServices.Count) direct links."
+}
+@('BUSINESS PLATFORMS', 'AIYA PRODUCTS') | ForEach-Object {
+  if ($html -notmatch [regex]::Escape($_)) { throw "Missing Product group label: $_" }
+}
+foreach ($item in $expectedProducts + $expectedServices) {
+  if ($catalog -notmatch "key:\s*[`"']$([regex]::Escape($item.Key))[`"']") { throw "Missing catalog key: $($item.Key)" }
+  if ($catalog -notmatch [regex]::Escape($item.Label)) { throw "Missing catalog label: $($item.Label)" }
+  if ($catalog -notmatch [regex]::Escape($item.Url)) { throw "Missing catalog URL: $($item.Url)" }
+  if ($html -notmatch "href=[`"']$([regex]::Escape($item.Url))[`"']") { throw "Missing homepage destination: $($item.Url)" }
+}
+if ($html -notmatch 'id="product-stage"\s+data-product="commerce"') {
+  throw 'AIYA Commerce must be the default product.'
 }
 if ($html -match 'id="product-description"[^>]*>[^<]*Gift Card') {
   throw 'AIYA Gift Card must be nested under Marketing, not buried in its description.'
 }
-if ($html -notmatch 'data-product="marketing"[^>]*>.*?</button>\s*<div class="product-subitem" id="marketing-subitem"[^>]*>.*?AIYA Gift Card') {
+if ($html -notmatch 'data-product="marketing"[^>]*>.*?</a>\s*<div class="product-subitem" id="marketing-subitem"[^>]*>.*?AIYA Gift Card') {
   throw 'AIYA Gift Card must render as a child title below AIYA Marketing.'
-}
-if ($js -notmatch "marketingSubitem\.hidden\s*=\s*key\s*!==\s*'marketing'") {
-  throw 'The AIYA Gift Card child title must follow the Marketing selection state.'
 }
 if ($css -notmatch '\.product-layout \.product-stage\s*\{[^}]*column-gap\s*:\s*30px' -or $css -notmatch '\.product-object img\s*\{[^}]*max-width\s*:\s*100%') {
   throw 'Product copy and imagery must have a protected non-overlapping layout.'
 }
-if ($css -notmatch '\.product-meta p\s*\{[^}]*font-size\s*:\s*14px' -or $css -notmatch '\.selector-list button span\s*\{[^}]*font-size\s*:\s*14px') {
+if ($css -notmatch '\.product-meta p\s*\{[^}]*font-size\s*:\s*14px' -or $css -notmatch '\.selector-list a span\s*\{[^}]*font-size\s*:\s*14px') {
   throw 'Product descriptions and selector labels remain too small.'
 }
 if ($js -notmatch 'activateProduct') {
