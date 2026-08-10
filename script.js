@@ -35,27 +35,7 @@ document.querySelectorAll('[data-capability]').forEach(button => button.addEvent
 
 const products = Object.fromEntries(window.aiyaCatalog.products.map(item => [item.key, item]));
 const services = Object.fromEntries(window.aiyaCatalog.services.map(item => [item.key, item]));
-
-const megaMenuData = {
-  products: {
-    defaultKey: 'commerce',
-    items: window.aiyaCatalog.products.map(item => ({
-      ...item,
-      label: item.title,
-      eyebrow: item.kicker,
-      description: item.summary
-    }))
-  },
-  services: {
-    defaultKey: 'strategy',
-    items: window.aiyaCatalog.services.map(item => ({
-      ...item,
-      label: item.title,
-      eyebrow: item.kicker,
-      description: item.summary
-    }))
-  }
-};
+const megaMenus = window.initializeAiyaMegaMenus({ pathPrefix: '' });
 
 function activateProduct(key) {
   const product = products[key];
@@ -74,162 +54,6 @@ function activateProduct(key) {
 
 document.querySelectorAll('.product-selector [data-product]').forEach(link => {
   ['mouseenter', 'focus'].forEach(eventName => link.addEventListener(eventName, () => activateProduct(link.dataset.product)));
-});
-
-function buildMegaDetail(type, item) {
-  const detail = document.createElement('div');
-  detail.className = `mega-detail-content mega-detail-${type}`;
-
-  if (type === 'products') {
-    const image = document.createElement('img');
-    image.src = item.image;
-    image.alt = `${item.label} product preview`;
-
-    const copy = document.createElement('div');
-    const eyebrow = document.createElement('small');
-    eyebrow.textContent = item.eyebrow;
-    const title = document.createElement('h3');
-    title.textContent = item.label;
-    const description = document.createElement('p');
-    description.textContent = item.description;
-    const link = document.createElement('a');
-    link.href = item.url;
-    link.textContent = 'View Product \u2192';
-    copy.append(eyebrow, title, description, link);
-    detail.append(image, copy);
-    return detail;
-  }
-
-  const title = document.createElement('h3');
-  title.textContent = item.label;
-  const description = document.createElement('p');
-  description.textContent = item.description;
-  const capabilities = document.createElement('div');
-  capabilities.className = 'mega-detail-links';
-  item.capabilities.forEach(label => {
-    const span = document.createElement('span');
-    span.textContent = label;
-    capabilities.append(span);
-  });
-  const link = document.createElement('a');
-  link.href = item.url;
-  link.textContent = 'View Service \u2192';
-  detail.append(title, description, capabilities, link);
-  return detail;
-}
-
-function selectMegaItem(type, key, { focus = false } = {}) {
-  const root = document.querySelector(`[data-mega-menu="${type}"]`);
-  const item = megaMenuData[type].items.find(candidate => candidate.key === key);
-  if (!root || !item) return;
-
-  root.dataset.activeItem = key;
-  root.querySelectorAll('[data-mega-item]').forEach(button => {
-    const selected = button.dataset.megaItem === key;
-    button.classList.toggle('active', selected);
-    button.setAttribute('aria-selected', String(selected));
-    button.tabIndex = selected ? 0 : -1;
-    if (selected && focus) button.focus();
-  });
-
-  const detail = root.querySelector('.mega-menu-detail');
-  detail.replaceChildren(buildMegaDetail(type, item));
-}
-
-function renderMegaList(type) {
-  const root = document.querySelector(`[data-mega-menu="${type}"]`);
-  if (!root) return;
-  const list = root.querySelector('.mega-menu-list');
-  const items = megaMenuData[type].items.map(item => {
-    const listItem = document.createElement('li');
-    const link = document.createElement('a');
-    link.className = 'mega-menu-item';
-    link.dataset.megaItem = item.key;
-    link.href = item.url;
-    link.textContent = item.label;
-    link.addEventListener('pointerenter', () => selectMegaItem(type, item.key));
-    link.addEventListener('focus', () => selectMegaItem(type, item.key));
-    listItem.append(link);
-    return listItem;
-  });
-  list.replaceChildren(...items);
-  selectMegaItem(type, megaMenuData[type].defaultKey);
-}
-
-let openMenuType = null;
-let megaCloseTimer;
-const megaCloseDelay = 200;
-
-function openMegaMenu(type) {
-  window.clearTimeout(megaCloseTimer);
-  document.querySelectorAll('[data-mega-menu]').forEach(root => {
-    const open = root.dataset.megaMenu === type;
-    root.classList.toggle('open', open);
-    root.querySelector('.mega-toggle').setAttribute('aria-expanded', String(open));
-    root.querySelector('.mega-menu').hidden = !open;
-  });
-  openMenuType = type;
-}
-
-function closeMegaMenu({ restoreFocus = false } = {}) {
-  const destination = openMenuType
-    ? document.querySelector(`[data-mega-link="${openMenuType}"]`)
-    : null;
-  if (restoreFocus) destination?.focus();
-  document.querySelectorAll('[data-mega-menu]').forEach(root => {
-    root.classList.remove('open');
-    root.querySelector('.mega-toggle').setAttribute('aria-expanded', 'false');
-    root.querySelector('.mega-menu').hidden = true;
-  });
-  openMenuType = null;
-}
-
-Object.keys(megaMenuData).forEach(type => {
-  renderMegaList(type);
-  const root = document.querySelector(`[data-mega-menu="${type}"]`);
-  const destination = root.querySelector('.mega-trigger');
-  const toggle = root.querySelector('.mega-toggle');
-  destination.addEventListener('pointerenter', event => {
-    if (event.pointerType !== 'touch') openMegaMenu(type);
-  });
-  root.addEventListener('pointerenter', () => window.clearTimeout(megaCloseTimer));
-  destination.addEventListener('focus', event => {
-    if (!root.contains(event.relatedTarget) && window.matchMedia('(min-width: 761px)').matches) openMegaMenu(type);
-  });
-  toggle.addEventListener('click', event => {
-    event.preventDefault();
-    event.stopPropagation();
-    if (openMenuType !== type) openMegaMenu(type);
-    else closeMegaMenu();
-  });
-  root.addEventListener('pointerleave', () => {
-    window.clearTimeout(megaCloseTimer);
-    megaCloseTimer = window.setTimeout(() => closeMegaMenu(), megaCloseDelay);
-  });
-  root.addEventListener('keydown', event => {
-    if (!['ArrowUp', 'ArrowDown'].includes(event.key)) return;
-    const links = [...root.querySelectorAll('[data-mega-item]')];
-    const currentIndex = links.indexOf(document.activeElement);
-    if (currentIndex < 0) return;
-    event.preventDefault();
-    const step = event.key === 'ArrowDown' ? 1 : -1;
-    const next = links[(currentIndex + step + links.length) % links.length];
-    next.focus();
-  });
-});
-
-document.addEventListener('keydown', event => {
-  if (event.key !== 'Escape' || !openMenuType) return;
-  event.preventDefault();
-  closeMegaMenu({ restoreFocus: true });
-});
-
-document.addEventListener('pointerdown', event => {
-  if (openMenuType && !event.target.closest('[data-mega-menu]')) closeMegaMenu();
-});
-
-document.addEventListener('click', event => {
-  if (event.target.closest('.main-nav a')) closeMegaMenu();
 });
 
 function activateService(key) {
@@ -264,18 +88,6 @@ const sectionObserver = new IntersectionObserver(entries => {
   });
 }, { root: snapPage, threshold: .62 });
 sections.forEach(section => sectionObserver.observe(section));
-
-const navToggle = document.querySelector('.nav-toggle');
-const mainNav = document.querySelector('.main-nav');
-navToggle.addEventListener('click', () => {
-  const open = mainNav.classList.toggle('open');
-  navToggle.setAttribute('aria-expanded', String(open));
-});
-mainNav.addEventListener('click', event => {
-  if (!event.target.closest('a')) return;
-  mainNav.classList.remove('open');
-  navToggle.setAttribute('aria-expanded', 'false');
-});
 
 function scrollToScene(hash, behavior = 'smooth') {
   const target = hash && document.querySelector(hash);

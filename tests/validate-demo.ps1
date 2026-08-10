@@ -8,6 +8,11 @@ if (-not (Test-Path -LiteralPath $catalogPath)) {
   throw 'Missing shared catalog.js.'
 }
 $catalog = Get-Content -LiteralPath $catalogPath -Raw
+$megaMenuPath = Join-Path $root 'mega-menu.js'
+if (-not (Test-Path -LiteralPath $megaMenuPath)) {
+  throw 'Missing shared mega-menu.js.'
+}
+$megaJs = Get-Content -LiteralPath $megaMenuPath -Raw
 
 $expectedProducts = @(
   @{ Key = 'commerce'; Label = 'AIYA Commerce'; Url = 'products/aiya-commerce.html' },
@@ -25,8 +30,8 @@ $expectedServices = @(
   @{ Key = 'growth'; Label = 'Growth'; Url = 'services/growth.html' }
 )
 
-if ($html -notmatch '<script src="catalog\.js"></script>\s*<script src="script\.js"></script>') {
-  throw 'catalog.js must load immediately before script.js.'
+if ($html -notmatch '<script src="catalog\.js"></script>\s*<script src="mega-menu\.js"></script>\s*<script src="script\.js"></script>') {
+  throw 'Homepage scripts must load catalog.js, mega-menu.js, then script.js.'
 }
 
 $sceneIds = @(
@@ -295,12 +300,15 @@ if ($js -notmatch 'activateService') {
   'function openMegaMenu',
   'function closeMegaMenu'
 ) | ForEach-Object {
-  if ($js -notmatch [regex]::Escape($_)) { throw "Missing mega-menu controller: $_" }
+  if ($megaJs -notmatch [regex]::Escape($_)) { throw "Missing shared mega-menu controller: $_" }
 }
-if ($js -notmatch "link\.className\s*=\s*'mega-menu-item'" -or $js -notmatch 'link\.href\s*=\s*item\.url') {
+if ($megaJs -notmatch 'window\.initializeAiyaMegaMenus' -or $js -notmatch "initializeAiyaMegaMenus\(\{\s*pathPrefix:\s*''\s*\}\)") {
+  throw 'Homepage must initialize the shared mega-menu controller.'
+}
+if ($megaJs -notmatch "link\.className\s*=\s*'mega-menu-item'" -or $megaJs -notmatch 'link\.href\s*=\s*withPrefix\(item\.url\)') {
   throw 'Rendered mega-menu controls must receive the class that provides their layout and interaction styling.'
 }
-if ($js -match 'mega-menu-detail[^;]*querySelectorAll') {
+if ($megaJs -match 'mega-menu-detail[^;]*querySelectorAll') {
   throw 'The detail panel must be replaced dynamically, not populated with every category.'
 }
 
@@ -331,7 +339,7 @@ if ($css -notmatch '(?s)@media\(prefers-reduced-motion:reduce\).*?\.mega-menu\s*
 if ($css -notmatch '(?s)@media\(max-width:760px\).*?\.main-nav\s*\{[^}]*max-height\s*:\s*calc\(100svh\s*-\s*var\(--header-h\)\)[^}]*overflow-y\s*:\s*auto') {
   throw 'Mobile navigation must be constrained and vertically scrollable below the header.'
 }
-if ($js -match 'tags:\s*\["Payment APIs"' -or $js -match 'tags:\s*\[[^\]]*"Automation"') {
+if ($megaJs -match 'tags:\s*\["Payment APIs"' -or $megaJs -match 'tags:\s*\[[^\]]*"Automation"') {
   throw 'Mega-menu work must not retain unrelated quote-only service data changes.'
 }
 
