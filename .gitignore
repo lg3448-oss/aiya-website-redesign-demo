@@ -4,6 +4,7 @@
 .chrome-*/
 .firecrawl/
 .superpowers/
+.worktrees/
 .tools/
 tmp/
 
