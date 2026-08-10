@@ -145,6 +145,7 @@
 .mega-detail-content>a,.mega-detail-links a{height:auto;display:inline-flex;padding:8px 0;font-size:14px;font-weight:800}
 .mega-detail-content>a::after,.mega-detail-links a::after{display:none}
 .mega-detail-links{display:flex;flex-direction:column;align-items:flex-start;gap:4px}
+.nav-contact{display:none!important}
 
 @media(max-width:760px){
   .main-nav{max-height:calc(100svh - var(--header-h));overflow-y:auto}
@@ -162,6 +163,7 @@
   .mega-product-detail,.mega-detail-products{grid-template-columns:1fr}
   .mega-product-detail img,.mega-detail-products img{max-height:180px}
   .mega-menu-footer{padding:0 14px}
+  .main-nav .nav-contact{display:flex!important}
 }
 
 @media(prefers-reduced-motion:reduce){

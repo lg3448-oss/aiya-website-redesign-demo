@@ -115,6 +115,10 @@ $runner = @'
       ['Cloud & Operations', 'services/cloud-operations.html'],
       ['Growth', 'services/growth.html']
     ];
+    const desktopContact = document.querySelector('.main-nav > a[href="#contact"]');
+    const desktopContactCta = document.querySelector('.header-cta[href="#contact"]');
+    assert(getComputedStyle(desktopContact).display === 'none', 'desktop Contact tab must be hidden');
+    assert(getComputedStyle(desktopContactCta).display !== 'none', 'desktop Talk to our team CTA must remain visible');
     assert(destination('products')?.getAttribute('href') === '#products', 'Products text must target its homepage section');
     assert(destination('services')?.getAttribute('href') === '#services', 'Services text must target its homepage section');
     assert(document.querySelectorAll('[data-mega-item]').length === 11, 'must render eleven menu items');
@@ -298,6 +302,10 @@ $mobileRunner = @'
 
   try {
     assert(window.innerWidth === 390 && window.innerHeight === 667, `mobile test must run at 390x667; observed ${window.innerWidth}x${window.innerHeight}`);
+    const mobileContact = document.querySelector('.main-nav > a[href="#contact"]');
+    const mobileContactCta = document.querySelector('.header-cta[href="#contact"]');
+    assert(getComputedStyle(mobileContact).display !== 'none', 'mobile Contact tab must remain visible');
+    assert(getComputedStyle(mobileContactCta).display === 'none', 'mobile Talk to our team CTA must remain hidden');
     assert(
       JSON.stringify([...root('products').querySelectorAll('[data-mega-item]')].map(button => button.textContent)) ===
         JSON.stringify(['AIYA Commerce', 'AIYA Revenue', 'AIYAPad', 'AIYARobot', 'AIYAScan', 'AIYA Marketing']),

@@ -57,6 +57,13 @@ for ($i = 1; $i -lt $positions.Count; $i++) {
     throw "Missing navigation label: $_"
   }
 }
+if ($html -notmatch '<a class="nav-contact" href="#contact">Contact</a>') {
+  throw 'Homepage Contact navigation must have the responsive nav-contact hook.'
+}
+if ($css -notmatch '\.nav-contact\s*\{[^}]*display\s*:\s*none\s*!important' -or
+    $css -notmatch '(?s)@media\(max-width:760px\).*?\.main-nav \.nav-contact\s*\{[^}]*display\s*:\s*flex\s*!important') {
+  throw 'Contact navigation must be hidden on desktop and restored in the mobile menu.'
+}
 
 $megaMenuArrow = [string]([char]0x00E2) + [char]0x2020 + [char]0x2019
 $megaMenus = @(
