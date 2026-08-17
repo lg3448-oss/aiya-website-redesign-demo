@@ -5,20 +5,18 @@ window.initializeAiyaMegaMenus = ({ pathPrefix = '' } = {}) => {
   const menuRoots = [...document.querySelectorAll('[data-mega-menu]')];
   const megaMenuData = {
     products: {
-      defaultKey: 'commerce',
+      categoryOrder: ['Commerce', 'Marketing', 'Operations', 'Hardware'],
       items: window.aiyaCatalog.products.map(item => ({
         ...item,
         label: item.title,
-        eyebrow: item.kicker,
         description: item.summary
       }))
     },
     services: {
-      defaultKey: 'strategy',
+      categoryOrder: window.aiyaCatalog.services.map(item => item.title),
       items: window.aiyaCatalog.services.map(item => ({
         ...item,
         label: item.title,
-        eyebrow: item.kicker,
         description: item.summary
       }))
     }
@@ -27,83 +25,94 @@ window.initializeAiyaMegaMenus = ({ pathPrefix = '' } = {}) => {
   let megaCloseTimer;
   const megaCloseDelay = 200;
 
-  function buildMegaDetail(type, item) {
-    const detail = document.createElement('div');
-    detail.className = `mega-detail-content mega-detail-${type}`;
-
-    if (type === 'products') {
-      const image = document.createElement('img');
-      image.src = withPrefix(item.image);
-      image.alt = `${item.label} product preview`;
-
-      const copy = document.createElement('div');
-      const eyebrow = document.createElement('small');
-      eyebrow.textContent = item.eyebrow;
-      const title = document.createElement('h3');
-      title.textContent = item.label;
-      const description = document.createElement('p');
-      description.textContent = item.description;
-      const link = document.createElement('a');
-      link.href = withPrefix(item.url);
-      link.textContent = 'View Product \u2192';
-      copy.append(eyebrow, title, description, link);
-      detail.append(image, copy);
-      return detail;
-    }
-
-    const title = document.createElement('h3');
-    title.textContent = item.label;
-    const description = document.createElement('p');
-    description.textContent = item.description;
-    const capabilities = document.createElement('div');
-    capabilities.className = 'mega-detail-links';
-    item.capabilities.forEach(label => {
-      const span = document.createElement('span');
-      span.textContent = label;
-      capabilities.append(span);
-    });
-    const link = document.createElement('a');
-    link.href = withPrefix(item.url);
-    link.textContent = 'View Service \u2192';
-    detail.append(title, description, capabilities, link);
-    return detail;
-  }
-
   function selectMegaItem(type, key, { focus = false } = {}) {
     const root = menuRoots.find(candidate => candidate.dataset.megaMenu === type);
-    const item = megaMenuData[type]?.items.find(candidate => candidate.key === key);
-    if (!root || !item) return;
+    if (!root) return;
 
     root.dataset.activeItem = key;
     root.querySelectorAll('[data-mega-item]').forEach(link => {
       const selected = link.dataset.megaItem === key;
       link.classList.toggle('active', selected);
-      link.setAttribute('aria-selected', String(selected));
-      link.tabIndex = selected ? 0 : -1;
       if (selected && focus) link.focus();
     });
-
-    root.querySelector('.mega-menu-detail')?.replaceChildren(buildMegaDetail(type, item));
   }
 
   function renderMegaList(type) {
     const root = menuRoots.find(candidate => candidate.dataset.megaMenu === type);
     const list = root?.querySelector('.mega-menu-list');
     if (!root || !list || !megaMenuData[type]) return;
-    const items = megaMenuData[type].items.map(item => {
-      const listItem = document.createElement('li');
-      const link = document.createElement('a');
-      link.className = 'mega-menu-item';
-      link.dataset.megaItem = item.key;
-      link.href = withPrefix(item.url);
-      link.textContent = item.label;
-      link.addEventListener('pointerenter', () => selectMegaItem(type, item.key), listenerOptions);
-      link.addEventListener('focus', () => selectMegaItem(type, item.key), listenerOptions);
-      listItem.append(link);
-      return listItem;
+    list.className = `mega-menu-groups mega-menu-groups-${type}`;
+    const menuItems = megaMenuData[type].items.flatMap(item => {
+      const isHardware = type === 'products' && item.navCategory === 'Hardware';
+      if (isHardware) return [{ ...item, menuKey: item.key, category: 'Hardware', overview: false }];
+      return item.capabilities.map((capability, index) => ({
+        ...item,
+        menuKey: `${item.key}-${index + 1}`,
+        category: type === 'services' ? item.title : item.navCategory,
+        label: capability,
+        description: item.title,
+        overview: false
+      }));
     });
-    list.replaceChildren(...items);
-    selectMegaItem(type, megaMenuData[type].defaultKey);
+    const groupedItems = menuItems.reduce((groups, item) => {
+      (groups[item.category] ||= []).push(item);
+      return groups;
+    }, {});
+    const categories = megaMenuData[type].categoryOrder
+      .filter(category => groupedItems[category]?.length)
+      .map(category => {
+        const group = document.createElement('li');
+        group.className = 'mega-menu-group';
+        if (category === 'Hardware') group.classList.add('mega-menu-group-hardware');
+
+        const heading = document.createElement('h3');
+        heading.className = 'mega-menu-category';
+        heading.textContent = category;
+
+        const itemList = document.createElement('ul');
+        itemList.className = 'mega-menu-products';
+        groupedItems[category].forEach(item => {
+          const listItem = document.createElement('li');
+          const link = document.createElement('a');
+          link.className = 'mega-menu-item';
+          if (category !== 'Hardware') link.classList.add('mega-menu-item-offering');
+          link.dataset.megaItem = item.menuKey;
+          link.href = withPrefix(item.url);
+
+          const copy = document.createElement('span');
+          copy.className = 'mega-menu-copy';
+          const title = document.createElement('strong');
+          title.textContent = item.label;
+          const description = document.createElement('small');
+          description.textContent = item.description;
+          copy.append(title, description);
+
+          const arrow = document.createElement('span');
+          arrow.className = 'mega-menu-arrow';
+          arrow.setAttribute('aria-hidden', 'true');
+          arrow.textContent = '\u2197';
+          link.append(copy, arrow);
+          link.addEventListener('pointerenter', () => selectMegaItem(type, item.menuKey), listenerOptions);
+          link.addEventListener('focus', () => selectMegaItem(type, item.menuKey), listenerOptions);
+          listItem.append(link);
+          itemList.append(listItem);
+        });
+
+        group.append(heading, itemList);
+        if (category !== 'Hardware') {
+          const parent = megaMenuData[type].items.find(item =>
+            type === 'services' ? item.title === category : item.navCategory === category
+          );
+          const overview = document.createElement('a');
+          overview.className = 'mega-menu-overview';
+          overview.href = withPrefix(parent.url);
+          overview.textContent = `${parent.title} overview \u2192`;
+          group.append(overview);
+        }
+        return group;
+      });
+    list.replaceChildren(...categories);
+    root.querySelector('.mega-menu-detail')?.remove();
   }
 
   function openMegaMenu(type) {

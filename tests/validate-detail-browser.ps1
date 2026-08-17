@@ -42,7 +42,8 @@ const publishDetailTest = () => {
       const pad = menuRoot('products').querySelector('[data-mega-item="pad"]');
       assert(pad.getAttribute('href') === '../products/aiya-pad.html', 'detail product item must use parent-relative URL');
       pointerEnter(pad);
-      assert(menuRoot('products').querySelector('.mega-menu-detail h3').textContent === 'AIYAPad', 'detail hover must update product preview');
+      assert(pad.querySelector('strong').textContent === 'AIYAPad', 'detail menu must expose the product name directly');
+      assert(pad.querySelector('small').textContent.length > 0, 'detail menu must expose a product description directly');
       document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
       assert(menuToggle('products').getAttribute('aria-expanded') === 'false', 'Escape must close detail mega menu');
     } else {

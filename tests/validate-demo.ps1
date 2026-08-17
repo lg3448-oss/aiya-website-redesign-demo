@@ -312,8 +312,9 @@ if ($megaJs -match 'mega-menu-detail[^;]*querySelectorAll') {
   throw 'The detail panel must be replaced dynamically, not populated with every category.'
 }
 
-if ($css -notmatch '\.mega-menu-inner\s*\{[^}]*grid-template-columns\s*:\s*minmax\(0,35%\)\s+minmax\(0,65%\)') {
-  throw 'Desktop mega menu must use the approved 35/65 cascade.'
+if ($css -notmatch '\.mega-menu-groups\s*\{[^}]*grid-template-columns\s*:\s*repeat\(4,minmax\(0,1fr\)\)' -or
+    $css -notmatch '\.mega-menu-groups-services\s*\{[^}]*grid-template-columns') {
+  throw 'Desktop mega menus must expose grouped product and service columns.'
 }
 if ($css -notmatch 'transition\s*:\s*opacity\s+180ms') {
   throw 'Mega-menu opening transition must be 180ms.'

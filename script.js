@@ -33,27 +33,63 @@ document.querySelectorAll('[data-capability]').forEach(button => button.addEvent
   document.querySelector('#cap-node-three').textContent = capabilityContent[key].nodes[2];
 }));
 
-const products = Object.fromEntries(window.aiyaCatalog.products.map(item => [item.key, item]));
 const services = Object.fromEntries(window.aiyaCatalog.services.map(item => [item.key, item]));
 const megaMenus = window.initializeAiyaMegaMenus({ pathPrefix: '' });
 
-function activateProduct(key) {
-  const product = products[key];
-  if (!product) return;
-  document.querySelectorAll('.product-selector [data-product]').forEach(el => el.classList.toggle('active', el.dataset.product === key));
-  const stage = document.querySelector('#product-stage');
-  stage.dataset.product = key;
-  document.querySelector('#product-kicker').textContent = product.kicker;
-  document.querySelector('#product-title').textContent = product.title;
-  document.querySelector('#product-description').textContent = product.summary;
-  const image = document.querySelector('#product-image');
-  image.src = product.image;
-  image.alt = `${product.title} product preview`;
-  document.querySelector('#product-monogram').textContent = product.monogram;
+const productCategories = Object.fromEntries(['Commerce', 'Marketing', 'Operations', 'Hardware'].map(category => {
+  const items = window.aiyaCatalog.products.filter(item => item.navCategory === category);
+  const lead = items[0];
+  const offerings = category === 'Hardware'
+    ? items.map(item => ({ label: item.title, description: item.summary, url: item.url }))
+    : lead.capabilities.map(label => ({ label, description: lead.title, url: lead.url }));
+  return [category, { lead, offerings }];
+}));
+
+function renderOfferings(container, offerings) {
+  container.replaceChildren(...offerings.map(offering => {
+    const link = document.createElement('a');
+    link.href = offering.url;
+    const title = document.createElement('strong');
+    title.textContent = offering.label;
+    const description = document.createElement('small');
+    description.textContent = offering.description;
+    const arrow = document.createElement('span');
+    arrow.setAttribute('aria-hidden', 'true');
+    arrow.textContent = '\u2197';
+    link.append(title, description, arrow);
+    return link;
+  }));
 }
 
-document.querySelectorAll('.product-selector [data-product]').forEach(link => {
-  ['mouseenter', 'focus'].forEach(eventName => link.addEventListener(eventName, () => activateProduct(link.dataset.product)));
+function activateProductCategory(category) {
+  const group = productCategories[category];
+  if (!group?.lead) return;
+  const product = group.lead;
+  document.querySelectorAll('.product-selector [data-product-category]').forEach(el => el.classList.toggle('active', el.dataset.productCategory === category));
+  const stage = document.querySelector('#product-stage');
+  stage.dataset.productCategory = category.toLowerCase();
+  document.querySelector('#product-kicker').textContent = product.kicker;
+  document.querySelector('#product-title').textContent = category;
+  document.querySelector('#product-description').textContent = category === 'Hardware'
+    ? 'Purpose-built devices connected to AIYA software and hospitality workflows.'
+    : product.summary;
+  const image = document.querySelector('#product-image');
+  image.src = product.image;
+  image.alt = `${category} product preview`;
+  document.querySelector('#product-monogram').textContent = product.monogram;
+  const offerings = document.querySelector('#product-offerings');
+  offerings.setAttribute('aria-label', `${category} products`);
+  renderOfferings(offerings, group.offerings);
+  const overview = document.querySelector('#product-overview');
+  overview.hidden = category === 'Hardware';
+  if (!overview.hidden) {
+    overview.href = product.url;
+    overview.textContent = `${product.title} overview \u2192`;
+  }
+}
+
+document.querySelectorAll('.product-selector [data-product-category]').forEach(button => {
+  ['mouseenter', 'focus', 'click'].forEach(eventName => button.addEventListener(eventName, () => activateProductCategory(button.dataset.productCategory)));
 });
 
 function activateService(key) {
@@ -65,12 +101,20 @@ function activateService(key) {
   document.querySelector('#service-kicker').textContent = service.kicker;
   document.querySelector('#service-title').textContent = service.title;
   document.querySelector('#service-description').textContent = service.summary;
-  document.querySelector('#service-tags').innerHTML = service.capabilities.map(tag => `<span>${tag}</span>`).join('');
+  const offerings = document.querySelector('#service-offerings');
+  offerings.setAttribute('aria-label', `${service.title} services`);
+  renderOfferings(offerings, service.capabilities.map(label => ({ label, description: service.title, url: service.url })));
+  const overview = document.querySelector('#service-overview');
+  overview.href = service.url;
+  overview.textContent = `${service.title} overview \u2192`;
 }
 
-document.querySelectorAll('.service-selector [data-service]').forEach(link => {
-  ['mouseenter', 'focus'].forEach(eventName => link.addEventListener(eventName, () => activateService(link.dataset.service)));
+document.querySelectorAll('.service-selector [data-service]').forEach(button => {
+  ['mouseenter', 'focus', 'click'].forEach(eventName => button.addEventListener(eventName, () => activateService(button.dataset.service)));
 });
+
+activateProductCategory('Commerce');
+activateService('strategy');
 
 const sections = [...document.querySelectorAll('.scene')];
 const navLinks = [...document.querySelectorAll('.main-nav > a, [data-mega-link]')];
