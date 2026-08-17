@@ -102,13 +102,14 @@
   .hero{padding-bottom:32px;grid-template-rows:auto minmax(0,1fr)}
   .hero h1{font-size:clamp(40px,11.2vw,54px)}
   .hero-slide p{font-size:14px}
-  .scene-heading h2,.ordering-copy h2,.company-copy h2,.contact-copy h2,.ecosystem-heading h2{font-size:clamp(40px,11.2vw,54px)}
+  .scene-heading h2,.ordering-copy h2,.company-copy h2,.contact-copy h2,.ecosystem-heading h2{font-size:clamp(36px,10vw,48px);overflow-wrap:anywhere}
   .scene-heading>p,.ordering-copy>p,.ecosystem-heading>p,.company-copy p,.contact-copy p{font-size:14px}
   .product-meta p,.service-stage p{font-size:15px}
   .selector-list button span,.selector-list button.active span{font-size:14px}
-  .product-layout .product-stage{height:auto;min-height:470px;grid-template-columns:1fr;grid-template-rows:auto minmax(230px,1fr);padding:24px}
+  .selector-layout,.product-layout,.product-layout .product-stage,.product-meta{width:100%;min-width:0;max-width:100%}
+  .product-layout .product-stage{height:auto;min-height:470px;grid-template-columns:minmax(0,1fr);grid-template-rows:auto minmax(230px,1fr);padding:24px;overflow:hidden}
   .product-object{position:relative;right:auto;bottom:auto;width:100%;height:230px;opacity:1}
-  .product-meta{padding-right:0}
+  .product-meta{grid-column:1/-1;width:auto;max-width:100%;padding-right:0}.product-meta p{width:auto;max-width:100%;overflow-wrap:anywhere}
   .ordering-visual>img{width:100%;max-height:42vh;margin:0}
   .kiosk-visual{height:48vh;min-height:360px;margin-top:24px}
   .contact{padding-bottom:230px}
@@ -152,6 +153,7 @@
 .mega-trigger:focus-visible,.mega-menu-item:focus-visible,.mega-menu a:focus-visible{outline:3px solid rgba(241,90,36,.42);outline-offset:3px}
 .mega-menu-footer{grid-column:1/-1;min-height:52px;padding:0 32px;border-top:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;color:#403932;font-size:12px;font-weight:850}
 .nav-contact{display:none!important}
+.prototype-badge{flex-shrink:0;padding:5px 8px;border:1px solid rgba(241,90,36,.28);color:var(--orange-deep);font-size:8px;font-weight:850;letter-spacing:.08em;text-transform:uppercase;white-space:nowrap}
 
 @media(max-width:760px){
   .main-nav{max-height:calc(100svh - var(--header-h));overflow-y:auto}
@@ -172,6 +174,7 @@
   .mega-menu-copy small{-webkit-line-clamp:1}
   .mega-menu-footer{padding:0 14px}
   .main-nav .nav-contact{display:flex!important}
+  .prototype-badge{padding:4px 6px;font-size:0}.prototype-badge::after{content:"Demo";font-size:7px}
 }
 
 @media(prefers-reduced-motion:reduce){

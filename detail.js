@@ -1,6 +1,14 @@
 const detailPage = document.querySelector('[data-detail-kind][data-detail-key]');
 
 if (detailPage) {
+  const headerBrand = document.querySelector('.site-header .brand');
+  if (headerBrand && !document.querySelector('.prototype-badge')) {
+    const prototypeBadge = document.createElement('span');
+    prototypeBadge.className = 'prototype-badge';
+    prototypeBadge.textContent = 'Internal design prototype';
+    headerBrand.after(prototypeBadge);
+  }
+
   const item = window.getCatalogItem(detailPage.dataset.detailKind, detailPage.dataset.detailKey);
   if (!item) throw new Error(`Unknown catalog item: ${detailPage.dataset.detailKind}/${detailPage.dataset.detailKey}`);
 
