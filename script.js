@@ -36,14 +36,7 @@ document.querySelectorAll('[data-capability]').forEach(button => button.addEvent
 const services = Object.fromEntries(window.aiyaCatalog.services.map(item => [item.key, item]));
 const megaMenus = window.initializeAiyaMegaMenus({ pathPrefix: '' });
 
-const productCategories = Object.fromEntries(['Commerce', 'Marketing', 'Operations', 'Hardware'].map(category => {
-  const items = window.aiyaCatalog.products.filter(item => item.navCategory === category);
-  const lead = items[0];
-  const offerings = category === 'Hardware'
-    ? items.map(item => ({ label: item.title, description: item.summary, url: item.url }))
-    : lead.capabilities.map(label => ({ label, description: lead.title, url: lead.url }));
-  return [category, { lead, offerings }];
-}));
+const productCategories = Object.fromEntries(window.aiyaCatalog.productCategories.map(category => [category.key, category]));
 
 function renderOfferings(container, offerings) {
   container.replaceChildren(...offerings.map(offering => {
@@ -61,31 +54,26 @@ function renderOfferings(container, offerings) {
   }));
 }
 
-function activateProductCategory(category) {
-  const group = productCategories[category];
-  if (!group?.lead) return;
-  const product = group.lead;
-  document.querySelectorAll('.product-selector [data-product-category]').forEach(el => el.classList.toggle('active', el.dataset.productCategory === category));
+function activateProductCategory(categoryKey) {
+  const category = productCategories[categoryKey];
+  if (!category) return;
+  document.querySelectorAll('.product-selector [data-product-category]').forEach(el => el.classList.toggle('active', el.dataset.productCategory === categoryKey));
   const stage = document.querySelector('#product-stage');
-  stage.dataset.productCategory = category.toLowerCase();
-  document.querySelector('#product-kicker').textContent = product.kicker;
-  document.querySelector('#product-title').textContent = category;
-  document.querySelector('#product-description').textContent = category === 'Hardware'
-    ? 'Purpose-built devices connected to AIYA software and hospitality workflows.'
-    : product.summary;
+  stage.dataset.productCategory = category.key;
+  document.querySelector('#product-kicker').textContent = category.kicker;
+  document.querySelector('#product-title').textContent = category.title;
+  document.querySelector('#product-description').textContent = category.summary;
   const image = document.querySelector('#product-image');
-  image.src = product.image;
-  image.alt = `${category} product preview`;
-  document.querySelector('#product-monogram').textContent = product.monogram;
+  image.src = category.image;
+  image.alt = `${category.title} capability preview`;
+  document.querySelector('#product-monogram').textContent = category.monogram;
   const offerings = document.querySelector('#product-offerings');
-  offerings.setAttribute('aria-label', `${category} products`);
-  renderOfferings(offerings, group.offerings);
+  offerings.setAttribute('aria-label', `${category.title} capabilities`);
+  renderOfferings(offerings, category.offerings.map(offering => ({ label: offering.title, ...offering })));
   const overview = document.querySelector('#product-overview');
-  overview.hidden = category === 'Hardware';
-  if (!overview.hidden) {
-    overview.href = product.url;
-    overview.textContent = `${product.title} overview \u2192\uFE0E`;
-  }
+  overview.hidden = false;
+  overview.href = category.overviewUrl;
+  overview.textContent = `${category.title} overview \u2192\uFE0E`;
 }
 
 document.querySelectorAll('.product-selector [data-product-category]').forEach(button => {
@@ -113,7 +101,7 @@ document.querySelectorAll('.service-selector [data-service]').forEach(button => 
   ['mouseenter', 'focus', 'click'].forEach(eventName => button.addEventListener(eventName, () => activateService(button.dataset.service)));
 });
 
-activateProductCategory('Commerce');
+activateProductCategory('payments-commerce');
 activateService('strategy');
 
 const sections = [...document.querySelectorAll('.scene')];

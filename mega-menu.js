@@ -5,12 +5,15 @@ window.initializeAiyaMegaMenus = ({ pathPrefix = '' } = {}) => {
   const menuRoots = [...document.querySelectorAll('[data-mega-menu]')];
   const megaMenuData = {
     products: {
-      categoryOrder: ['Commerce', 'Marketing', 'Operations', 'Hardware'],
-      items: window.aiyaCatalog.products.map(item => ({
-        ...item,
-        label: item.title,
-        description: item.summary
-      }))
+      categories: window.aiyaCatalog.productCategories,
+      categoryOrder: window.aiyaCatalog.productCategories.map(category => category.title),
+      items: window.aiyaCatalog.productCategories.flatMap(category => category.offerings.map((offering, index) => ({
+        ...offering,
+        key: `${category.key}-${index + 1}`,
+        label: offering.title,
+        category: category.title,
+        description: offering.description
+      })))
     },
     services: {
       categoryOrder: window.aiyaCatalog.services.map(item => item.title),
@@ -42,9 +45,11 @@ window.initializeAiyaMegaMenus = ({ pathPrefix = '' } = {}) => {
     const list = root?.querySelector('.mega-menu-list');
     if (!root || !list || !megaMenuData[type]) return;
     list.className = `mega-menu-groups mega-menu-groups-${type}`;
-    const menuItems = megaMenuData[type].items.flatMap(item => {
-      const isHardware = type === 'products' && item.navCategory === 'Hardware';
-      if (isHardware) return [{ ...item, menuKey: item.key, category: 'Hardware', overview: false }];
+    const menuItems = type === 'products' ? megaMenuData[type].items.map(item => ({
+      ...item,
+      menuKey: item.key,
+      overview: false
+    })) : megaMenuData[type].items.flatMap(item => {
       return item.capabilities.map((capability, index) => ({
         ...item,
         menuKey: `${item.key}-${index + 1}`,
@@ -75,7 +80,7 @@ window.initializeAiyaMegaMenus = ({ pathPrefix = '' } = {}) => {
           const listItem = document.createElement('li');
           const link = document.createElement('a');
           link.className = 'mega-menu-item';
-          if (category !== 'Hardware') link.classList.add('mega-menu-item-offering');
+          link.classList.add('mega-menu-item-offering');
           link.dataset.megaItem = item.menuKey;
           link.href = withPrefix(item.url);
 
@@ -100,12 +105,12 @@ window.initializeAiyaMegaMenus = ({ pathPrefix = '' } = {}) => {
 
         group.append(heading, itemList);
         if (category !== 'Hardware') {
-          const parent = megaMenuData[type].items.find(item =>
-            type === 'services' ? item.title === category : item.navCategory === category
-          );
+          const parent = type === 'products'
+            ? megaMenuData.products.categories.find(item => item.title === category)
+            : megaMenuData[type].items.find(item => item.title === category);
           const overview = document.createElement('a');
           overview.className = 'mega-menu-overview';
-          overview.href = withPrefix(parent.url);
+          overview.href = withPrefix(type === 'products' ? parent.overviewUrl : parent.url);
           overview.textContent = `${parent.title} overview \u2192\uFE0E`;
           group.append(overview);
         }

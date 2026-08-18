@@ -1,4 +1,93 @@
 window.aiyaCatalog = {
+  productCategories: [
+    {
+      key: 'payments-commerce', title: 'Payments & Commerce', kicker: 'PAYMENTS · COMMERCE', monogram: 'PAY',
+      image: 'assets/aiya-commerce.png', overviewUrl: 'products/aiya-revenue.html',
+      summary: 'Accept payments, build checkout experiences, and connect online and in-person commerce.',
+      offerings: [
+        { title: 'AIYA Payments', description: 'Online payment processing', url: 'products/aiya-revenue.html' },
+        { title: 'Payment Operations', description: 'Managed payment workflows', url: 'products/aiya-revenue.html' },
+        { title: 'Smart Payment Links', description: 'No-code payment collection', url: 'products/aiya-revenue.html' },
+        { title: 'AIYA Checkout', description: 'Custom checkout experiences', url: 'products/aiya-commerce.html' },
+        { title: 'Embedded Payment UI', description: 'Flexible payment components', url: 'products/aiya-commerce.html' },
+        { title: 'Payment Method Hub', description: 'Connected payment methods', url: 'products/aiya-revenue.html' },
+        { title: 'In-Person Payments', description: 'Connected point-of-sale payments', url: 'products/aiya-revenue.html' },
+        { title: 'Approval Optimization', description: 'Payment acceptance improvements', url: 'products/aiya-revenue.html' },
+        { title: 'Fast Checkout', description: 'Accelerated repeat checkout', url: 'products/aiya-commerce.html' },
+        { title: 'Financial Data Connect', description: 'Linked financial account data', url: 'products/aiya-revenue.html' },
+        { title: 'Online Storefront', description: 'Custom digital storefronts', url: 'products/aiya-commerce.html' },
+        { title: 'Catalog & Inventory', description: 'Connected product operations', url: 'products/aiya-commerce.html' },
+        { title: 'Orders & Fulfillment', description: 'Order lifecycle workflows', url: 'products/aiya-commerce.html' },
+        { title: 'Customer Accounts', description: 'Customer identity and history', url: 'products/aiya-commerce.html' },
+        { title: 'B2B & Global Commerce', description: 'Business buying across markets', url: 'products/aiya-commerce.html' }
+      ]
+    },
+    {
+      key: 'billing-revenue', title: 'Billing & Revenue', kicker: 'BILLING · REVENUE', monogram: 'REV',
+      image: 'assets/service-audit.png', overviewUrl: 'products/aiya-revenue.html',
+      summary: 'Manage recurring, usage-based, and invoice revenue with connected reporting and finance data.',
+      offerings: [
+        { title: 'AIYA Billing', description: 'Recurring revenue operations', url: 'products/aiya-revenue.html' },
+        { title: 'Usage Billing', description: 'Metered and usage-based billing', url: 'products/aiya-revenue.html' },
+        { title: 'Subscription Management', description: 'Subscription lifecycle workflows', url: 'products/aiya-revenue.html' },
+        { title: 'AIYA Invoicing', description: 'One-time and recurring invoices', url: 'products/aiya-revenue.html' },
+        { title: 'Tax Automation', description: 'Sales tax and VAT integrations', url: 'products/aiya-revenue.html' },
+        { title: 'Revenue Accounting', description: 'Revenue recognition workflows', url: 'products/aiya-revenue.html' },
+        { title: 'Revenue Analytics', description: 'Custom revenue reporting', url: 'products/aiya-revenue.html' },
+        { title: 'Finance Data Pipeline', description: 'Revenue and finance data sync', url: 'products/aiya-revenue.html' }
+      ]
+    },
+    {
+      key: 'treasury-finance', title: 'Treasury & Finance', kicker: 'TREASURY · FINANCE', monogram: 'FIN',
+      image: 'assets/service-audit.png', overviewUrl: 'products/aiya-revenue.html',
+      summary: 'Connect payouts, treasury workflows, financing, and digital asset infrastructure to business operations.',
+      offerings: [
+        { title: 'Treasury Operations', description: 'Connected business finance workflows', url: 'products/aiya-revenue.html' },
+        { title: 'Global Payouts', description: 'Payouts to third parties', url: 'products/aiya-revenue.html' },
+        { title: 'Business Financing', description: 'Financing system integrations', url: 'products/aiya-revenue.html' },
+        { title: 'Digital Asset Infrastructure', description: 'Wallet and digital asset systems', url: 'products/aiya-revenue.html' },
+        { title: 'Digital Asset Onramp', description: 'Embeddable purchase experiences', url: 'products/aiya-revenue.html' }
+      ]
+    },
+    {
+      key: 'platforms-marketplaces', title: 'Platforms & Marketplaces', kicker: 'PLATFORMS · MARKETPLACES', monogram: 'PLT',
+      image: 'assets/aiya-commerce.png', overviewUrl: 'products/aiya-commerce.html',
+      summary: 'Build payments, financial services, and commerce infrastructure for platforms and marketplaces.',
+      offerings: [
+        { title: 'AIYA Connect', description: 'Payments for platforms', url: 'products/aiya-revenue.html' },
+        { title: 'Platform Financing', description: 'Customer financing integrations', url: 'products/aiya-revenue.html' },
+        { title: 'Embedded Treasury', description: 'Embedded financial service workflows', url: 'products/aiya-revenue.html' },
+        { title: 'Card Issuing', description: 'Physical and virtual card systems', url: 'products/aiya-revenue.html' },
+        { title: 'Marketplace Commerce', description: 'Multi-party commerce operations', url: 'products/aiya-commerce.html' }
+      ]
+    },
+    {
+      key: 'trust-business-tools', title: 'Trust & Business Tools', kicker: 'TRUST · DATA · GROWTH', monogram: 'SYS',
+      image: 'assets/service-marketing.png', overviewUrl: 'products/aiya-marketing.html',
+      summary: 'Protect transactions, verify customers, connect business data, and support product growth.',
+      offerings: [
+        { title: 'Fraud & Risk', description: 'Fraud prevention workflows', url: 'products/aiya-revenue.html' },
+        { title: 'Identity Verification', description: 'Online identity workflows', url: 'products/aiya-revenue.html' },
+        { title: 'Product Strategy', description: 'Roadmaps and launch planning', url: 'services/strategy-experience.html' },
+        { title: 'Business Launch Systems', description: 'Digital foundations for new ventures', url: 'services/software-engineering.html' },
+        { title: 'Sustainability Integrations', description: 'Connected climate and impact data', url: 'services/integration-automation.html' },
+        { title: 'AIYA Marketing', description: 'Growth strategy and campaigns', url: 'products/aiya-marketing.html' },
+        { title: 'Growth Strategy', description: 'Connected acquisition planning', url: 'products/aiya-marketing.html' },
+        { title: 'Content & Campaigns', description: 'Creative campaign execution', url: 'products/aiya-marketing.html' },
+        { title: 'AIYA Gift Card', description: 'Repeat-customer gift experiences', url: 'products/aiya-marketing.html' }
+      ]
+    },
+    {
+      key: 'hardware', title: 'Hardware', kicker: 'CONNECTED · HARDWARE', monogram: 'HW',
+      image: 'assets/product-pad.png', overviewUrl: 'products/aiya-pad.html',
+      summary: 'Purpose-built devices connected to Aiya software, payments, and hospitality workflows.',
+      offerings: [
+        { title: 'AIYAPad', description: 'Mobile service hardware', url: 'products/aiya-pad.html' },
+        { title: 'AIYARobot', description: 'Automated delivery support', url: 'products/aiya-robot.html' },
+        { title: 'AIYAScan', description: 'QR self-service ordering', url: 'products/aiya-scan.html' }
+      ]
+    }
+  ],
   products: [
     {
       key: 'commerce', group: 'Business Platforms', navCategory: 'Commerce', title: 'AIYA Commerce', url: 'products/aiya-commerce.html',
