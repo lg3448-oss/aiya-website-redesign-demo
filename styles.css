@@ -154,6 +154,8 @@
 .mega-menu-footer{grid-column:1/-1;min-height:52px;padding:0 32px;border-top:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;color:#403932;font-size:12px;font-weight:850}
 .nav-contact{display:none!important}
 .prototype-badge{flex-shrink:0;padding:5px 8px;border:1px solid rgba(241,90,36,.28);color:var(--orange-deep);font-size:8px;font-weight:850;letter-spacing:.08em;text-transform:uppercase;white-space:nowrap}
+.button-arrow{width:14px;height:14px;position:relative;display:block;flex:0 0 auto;transition:transform .25s ease}.button-arrow::before{content:"";position:absolute;left:1px;bottom:2px;width:13px;height:1.5px;background:currentColor;transform:rotate(-45deg);transform-origin:left center}.button-arrow::after{content:"";position:absolute;right:1px;top:1px;width:7px;height:7px;border-top:1.5px solid currentColor;border-right:1.5px solid currentColor}.button:hover .button-arrow,.button:focus-visible .button-arrow{transform:translate(2px,-2px)}
+.header-cta>span,.capability-list button>i,.selector-list button>i,.text-link>span,.flow-track>i,.mega-toggle>span,.mega-menu-arrow{font-family:Arial,"Segoe UI Symbol",sans-serif;font-variant-emoji:text}
 
 @media(max-width:760px){
   .main-nav{max-height:calc(100svh - var(--header-h));overflow-y:auto}

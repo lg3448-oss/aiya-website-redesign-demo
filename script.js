@@ -55,7 +55,7 @@ function renderOfferings(container, offerings) {
     description.textContent = offering.description;
     const arrow = document.createElement('span');
     arrow.setAttribute('aria-hidden', 'true');
-    arrow.textContent = '\u2197';
+    arrow.textContent = '\u2197\uFE0E';
     link.append(title, description, arrow);
     return link;
   }));
@@ -84,7 +84,7 @@ function activateProductCategory(category) {
   overview.hidden = category === 'Hardware';
   if (!overview.hidden) {
     overview.href = product.url;
-    overview.textContent = `${product.title} overview \u2192`;
+    overview.textContent = `${product.title} overview \u2192\uFE0E`;
   }
 }
 
@@ -106,7 +106,7 @@ function activateService(key) {
   renderOfferings(offerings, service.capabilities.map(label => ({ label, description: service.title, url: service.url })));
   const overview = document.querySelector('#service-overview');
   overview.href = service.url;
-  overview.textContent = `${service.title} overview \u2192`;
+  overview.textContent = `${service.title} overview \u2192\uFE0E`;
 }
 
 document.querySelectorAll('.service-selector [data-service]').forEach(button => {

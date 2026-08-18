@@ -90,7 +90,7 @@ window.initializeAiyaMegaMenus = ({ pathPrefix = '' } = {}) => {
           const arrow = document.createElement('span');
           arrow.className = 'mega-menu-arrow';
           arrow.setAttribute('aria-hidden', 'true');
-          arrow.textContent = '\u2197';
+          arrow.textContent = '\u2197\uFE0E';
           link.append(copy, arrow);
           link.addEventListener('pointerenter', () => selectMegaItem(type, item.menuKey), listenerOptions);
           link.addEventListener('focus', () => selectMegaItem(type, item.menuKey), listenerOptions);
@@ -106,7 +106,7 @@ window.initializeAiyaMegaMenus = ({ pathPrefix = '' } = {}) => {
           const overview = document.createElement('a');
           overview.className = 'mega-menu-overview';
           overview.href = withPrefix(parent.url);
-          overview.textContent = `${parent.title} overview \u2192`;
+          overview.textContent = `${parent.title} overview \u2192\uFE0E`;
           group.append(overview);
         }
         return group;
