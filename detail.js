@@ -14,7 +14,10 @@ if (detailPage) {
 
   const image = document.querySelector('#detail-image');
   if (image && item.image) {
-    image.src = `${assetPrefix}${item.image}`;
+    const imageUrl = `${assetPrefix}${item.image}`;
+    image.src = detailPage.dataset.detailKind.startsWith('service')
+      ? `${imageUrl}?asset=20260820-9`
+      : imageUrl;
     image.alt = `${item.title} visual`;
     image.decoding = 'async';
     image.fetchPriority = 'high';
