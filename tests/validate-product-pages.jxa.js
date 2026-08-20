@@ -27,7 +27,7 @@ for (const { item, kind } of pages) {
     'FUTURE CHAT PREVIEW',
     '../assets/aiya-chat-demo.png',
     'mailto:info@aiya.us',
-    '../product-pages.js?v=20260820-3',
+    '../product-pages.js?v=20260820-4',
     'Demo content for product planning'
   ];
   for (const marker of required) {
@@ -40,7 +40,7 @@ for (const { item, kind } of pages) {
 }
 
 const index = read('index.html');
-if (!index.includes('product-pages.js?v=20260820-3')) throw new Error('Homepage does not load product page routing data');
+if (!index.includes('product-pages.js?v=20260820-4')) throw new Error('Homepage does not load product page routing data');
 if (!fm.fileExistsAtPath('assets/aiya-chat-demo.png')) throw new Error('Missing chat demo image');
 for (const visual of ['payments-commerce', 'billing-revenue', 'treasury-finance', 'platforms-marketplaces', 'trust-business-tools']) {
   if (!fm.fileExistsAtPath(`assets/product-visual-${visual}.jpg`)) throw new Error(`Missing category visual: ${visual}`);
