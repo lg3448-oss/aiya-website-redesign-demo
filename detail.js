@@ -43,9 +43,15 @@ if (detailPage) {
 
   const relatedRoot = document.querySelector('#detail-related-products');
   if (relatedRoot) {
-    const isService = detailPage.dataset.detailKind === 'service';
+    const isService = detailPage.dataset.detailKind.startsWith('service');
+    const isServiceOffering = detailPage.dataset.detailKind === 'service-offering';
     const category = window.aiyaCatalog.productCategories.find(candidate => candidate.title === item.navCategory);
-    const relatedPool = isService ? window.aiyaCatalog.services : (category?.offerings || []);
+    const serviceCategory = window.aiyaCatalog.serviceCategories?.find(candidate => candidate.title === item.navCategory);
+    const relatedPool = isServiceOffering
+      ? (serviceCategory?.offerings || [])
+      : isService
+        ? window.aiyaCatalog.serviceCategories.flatMap(candidate => candidate.offerings)
+        : (category?.offerings || []);
     const related = relatedPool.filter(candidate => candidate.title !== item.title).slice(0, 3);
     const links = related.map(candidate => {
       const link = document.createElement('a');

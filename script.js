@@ -91,7 +91,8 @@ function activateService(key) {
   document.querySelector('#service-description').textContent = service.summary;
   const offerings = document.querySelector('#service-offerings');
   offerings.setAttribute('aria-label', `${service.title} services`);
-  renderOfferings(offerings, service.capabilities.map(label => ({ label, description: service.title, url: service.url })));
+  const category = window.aiyaCatalog.serviceCategories.find(item => item.key === service.key);
+  renderOfferings(offerings, category.offerings.map(item => ({ label: item.title, description: item.description, url: item.url })));
   const overview = document.querySelector('#service-overview');
   overview.href = service.url;
   overview.textContent = `${service.title} overview \u2192\uFE0E`;

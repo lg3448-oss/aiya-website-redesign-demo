@@ -16,12 +16,15 @@ window.initializeAiyaMegaMenus = ({ pathPrefix = '' } = {}) => {
       })))
     },
     services: {
-      categoryOrder: window.aiyaCatalog.services.map(item => item.title),
-      items: window.aiyaCatalog.services.map(item => ({
-        ...item,
-        label: item.title,
-        description: item.summary
-      }))
+      categories: window.aiyaCatalog.serviceCategories,
+      categoryOrder: window.aiyaCatalog.serviceCategories.map(category => category.title),
+      items: window.aiyaCatalog.serviceCategories.flatMap(category => category.offerings.map((offering, index) => ({
+        ...offering,
+        menuKey: `${category.key}-${index + 1}`,
+        label: offering.title,
+        category: category.title,
+        description: offering.description
+      })))
     }
   };
   let openMenuType = null;
@@ -45,20 +48,11 @@ window.initializeAiyaMegaMenus = ({ pathPrefix = '' } = {}) => {
     const list = root?.querySelector('.mega-menu-list');
     if (!root || !list || !megaMenuData[type]) return;
     list.className = `mega-menu-groups mega-menu-groups-${type}`;
-    const menuItems = type === 'products' ? megaMenuData[type].items.map(item => ({
+    const menuItems = megaMenuData[type].items.map(item => ({
       ...item,
-      menuKey: item.key,
+      menuKey: item.menuKey || item.key,
       overview: false
-    })) : megaMenuData[type].items.flatMap(item => {
-      return item.capabilities.map((capability, index) => ({
-        ...item,
-        menuKey: `${item.key}-${index + 1}`,
-        category: type === 'services' ? item.title : item.navCategory,
-        label: capability,
-        description: item.title,
-        overview: false
-      }));
-    });
+    }));
     const groupedItems = menuItems.reduce((groups, item) => {
       (groups[item.category] ||= []).push(item);
       return groups;
@@ -105,12 +99,10 @@ window.initializeAiyaMegaMenus = ({ pathPrefix = '' } = {}) => {
 
         group.append(heading, itemList);
         if (category !== 'Hardware') {
-          const parent = type === 'products'
-            ? megaMenuData.products.categories.find(item => item.title === category)
-            : megaMenuData[type].items.find(item => item.title === category);
+          const parent = megaMenuData[type].categories.find(item => item.title === category);
           const overview = document.createElement('a');
           overview.className = 'mega-menu-overview';
-          overview.href = withPrefix(type === 'products' ? parent.overviewUrl : parent.url);
+          overview.href = withPrefix(parent.overviewUrl);
           overview.textContent = `${parent.title} overview \u2192\uFE0E`;
           group.append(overview);
         }

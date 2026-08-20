@@ -6,22 +6,30 @@ const window = {};
 
 eval(read('catalog.js'));
 eval(read('product-pages.js'));
+eval(read('service-pages.js'));
 
 const offerings = window.aiyaCatalog.productCategories.flatMap(category => category.offerings);
 const hardware = window.aiyaCatalog.products.filter(item => ['pad', 'robot', 'scan'].includes(item.key));
+const serviceOfferings = window.aiyaCatalog.serviceCategories.flatMap(category => category.offerings);
 const pages = [
   ...offerings.filter(item => item.key).map(item => ({ item, kind: 'offering' })),
   ...hardware.map(item => ({ item, kind: 'product' })),
-  ...window.aiyaCatalog.services.map(item => ({ item, kind: 'service' }))
+  ...window.aiyaCatalog.services.map(item => ({ item, kind: 'service' })),
+  ...window.aiyaCatalog.serviceCategories.flatMap(category => category.offerings).map(item => ({ item, kind: 'service-offering' }))
 ];
 
 if (offerings.length !== 44) throw new Error(`Expected 44 clickable products, observed ${offerings.length}`);
-if (pages.length !== 49) throw new Error(`Expected 49 product and service pages, observed ${pages.length}`);
+if (window.aiyaCatalog.serviceCategories.length !== 5) throw new Error('Expected five service categories');
+if (serviceOfferings.length !== 15) throw new Error(`Expected 15 individual services, observed ${serviceOfferings.length}`);
+if (new Set(serviceOfferings.map(item => item.key)).size !== serviceOfferings.length) throw new Error('Individual service keys must be unique');
+if (new Set(serviceOfferings.map(item => item.url)).size !== serviceOfferings.length) throw new Error('Individual service URLs must be unique');
+if (window.aiyaCatalog.serviceCategories.some(category => category.offerings.length !== 3)) throw new Error('Each service category must expose three individual services');
+if (pages.length !== 64) throw new Error(`Expected 64 product, service, and overview pages, observed ${pages.length}`);
 
 for (const { item, kind } of pages) {
   if (!fm.fileExistsAtPath(item.url)) throw new Error(`Missing detail page: ${item.url}`);
   const html = read(item.url);
-  const singular = kind === 'service' ? 'service' : 'product';
+  const singular = kind.startsWith('service') ? 'service' : 'product';
   const required = [
     `data-detail-kind="${kind}"`,
     `data-detail-key="${item.key}"`,
@@ -29,7 +37,8 @@ for (const { item, kind } of pages) {
     'FUTURE CHAT PREVIEW',
     '../assets/aiya-chat-demo.png',
     'mailto:info@aiya.us',
-    '../product-pages.js?v=20260820-5',
+    '../product-pages.js?v=20260820-6',
+    '../service-pages.js?v=20260820-6',
     `Demo content for ${singular} planning`
   ];
   for (const marker of required) {
@@ -42,10 +51,10 @@ for (const { item, kind } of pages) {
 }
 
 const index = read('index.html');
-if (!index.includes('product-pages.js?v=20260820-5')) throw new Error('Homepage does not load product page routing data');
+if (!index.includes('product-pages.js?v=20260820-6')) throw new Error('Homepage does not load product page routing data');
 if (!fm.fileExistsAtPath('assets/aiya-chat-demo.png')) throw new Error('Missing chat demo image');
 for (const visual of ['payments-commerce', 'billing-revenue', 'treasury-finance', 'platforms-marketplaces', 'trust-business-tools']) {
   if (!fm.fileExistsAtPath(`assets/product-visual-${visual}.jpg`)) throw new Error(`Missing category visual: ${visual}`);
 }
 
-JSON.stringify({ productPages: pages.length - window.aiyaCatalog.services.length, servicePages: window.aiyaCatalog.services.length, clickableProducts: offerings.length, status: 'PASS' });
+JSON.stringify({ productPages: pages.filter(page => ['offering', 'product'].includes(page.kind)).length, servicePages: window.aiyaCatalog.serviceCategories.flatMap(category => category.offerings).length, serviceOverviewPages: window.aiyaCatalog.services.length, status: 'PASS' });
