@@ -36,7 +36,7 @@ const render = ({ item, kind }) => {
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="${escapeHtml(item.summary)}">
   <title>${escapeHtml(item.title)} | AIYA Technology</title>
-  <link rel="stylesheet" href="../styles.css?v=20260820-7">
+  <link rel="stylesheet" href="../styles.css?v=20260820-8">
 </head>
 <body class="detail-page product-capability-page" data-detail-kind="${kind}" data-detail-key="${item.key}" data-asset-prefix="../">
   <div class="ambient-bg" aria-hidden="true"><i></i><i></i><i></i><b></b></div>
@@ -52,11 +52,11 @@ const render = ({ item, kind }) => {
     <section class="detail-cta reveal-section"><small>DEMO ${singular.toUpperCase()} CONTENT</small><h2>Explore how this capability could fit your business.</h2><a class="button primary" href="../index.html#${section}">View All ${plural} <span>→︎</span></a></section>
   </main>
   <footer class="detail-footer"><img src="../assets/logo.png" alt="AIYA Technology"><span>Demo content for ${singular.toLowerCase()} planning. Final capabilities subject to company approval.</span></footer>
-  <script src="../catalog.js?v=20260820-7"></script>
-  <script src="../product-pages.js?v=20260820-7"></script>
-  <script src="../service-pages.js?v=20260820-7"></script>
-  <script src="../mega-menu.js?v=20260820-7"></script>
-  <script src="../detail.js?v=20260820-7"></script>
+  <script src="../catalog.js?v=20260820-8"></script>
+  <script src="../product-pages.js?v=20260820-8"></script>
+  <script src="../service-pages.js?v=20260820-8"></script>
+  <script src="../mega-menu.js?v=20260820-8"></script>
+  <script src="../detail.js?v=20260820-8"></script>
 </body>
 </html>
 `;

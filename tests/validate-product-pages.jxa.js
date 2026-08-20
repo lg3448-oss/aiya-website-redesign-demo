@@ -24,6 +24,12 @@ if (serviceOfferings.length !== 15) throw new Error(`Expected 15 individual serv
 if (new Set(serviceOfferings.map(item => item.key)).size !== serviceOfferings.length) throw new Error('Individual service keys must be unique');
 if (new Set(serviceOfferings.map(item => item.url)).size !== serviceOfferings.length) throw new Error('Individual service URLs must be unique');
 if (window.aiyaCatalog.serviceCategories.some(category => category.offerings.length !== 3)) throw new Error('Each service category must expose three individual services');
+const serviceVisuals = window.aiyaCatalog.services.map(item => item.image);
+if (new Set(serviceVisuals).size !== 5) throw new Error('Each service category must use a distinct visual');
+if (serviceVisuals.includes('assets/aiya-chat-demo.png')) throw new Error('Chat preview image must not be reused as a service hero');
+for (const visual of serviceVisuals) {
+  if (!fm.fileExistsAtPath(visual)) throw new Error(`Missing service visual: ${visual}`);
+}
 if (pages.length !== 64) throw new Error(`Expected 64 product, service, and overview pages, observed ${pages.length}`);
 
 for (const { item, kind } of pages) {
@@ -37,8 +43,8 @@ for (const { item, kind } of pages) {
     'FUTURE CHAT PREVIEW',
     '../assets/aiya-chat-demo.png',
     'mailto:info@aiya.us',
-    '../product-pages.js?v=20260820-7',
-    '../service-pages.js?v=20260820-7',
+    '../product-pages.js?v=20260820-8',
+    '../service-pages.js?v=20260820-8',
     `Demo content for ${singular} planning`
   ];
   for (const marker of required) {
@@ -51,7 +57,7 @@ for (const { item, kind } of pages) {
 }
 
 const index = read('index.html');
-if (!index.includes('product-pages.js?v=20260820-7')) throw new Error('Homepage does not load product page routing data');
+if (!index.includes('product-pages.js?v=20260820-8')) throw new Error('Homepage does not load product page routing data');
 if (!fm.fileExistsAtPath('assets/aiya-chat-demo.png')) throw new Error('Missing chat demo image');
 for (const visual of ['payments-commerce', 'billing-revenue', 'treasury-finance', 'platforms-marketplaces', 'trust-business-tools']) {
   if (!fm.fileExistsAtPath(`assets/product-visual-${visual}.jpg`)) throw new Error(`Missing category visual: ${visual}`);
