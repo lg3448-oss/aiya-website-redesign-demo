@@ -139,35 +139,35 @@ window.aiyaCatalog = {
   ],
   services: [
     {
-      key: 'strategy', navCategory: 'Plan', title: 'Strategy & Experience', url: 'services/strategy-experience.html', code: 'S/E', kicker: 'PLAN BEFORE BUILDING',
+      key: 'strategy', navCategory: 'Plan', title: 'Strategy & Experience', url: 'services/strategy-experience.html', code: 'S/E', kicker: 'PLAN BEFORE BUILDING', image: 'assets/service-audit.png',
       summary: 'Define the right product, customer journey, and interface before development begins.',
       capabilities: ['Product Strategy', 'UX / UI Design', 'Conversion Optimization'],
       deliverables: ['Product requirements and roadmaps', 'User flows and interface systems', 'Prototypes and conversion reviews'],
       useCases: ['Validating a new digital product', 'Redesigning a difficult customer journey', 'Aligning business and engineering teams']
     },
     {
-      key: 'engineering', navCategory: 'Build', title: 'Software Engineering', url: 'services/software-engineering.html', code: 'DEV', kicker: 'PURPOSE-BUILT SOFTWARE',
+      key: 'engineering', navCategory: 'Build', title: 'Software Engineering', url: 'services/software-engineering.html', code: 'DEV', kicker: 'PURPOSE-BUILT SOFTWARE', image: 'assets/service-web.png',
       summary: 'Build reliable digital products for customers, teams, and complex operations.',
       capabilities: ['Web Development', 'Mobile App Development', 'Enterprise Platforms'],
       deliverables: ['Responsive web applications', 'Native and cross-platform mobile products', 'Internal and customer-facing enterprise systems'],
       useCases: ['Launching a customer application', 'Replacing manual operational tools', 'Modernizing legacy business software']
     },
     {
-      key: 'integration', navCategory: 'Build', title: 'Integration & Automation', url: 'services/integration-automation.html', code: 'API', kicker: 'CONNECTED OPERATIONS',
+      key: 'integration', navCategory: 'Build', title: 'Integration & Automation', url: 'services/integration-automation.html', code: 'API', kicker: 'CONNECTED OPERATIONS', image: 'assets/service-social.png',
       summary: 'Connect systems and automate repetitive work across the business.',
       capabilities: ['API & System Integration', 'Data Connectivity', 'AI & Workflow Automation'],
       deliverables: ['API design and implementation', 'Reliable system and data synchronization', 'AI-assisted and rule-based workflows'],
       useCases: ['Connecting disconnected platforms', 'Reducing repetitive back-office work', 'Making operational data actionable']
     },
     {
-      key: 'cloud', navCategory: 'Operate & Grow', title: 'Cloud & Operations', url: 'services/cloud-operations.html', code: 'CLD', kicker: 'READY TO SCALE',
+      key: 'cloud', navCategory: 'Operate & Grow', title: 'Cloud & Operations', url: 'services/cloud-operations.html', code: 'CLD', kicker: 'READY TO SCALE', image: 'assets/service-platform.png',
       summary: 'Modernize the foundation behind critical products and services.',
       capabilities: ['Cloud Architecture', 'Platform Modernization', 'Performance & Reliability'],
       deliverables: ['Cloud-ready application architecture', 'Legacy platform modernization', 'Performance, deployment, and observability improvements'],
       useCases: ['Preparing a product for growth', 'Reducing fragile infrastructure', 'Improving deployment and operational visibility']
     },
     {
-      key: 'growth', navCategory: 'Operate & Grow', title: 'Growth', url: 'services/growth.html', code: 'GRW', kicker: 'CONNECTED GROWTH',
+      key: 'growth', navCategory: 'Operate & Grow', title: 'Growth', url: 'services/growth.html', code: 'GRW', kicker: 'CONNECTED GROWTH', image: 'assets/service-marketing.png',
       summary: 'Bring brand, content, and campaigns together around measurable customer action.',
       capabilities: ['Digital Marketing', 'SEO & Content', 'Campaign Development'],
       deliverables: ['Channel and campaign strategy', 'Search-focused content systems', 'Creative production and campaign execution'],

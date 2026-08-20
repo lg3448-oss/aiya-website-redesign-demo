@@ -15,39 +15,49 @@ const offeringPages = window.aiyaCatalog.productCategories
 const hardwarePages = window.aiyaCatalog.products.filter(item => ['pad', 'robot', 'scan'].includes(item.key));
 const pages = [
   ...offeringPages.map(item => ({ item, kind: 'offering' })),
-  ...hardwarePages.map(item => ({ item, kind: 'product' }))
+  ...hardwarePages.map(item => ({ item, kind: 'product' })),
+  ...window.aiyaCatalog.services.map(item => ({ item, kind: 'service' }))
 ];
 
-const render = ({ item, kind }) => `<!doctype html>
+const render = ({ item, kind }) => {
+  const isService = kind === 'service';
+  const section = isService ? 'services' : 'products';
+  const singular = isService ? 'Service' : 'Product';
+  const plural = isService ? 'Services' : 'Products';
+  const relatedLabel = isService ? 'RELATED SERVICES' : 'CONNECTED PRODUCTS';
+  const relatedTitle = isService ? 'Bring the right team together' : 'Build a broader AIYA system';
+  const relatedCopy = isService ? 'Explore complementary expertise for planning, building, and growing your next initiative.' : 'Explore related capabilities from the same product family.';
+  return `<!doctype html>
 <html lang="en" class="detail-root">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="${escapeHtml(item.summary)}">
   <title>${escapeHtml(item.title)} | AIYA Technology</title>
-  <link rel="stylesheet" href="../styles.css?v=20260820-4">
+  <link rel="stylesheet" href="../styles.css?v=20260820-5">
 </head>
 <body class="detail-page product-capability-page" data-detail-kind="${kind}" data-detail-key="${item.key}" data-asset-prefix="../">
   <div class="ambient-bg" aria-hidden="true"><i></i><i></i><i></i><b></b></div>
   <header class="site-header"><a class="brand" href="../index.html#home"><img src="../assets/logo.png" alt="AIYA Technology"></a><button class="nav-toggle" type="button" aria-expanded="false" aria-controls="main-nav"><i></i><i></i><span class="sr-only">Open navigation</span></button><nav class="main-nav" id="main-nav" aria-label="Primary navigation"><a href="../index.html#home">Home</a><div class="nav-menu-item" data-mega-menu="products"><div class="mega-trigger-group"><a class="mega-trigger" data-mega-link="products" href="../index.html#products">Products</a><button class="mega-toggle" type="button" data-mega-trigger="products" aria-label="Toggle products menu" aria-haspopup="true" aria-expanded="false" aria-controls="mega-products"><span aria-hidden="true">⌄︎</span></button></div><div class="mega-menu" id="mega-products" data-menu-panel="products" hidden><div class="mega-menu-inner"><ul class="mega-menu-list" aria-label="Products menu"></ul><div class="mega-menu-detail" aria-live="polite"></div><a class="mega-menu-footer" href="../index.html#products">View All Products →︎</a></div></div></div><div class="nav-menu-item" data-mega-menu="services"><div class="mega-trigger-group"><a class="mega-trigger" data-mega-link="services" href="../index.html#services">Services</a><button class="mega-toggle" type="button" data-mega-trigger="services" aria-label="Toggle services menu" aria-haspopup="true" aria-expanded="false" aria-controls="mega-services"><span aria-hidden="true">⌄︎</span></button></div><div class="mega-menu" id="mega-services" data-menu-panel="services" hidden><div class="mega-menu-inner"><ul class="mega-menu-list" aria-label="Services menu"></ul><div class="mega-menu-detail" aria-live="polite"></div><a class="mega-menu-footer" href="../index.html#services">View All Services →︎</a></div></div></div><a href="../index.html#company">Company</a><a class="nav-contact" href="../index.html#contact">Contact</a></nav><a class="header-cta" href="../index.html#contact">Contact <span>↗︎</span></a></header>
   <main>
     <section class="detail-hero capability-hero reveal-section">
-      <div class="detail-hero-copy"><a class="detail-back" href="../index.html#products">←︎ All Products</a><small id="detail-kicker"></small><h1 id="detail-title"></h1><p id="detail-summary"></p><div class="capability-hero-actions"><a class="button primary" href="#capabilities">Explore Product <span>↓︎</span></a></div></div>
+      <div class="detail-hero-copy"><a class="detail-back" href="../index.html#${section}">←︎ All ${plural}</a><small id="detail-kicker"></small><h1 id="detail-title"></h1><p id="detail-summary"></p><div class="capability-hero-actions"><a class="button primary" href="#capabilities">Explore ${singular} <span>↓︎</span></a></div></div>
       <div class="product-hero-stage"><div class="product-hero-art"><img id="detail-image" alt=""><span class="product-orbit orbit-one" aria-hidden="true"></span><span class="product-orbit orbit-two" aria-hidden="true"></span><strong id="detail-code"></strong></div><aside class="detail-chat-panel" aria-label="AIYA contact preview"><img src="../assets/aiya-chat-demo.png" alt="Demo preview of a future AIYA customer support chat"><div><small>FUTURE CHAT PREVIEW</small><strong>Have a question?</strong><p>Tell our team what you are building.</p></div><a class="button primary" href="mailto:info@aiya.us?subject=${encodeURIComponent(item.title + ' conversation')}">Talk to Us <span>↗︎</span></a></aside></div>
     </section>
-    <section class="detail-section capability-showcase reveal-section" id="capabilities"><div class="detail-section-intro"><small>CORE CAPABILITIES</small><h2>Three ways this product moves work forward</h2><p>Focused capabilities that can be configured around the way your business operates.</p></div><ol class="detail-capability-grid" id="detail-capabilities"></ol></section>
+    <section class="detail-section capability-showcase reveal-section" id="capabilities"><div class="detail-section-intro"><small>CORE CAPABILITIES</small><h2>Three ways this ${singular.toLowerCase()} moves work forward</h2><p>Focused capabilities that can be configured around the way your business operates.</p></div><ol class="detail-capability-grid" id="detail-capabilities"></ol></section>
     <section class="detail-section detail-two-column product-story-grid reveal-section"><div class="story-panel story-panel-primary"><small>WHAT AIYA CAN BUILD</small><h2>Designed around your operation</h2><ol class="detail-list" id="detail-deliverables"></ol></div><div class="story-panel story-panel-accent"><small>BEST FOR</small><h2>Where it creates value</h2><ol class="detail-list" id="detail-use-cases"></ol></div></section>
-    <section class="detail-section related-product-section reveal-section"><div class="detail-section-intro"><small>CONNECTED PRODUCTS</small><h2>Build a broader AIYA system</h2><p>Explore related capabilities from the same product family.</p></div><div class="related-product-grid" id="detail-related-products"></div></section>
-    <section class="detail-cta reveal-section"><small>DEMO PRODUCT CONTENT</small><h2>Explore how this capability could fit your business.</h2><a class="button primary" href="../index.html#products">View All Products <span>→︎</span></a></section>
+    <section class="detail-section related-product-section reveal-section"><div class="detail-section-intro"><small>${relatedLabel}</small><h2>${relatedTitle}</h2><p>${relatedCopy}</p></div><div class="related-product-grid" id="detail-related-products"></div></section>
+    <section class="detail-cta reveal-section"><small>DEMO ${singular.toUpperCase()} CONTENT</small><h2>Explore how this capability could fit your business.</h2><a class="button primary" href="../index.html#${section}">View All ${plural} <span>→︎</span></a></section>
   </main>
-  <footer class="detail-footer"><img src="../assets/logo.png" alt="AIYA Technology"><span>Demo content for product planning. Final capabilities subject to company approval.</span></footer>
-  <script src="../catalog.js?v=20260820-4"></script>
-  <script src="../product-pages.js?v=20260820-4"></script>
-  <script src="../mega-menu.js?v=20260820-4"></script>
-  <script src="../detail.js?v=20260820-4"></script>
+  <footer class="detail-footer"><img src="../assets/logo.png" alt="AIYA Technology"><span>Demo content for ${singular.toLowerCase()} planning. Final capabilities subject to company approval.</span></footer>
+  <script src="../catalog.js?v=20260820-5"></script>
+  <script src="../product-pages.js?v=20260820-5"></script>
+  <script src="../mega-menu.js?v=20260820-5"></script>
+  <script src="../detail.js?v=20260820-5"></script>
 </body>
 </html>
 `;
+};
 
 pages.forEach(page => write(page.item.url, render(page)));
-`${pages.length} product pages generated`;
+`${pages.length} product and service pages generated`;

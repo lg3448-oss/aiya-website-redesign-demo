@@ -43,10 +43,10 @@ if (detailPage) {
 
   const relatedRoot = document.querySelector('#detail-related-products');
   if (relatedRoot) {
+    const isService = detailPage.dataset.detailKind === 'service';
     const category = window.aiyaCatalog.productCategories.find(candidate => candidate.title === item.navCategory);
-    const related = (category?.offerings || [])
-      .filter(candidate => candidate.title !== item.title)
-      .slice(0, 3);
+    const relatedPool = isService ? window.aiyaCatalog.services : (category?.offerings || []);
+    const related = relatedPool.filter(candidate => candidate.title !== item.title).slice(0, 3);
     const links = related.map(candidate => {
       const link = document.createElement('a');
       link.className = 'related-product-link';
