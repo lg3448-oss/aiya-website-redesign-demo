@@ -71,7 +71,6 @@ window.aiyaCatalog = {
         { title: 'Product Strategy', description: 'Roadmaps and launch planning', url: 'services/strategy-experience.html' },
         { title: 'Business Launch Systems', description: 'Digital foundations for new ventures', url: 'services/software-engineering.html' },
         { title: 'Sustainability Integrations', description: 'Connected climate and impact data', url: 'services/integration-automation.html' },
-        { title: 'AIYA Marketing', description: 'Growth strategy and campaigns', url: 'products/aiya-marketing.html' },
         { title: 'Growth Strategy', description: 'Connected acquisition planning', url: 'products/aiya-marketing.html' },
         { title: 'Content & Campaigns', description: 'Creative campaign execution', url: 'products/aiya-marketing.html' },
         { title: 'AIYA Gift Card', description: 'Repeat-customer gift experiences', url: 'products/aiya-marketing.html' }
