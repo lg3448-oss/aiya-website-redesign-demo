@@ -24,10 +24,10 @@ for (const { item, kind } of pages) {
     `data-detail-kind="${kind}"`,
     `data-detail-key="${item.key}"`,
     'class="detail-chat-panel"',
-    'DEMO PREVIEW',
+    'FUTURE CHAT PREVIEW',
     '../assets/aiya-chat-demo.png',
     'mailto:info@aiya.us',
-    '../product-pages.js?v=20260820-2',
+    '../product-pages.js?v=20260820-3',
     'Demo content for product planning'
   ];
   for (const marker of required) {
@@ -40,7 +40,10 @@ for (const { item, kind } of pages) {
 }
 
 const index = read('index.html');
-if (!index.includes('product-pages.js?v=20260820-2')) throw new Error('Homepage does not load product page routing data');
+if (!index.includes('product-pages.js?v=20260820-3')) throw new Error('Homepage does not load product page routing data');
 if (!fm.fileExistsAtPath('assets/aiya-chat-demo.png')) throw new Error('Missing chat demo image');
+for (const visual of ['payments-commerce', 'billing-revenue', 'treasury-finance', 'platforms-marketplaces', 'trust-business-tools']) {
+  if (!fm.fileExistsAtPath(`assets/product-visual-${visual}.jpg`)) throw new Error(`Missing category visual: ${visual}`);
+}
 
 JSON.stringify({ productPages: pages.length, clickableProducts: offerings.length, status: 'PASS' });
