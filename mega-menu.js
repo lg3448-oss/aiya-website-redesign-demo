@@ -25,6 +25,16 @@ window.initializeAiyaMegaMenus = ({ pathPrefix = '' } = {}) => {
         category: category.title,
         description: offering.description
       })))
+    },
+    solutions: {
+      categories: window.aiyaCatalog.solutionCategories,
+      categoryOrder: window.aiyaCatalog.solutionCategories.map(category => category.title),
+      items: window.aiyaCatalog.solutionCategories.flatMap(category => category.offerings.map((offering, index) => ({
+        ...offering,
+        menuKey: `${category.key}-${index + 1}`,
+        label: offering.title,
+        category: category.title
+      })))
     }
   };
   let openMenuType = null;

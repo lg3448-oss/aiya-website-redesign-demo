@@ -175,6 +175,41 @@ window.aiyaCatalog = {
       deliverables: ['Channel and campaign strategy', 'Search-focused content systems', 'Creative production and campaign execution'],
       useCases: ['Building qualified demand', 'Improving organic discovery', 'Coordinating a product or market launch']
     }
+  ],
+  solutionCategories: [
+    {
+      key: 'industries', title: 'By Industry', overviewUrl: 'solutions.html#industries',
+      offerings: [
+        { key: 'restaurant-food', title: 'Restaurant & Food', description: 'Restaurants, cafes, bakeries, bars, and food service.', url: 'solutions.html#industry-restaurant-food' },
+        { key: 'retail', title: 'Retail', description: 'Grocery, convenience, specialty, and consumer retail.', url: 'solutions.html#industry-retail' },
+        { key: 'beauty-wellness', title: 'Beauty & Wellness', description: 'Salons, spas, personal care, and wellness businesses.', url: 'solutions.html#industry-beauty-wellness' },
+        { key: 'healthcare-education', title: 'Healthcare & Education', description: 'Clinics, care providers, schools, and training organizations.', url: 'solutions.html#industry-healthcare-education' },
+        { key: 'hospitality', title: 'Hospitality', description: 'Hotels, resorts, event venues, and guest services.', url: 'solutions.html#industry-hospitality' },
+        { key: 'automotive', title: 'Automotive', description: 'Repair, car care, dealerships, and EV services.', url: 'solutions.html#industry-automotive' },
+        { key: 'home-services', title: 'Home Services', description: 'HVAC, plumbing, electrical, construction, and field services.', url: 'solutions.html#industry-home-services' },
+        { key: 'professional-services', title: 'Professional Services', description: 'Accounting, legal, insurance, real estate, and consulting.', url: 'solutions.html#industry-professional-services' },
+        { key: 'fitness', title: 'Fitness', description: 'Gyms, studios, trainers, and active wellness programs.', url: 'solutions.html#industry-fitness' },
+        { key: 'entertainment', title: 'Entertainment', description: 'Arcades, theaters, recreation, and experience businesses.', url: 'solutions.html#industry-entertainment' },
+        { key: 'manufacturing-wholesale', title: 'Manufacturing & Wholesale', description: 'Manufacturers, distributors, warehousing, and logistics.', url: 'solutions.html#industry-manufacturing-wholesale' },
+        { key: 'government-nonprofit', title: 'Government & Nonprofit', description: 'Agencies, nonprofits, associations, and public programs.', url: 'solutions.html#industry-government-nonprofit' }
+      ]
+    },
+    {
+      key: 'use-cases', title: 'By Use Case', overviewUrl: 'solutions.html#use-cases',
+      offerings: [
+        { key: 'agentic-commerce', title: 'Agentic Commerce', description: 'Connect AI-assisted discovery, decisions, and transactions.', url: 'solutions.html#use-case-agentic-commerce' },
+        { key: 'crypto', title: 'Crypto', description: 'Build digital asset payment and infrastructure experiences.', url: 'solutions.html#use-case-crypto' },
+        { key: 'ecommerce', title: 'Ecommerce', description: 'Create connected online buying and payment journeys.', url: 'solutions.html#use-case-ecommerce' },
+        { key: 'embedded-finance', title: 'Embedded Finance', description: 'Add financial capabilities inside digital products.', url: 'solutions.html#use-case-embedded-finance' },
+        { key: 'finance-automation', title: 'Finance Automation', description: 'Reduce repetitive financial and reporting workflows.', url: 'solutions.html#use-case-finance-automation' },
+        { key: 'global-businesses', title: 'Global Businesses', description: 'Support connected operations across markets and systems.', url: 'solutions.html#use-case-global-businesses' },
+        { key: 'in-app-payments', title: 'In-App Payments', description: 'Build seamless payments into mobile and web applications.', url: 'solutions.html#use-case-in-app-payments' },
+        { key: 'marketplaces', title: 'Marketplaces', description: 'Connect buyers, sellers, payments, and platform workflows.', url: 'solutions.html#use-case-marketplaces' },
+        { key: 'money-management', title: 'Money Management', description: 'Give teams clearer financial controls and visibility.', url: 'solutions.html#use-case-money-management' },
+        { key: 'platforms', title: 'Platforms', description: 'Build scalable systems that serve multiple users and businesses.', url: 'solutions.html#use-case-platforms' },
+        { key: 'saas', title: 'SaaS', description: 'Launch and operate subscription-based software experiences.', url: 'solutions.html#use-case-saas' }
+      ]
+    }
   ]
 };
 

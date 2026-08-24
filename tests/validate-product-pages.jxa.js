@@ -11,6 +11,8 @@ eval(read('service-pages.js'));
 const offerings = window.aiyaCatalog.productCategories.flatMap(category => category.offerings);
 const hardware = window.aiyaCatalog.products.filter(item => ['pad', 'robot', 'scan'].includes(item.key));
 const serviceOfferings = window.aiyaCatalog.serviceCategories.flatMap(category => category.offerings);
+const industrySolutions = window.aiyaCatalog.solutionCategories.find(category => category.key === 'industries')?.offerings || [];
+const useCaseSolutions = window.aiyaCatalog.solutionCategories.find(category => category.key === 'use-cases')?.offerings || [];
 const pages = [
   ...offerings.filter(item => item.key).map(item => ({ item, kind: 'offering' })),
   ...hardware.map(item => ({ item, kind: 'product' })),
@@ -26,6 +28,13 @@ if (new Set(serviceOfferings.map(item => item.url)).size !== serviceOfferings.le
 if (window.aiyaCatalog.serviceCategories.map(category => category.offerings.length).join(',') !== '4,3,3') throw new Error('Expected a 4, 3, 3 service distribution');
 if (!serviceOfferings.some(item => item.key === 'crm-systems')) throw new Error('CRM Systems service is missing');
 if (window.aiyaCatalog.serviceCategories.some(category => ['Strategy & Experience', 'Cloud & Operations'].includes(category.title))) throw new Error('Merged legacy categories remain in active navigation');
+if (industrySolutions.length !== 12) throw new Error(`Expected 12 industries, observed ${industrySolutions.length}`);
+if (useCaseSolutions.length !== 11) throw new Error(`Expected 11 use cases, observed ${useCaseSolutions.length}`);
+if (!industrySolutions.some(item => item.key === 'manufacturing-wholesale')) throw new Error('Manufacturing & Wholesale industry is missing');
+if (!industrySolutions.some(item => item.key === 'healthcare-education')) throw new Error('Healthcare & Education industry is missing');
+if (!useCaseSolutions.some(item => item.key === 'crypto')) throw new Error('Crypto use case is missing');
+const solutionKeys = [...industrySolutions, ...useCaseSolutions].map(item => item.key);
+if (new Set(solutionKeys).size !== solutionKeys.length) throw new Error('Solution keys must be unique');
 const serviceVisuals = window.aiyaCatalog.services.map(item => item.image);
 if (new Set(serviceVisuals).size !== 5) throw new Error('Each service category must use a distinct visual');
 if (serviceVisuals.includes('assets/aiya-chat-demo.png')) throw new Error('Chat preview image must not be reused as a service hero');
@@ -45,8 +54,8 @@ for (const { item, kind } of pages) {
     'FUTURE CHAT PREVIEW',
     '../assets/aiya-chat-demo.png',
     'mailto:info@aiya.us',
-    '../product-pages.js?v=20260824-2',
-    '../service-pages.js?v=20260824-2',
+    '../product-pages.js?v=20260824-3',
+    '../service-pages.js?v=20260824-3',
     `Demo content for ${singular} planning`
   ];
   for (const marker of required) {
@@ -62,8 +71,14 @@ for (const { item, kind } of pages) {
 }
 
 const index = read('index.html');
-if (!index.includes('product-pages.js?v=20260824-2')) throw new Error('Homepage does not load product page routing data');
+if (!index.includes('product-pages.js?v=20260824-3')) throw new Error('Homepage does not load product page routing data');
 if (!fm.fileExistsAtPath('assets/aiya-chat-demo.png')) throw new Error('Missing chat demo image');
+if (!index.includes('data-mega-menu="solutions"')) throw new Error('Homepage is missing the Solutions navigation');
+if (!fm.fileExistsAtPath('solutions.html') || !fm.fileExistsAtPath('solutions.js')) throw new Error('Solutions directory files are missing');
+const solutionsPage = read('solutions.html');
+for (const marker of ['id="industries"', 'id="use-cases"', 'solutions.js?v=20260824-3', 'Demo solution groupings']) {
+  if (!solutionsPage.includes(marker)) throw new Error(`Missing ${marker} in solutions.html`);
+}
 for (const visual of ['payments-commerce', 'billing-revenue', 'treasury-finance', 'platforms-marketplaces', 'trust-business-tools']) {
   if (!fm.fileExistsAtPath(`assets/product-visual-${visual}.jpg`)) throw new Error(`Missing category visual: ${visual}`);
 }
