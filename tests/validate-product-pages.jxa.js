@@ -22,11 +22,17 @@ const pages = [
 
 if (offerings.length !== 44) throw new Error(`Expected 44 clickable products, observed ${offerings.length}`);
 if (window.aiyaCatalog.serviceCategories.length !== 3) throw new Error('Expected three active service categories');
-if (serviceOfferings.length !== 10) throw new Error(`Expected 10 distinct individual services, observed ${serviceOfferings.length}`);
+if (serviceOfferings.length !== 12) throw new Error(`Expected 12 distinct individual services, observed ${serviceOfferings.length}`);
 if (new Set(serviceOfferings.map(item => item.key)).size !== serviceOfferings.length) throw new Error('Individual service keys must be unique');
 if (new Set(serviceOfferings.map(item => item.url)).size !== serviceOfferings.length) throw new Error('Individual service URLs must be unique');
-if (window.aiyaCatalog.serviceCategories.map(category => category.offerings.length).join(',') !== '4,3,3') throw new Error('Expected a 4, 3, 3 service distribution');
+if (window.aiyaCatalog.serviceCategories.map(category => category.offerings.length).join(',') !== '6,3,3') throw new Error('Expected a 6, 3, 3 service distribution');
 if (!serviceOfferings.some(item => item.key === 'crm-systems')) throw new Error('CRM Systems service is missing');
+if (!serviceOfferings.some(item => item.key === 'custom-software-development')) throw new Error('Custom Software Development service is missing');
+if (!serviceOfferings.some(item => item.key === 'ecommerce-platform-development')) throw new Error('Ecommerce Platform Development service is missing');
+if (!serviceOfferings.some(item => item.title === 'API, Data & Payment Integration')) throw new Error('Payment Gateway Integration coverage is missing');
+for (const duplicateTitle of ['Android Development', 'iOS Development', 'Mobile App Development', 'Software Customization']) {
+  if (serviceOfferings.some(item => item.title === duplicateTitle)) throw new Error(`Redundant service remains active: ${duplicateTitle}`);
+}
 if (window.aiyaCatalog.serviceCategories.some(category => ['Strategy & Experience', 'Cloud & Operations'].includes(category.title))) throw new Error('Merged legacy categories remain in active navigation');
 if (industrySolutions.length !== 10) throw new Error(`Expected 10 distinct industries, observed ${industrySolutions.length}`);
 if (useCaseSolutions.length !== 7) throw new Error(`Expected 7 distinct use cases, observed ${useCaseSolutions.length}`);
@@ -56,7 +62,7 @@ if (serviceVisuals.includes('assets/aiya-chat-demo.png')) throw new Error('Chat 
 for (const visual of serviceVisuals) {
   if (!fm.fileExistsAtPath(visual)) throw new Error(`Missing service visual: ${visual}`);
 }
-if (pages.length !== 59) throw new Error(`Expected 59 product, service, and overview pages, observed ${pages.length}`);
+if (pages.length !== 61) throw new Error(`Expected 61 product, service, and overview pages, observed ${pages.length}`);
 
 for (const { item, kind } of pages) {
   if (!fm.fileExistsAtPath(item.url)) throw new Error(`Missing detail page: ${item.url}`);
@@ -69,8 +75,8 @@ for (const { item, kind } of pages) {
     'FUTURE CHAT PREVIEW',
     '../assets/aiya-chat-demo.png',
     'mailto:info@aiya.us',
-    '../product-pages.js?v=20260824-5',
-    '../service-pages.js?v=20260824-5',
+    '../product-pages.js?v=20260824-6',
+    '../service-pages.js?v=20260824-6',
     `Demo content for ${singular} planning`
   ];
   for (const marker of required) {
@@ -78,7 +84,7 @@ for (const { item, kind } of pages) {
   }
   if (/Stripe|stripe|—|–/.test(html)) throw new Error(`Forbidden public copy in ${item.url}`);
   const validCapabilityCount = kind === 'service'
-    ? Array.isArray(item.capabilities) && item.capabilities.length >= 3 && item.capabilities.length <= 4
+    ? Array.isArray(item.capabilities) && item.capabilities.length >= 3 && item.capabilities.length <= 6
     : Array.isArray(item.capabilities) && item.capabilities.length === 3;
   if (!validCapabilityCount) throw new Error(`Invalid capabilities for ${item.title}`);
   if (!Array.isArray(item.deliverables) || item.deliverables.length !== 3) throw new Error(`Invalid deliverables for ${item.title}`);
@@ -86,7 +92,7 @@ for (const { item, kind } of pages) {
 }
 
 const index = read('index.html');
-if (!index.includes('product-pages.js?v=20260824-5')) throw new Error('Homepage does not load product page routing data');
+if (!index.includes('product-pages.js?v=20260824-6')) throw new Error('Homepage does not load product page routing data');
 if (!fm.fileExistsAtPath('assets/aiya-chat-demo.png')) throw new Error('Missing chat demo image');
 if (!index.includes('data-mega-menu="solutions"')) throw new Error('Homepage is missing the Solutions navigation');
 if (!index.includes('class="header-signin"') || !index.includes('class="nav-signin"')) throw new Error('Homepage is missing responsive Sign in controls');
@@ -95,7 +101,7 @@ const signinPage = read('signin.html');
 if (!signinPage.includes('No credentials are collected or submitted.')) throw new Error('Sign in demo disclosure is missing');
 if (!fm.fileExistsAtPath('solutions.html') || !fm.fileExistsAtPath('solutions.js')) throw new Error('Solutions directory files are missing');
 const solutionsPage = read('solutions.html');
-for (const marker of ['id="industries"', 'id="use-cases"', 'solutions.js?v=20260824-5', 'Demo solution groupings']) {
+for (const marker of ['id="industries"', 'id="use-cases"', 'solutions.js?v=20260824-6', 'Demo solution groupings']) {
   if (!solutionsPage.includes(marker)) throw new Error(`Missing ${marker} in solutions.html`);
 }
 for (const visual of ['payments-commerce', 'billing-revenue', 'treasury-finance', 'platforms-marketplaces', 'trust-business-tools']) {

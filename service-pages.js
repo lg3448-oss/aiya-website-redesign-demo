@@ -6,11 +6,23 @@
       deliverables: ['Focused product roadmap', 'Responsive experience system', 'Testable user flows and prototypes'],
       useCases: ['Defining a new digital product', 'Simplifying a difficult workflow', 'Aligning business, design, and engineering']
     },
+    'Custom Software Development': {
+      key: 'custom-software-development', summary: 'Build or customize software around the workflows, customers, and systems that make the business distinct.',
+      capabilities: ['Custom Application Engineering', 'Existing System Customization', 'Business Workflow Development'],
+      deliverables: ['Purpose-built software application', 'Configured and extended existing platform', 'Maintainable business workflow components'],
+      useCases: ['Replacing rigid off-the-shelf tools', 'Extending an existing business platform', 'Digitizing a specialized operational process']
+    },
     'Web & Mobile Development': {
       key: 'web-mobile-development', summary: 'Build connected web and mobile applications around the same product and business requirements.',
       capabilities: ['Web Application Engineering', 'Mobile Product Engineering', 'Shared Backend Services'],
       deliverables: ['Responsive web application', 'Mobile-ready product experience', 'Maintainable connected services'],
       useCases: ['Launching across web and mobile', 'Extending an existing platform', 'Replacing disconnected customer tools']
+    },
+    'Ecommerce Platform Development': {
+      key: 'ecommerce-platform-development', summary: 'Build and connect ecommerce platforms for catalog, checkout, payment, customer, and fulfillment workflows.',
+      capabilities: ['Storefront Engineering', 'Commerce System Integration', 'Checkout and Fulfillment Workflows'],
+      deliverables: ['Responsive ecommerce experience', 'Connected commerce platform services', 'Integrated payment and order flows'],
+      useCases: ['Launching a new online sales channel', 'Customizing an existing ecommerce platform', 'Connecting commerce with internal operations']
     },
     'Enterprise & Cloud Platforms': {
       key: 'enterprise-cloud-platforms', summary: 'Modernize and scale the platforms that support customers, teams, and critical operations.',
@@ -72,11 +84,11 @@
       deliverables: ['Prioritized automation plan', 'Connected automated workflows', 'Review and exception handling'],
       useCases: ['Reducing repetitive team tasks', 'Routing operational requests', 'Accelerating document and data work']
     },
-    'API & Data Integration': {
+    'API, Data & Payment Integration': {
       key: 'api-data-integration', summary: 'Connect applications and keep essential business data consistent through reliable integration flows.',
-      capabilities: ['API Architecture', 'Data Synchronization', 'Integration Monitoring'],
-      deliverables: ['Documented integration design', 'Connected application workflows', 'Validation and error visibility'],
-      useCases: ['Connecting legacy and modern systems', 'Reducing duplicate data entry', 'Sharing reliable data across teams']
+      capabilities: ['API Architecture', 'Data Synchronization', 'Payment Gateway Integration'],
+      deliverables: ['Documented integration design', 'Connected application and payment workflows', 'Validation, monitoring, and error visibility'],
+      useCases: ['Connecting legacy and modern systems', 'Adding a payment gateway to a product', 'Sharing reliable data across teams']
     },
     'CRM Systems': {
       key: 'crm-systems', summary: 'Configure connected CRM systems that give sales, service, and operations teams a shared customer view.',
