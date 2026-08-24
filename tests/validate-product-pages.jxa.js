@@ -54,8 +54,8 @@ for (const { item, kind } of pages) {
     'FUTURE CHAT PREVIEW',
     '../assets/aiya-chat-demo.png',
     'mailto:info@aiya.us',
-    '../product-pages.js?v=20260824-3',
-    '../service-pages.js?v=20260824-3',
+    '../product-pages.js?v=20260824-4',
+    '../service-pages.js?v=20260824-4',
     `Demo content for ${singular} planning`
   ];
   for (const marker of required) {
@@ -71,12 +71,16 @@ for (const { item, kind } of pages) {
 }
 
 const index = read('index.html');
-if (!index.includes('product-pages.js?v=20260824-3')) throw new Error('Homepage does not load product page routing data');
+if (!index.includes('product-pages.js?v=20260824-4')) throw new Error('Homepage does not load product page routing data');
 if (!fm.fileExistsAtPath('assets/aiya-chat-demo.png')) throw new Error('Missing chat demo image');
 if (!index.includes('data-mega-menu="solutions"')) throw new Error('Homepage is missing the Solutions navigation');
+if (!index.includes('class="header-signin"') || !index.includes('class="nav-signin"')) throw new Error('Homepage is missing responsive Sign in controls');
+if (!fm.fileExistsAtPath('signin.html')) throw new Error('Sign in demo page is missing');
+const signinPage = read('signin.html');
+if (!signinPage.includes('No credentials are collected or submitted.')) throw new Error('Sign in demo disclosure is missing');
 if (!fm.fileExistsAtPath('solutions.html') || !fm.fileExistsAtPath('solutions.js')) throw new Error('Solutions directory files are missing');
 const solutionsPage = read('solutions.html');
-for (const marker of ['id="industries"', 'id="use-cases"', 'solutions.js?v=20260824-3', 'Demo solution groupings']) {
+for (const marker of ['id="industries"', 'id="use-cases"', 'solutions.js?v=20260824-4', 'Demo solution groupings']) {
   if (!solutionsPage.includes(marker)) throw new Error(`Missing ${marker} in solutions.html`);
 }
 for (const visual of ['payments-commerce', 'billing-revenue', 'treasury-finance', 'platforms-marketplaces', 'trust-business-tools']) {
