@@ -28,13 +28,28 @@ if (new Set(serviceOfferings.map(item => item.url)).size !== serviceOfferings.le
 if (window.aiyaCatalog.serviceCategories.map(category => category.offerings.length).join(',') !== '4,3,3') throw new Error('Expected a 4, 3, 3 service distribution');
 if (!serviceOfferings.some(item => item.key === 'crm-systems')) throw new Error('CRM Systems service is missing');
 if (window.aiyaCatalog.serviceCategories.some(category => ['Strategy & Experience', 'Cloud & Operations'].includes(category.title))) throw new Error('Merged legacy categories remain in active navigation');
-if (industrySolutions.length !== 12) throw new Error(`Expected 12 industries, observed ${industrySolutions.length}`);
-if (useCaseSolutions.length !== 11) throw new Error(`Expected 11 use cases, observed ${useCaseSolutions.length}`);
+if (industrySolutions.length !== 10) throw new Error(`Expected 10 distinct industries, observed ${industrySolutions.length}`);
+if (useCaseSolutions.length !== 7) throw new Error(`Expected 7 distinct use cases, observed ${useCaseSolutions.length}`);
 if (!industrySolutions.some(item => item.key === 'manufacturing-wholesale')) throw new Error('Manufacturing & Wholesale industry is missing');
 if (!industrySolutions.some(item => item.key === 'healthcare-education')) throw new Error('Healthcare & Education industry is missing');
 if (!useCaseSolutions.some(item => item.key === 'crypto')) throw new Error('Crypto use case is missing');
 const solutionKeys = [...industrySolutions, ...useCaseSolutions].map(item => item.key);
 if (new Set(solutionKeys).size !== solutionKeys.length) throw new Error('Solution keys must be unique');
+const solutionUrls = [...industrySolutions, ...useCaseSolutions].map(item => item.url);
+if (new Set(solutionUrls).size !== solutionUrls.length) throw new Error('Solution URLs must be unique');
+for (const solution of [...industrySolutions, ...useCaseSolutions]) {
+  if (!fm.fileExistsAtPath(solution.url)) throw new Error(`Missing solution page: ${solution.url}`);
+  const html = read(solution.url);
+  for (const marker of [`data-solution-key="${solution.key}"`, solution.headline, 'CONNECTED AIYA PRODUCTS &amp; SERVICES', 'Demo solution content']) {
+    if (!html.includes(marker)) throw new Error(`Missing ${marker} in ${solution.url}`);
+  }
+  if (!Array.isArray(solution.capabilities) || solution.capabilities.length !== 3) throw new Error(`Invalid capabilities for ${solution.title}`);
+  if (!Array.isArray(solution.outcomes) || solution.outcomes.length !== 3) throw new Error(`Invalid outcomes for ${solution.title}`);
+  if (!Array.isArray(solution.connected) || solution.connected.length !== 3) throw new Error(`Invalid connected capabilities for ${solution.title}`);
+  for (const connected of solution.connected) {
+    if (!fm.fileExistsAtPath(connected.url)) throw new Error(`Broken related link from ${solution.title}: ${connected.url}`);
+  }
+}
 const serviceVisuals = window.aiyaCatalog.services.map(item => item.image);
 if (new Set(serviceVisuals).size !== 5) throw new Error('Each service category must use a distinct visual');
 if (serviceVisuals.includes('assets/aiya-chat-demo.png')) throw new Error('Chat preview image must not be reused as a service hero');
@@ -54,8 +69,8 @@ for (const { item, kind } of pages) {
     'FUTURE CHAT PREVIEW',
     '../assets/aiya-chat-demo.png',
     'mailto:info@aiya.us',
-    '../product-pages.js?v=20260824-4',
-    '../service-pages.js?v=20260824-4',
+    '../product-pages.js?v=20260824-5',
+    '../service-pages.js?v=20260824-5',
     `Demo content for ${singular} planning`
   ];
   for (const marker of required) {
@@ -71,7 +86,7 @@ for (const { item, kind } of pages) {
 }
 
 const index = read('index.html');
-if (!index.includes('product-pages.js?v=20260824-4')) throw new Error('Homepage does not load product page routing data');
+if (!index.includes('product-pages.js?v=20260824-5')) throw new Error('Homepage does not load product page routing data');
 if (!fm.fileExistsAtPath('assets/aiya-chat-demo.png')) throw new Error('Missing chat demo image');
 if (!index.includes('data-mega-menu="solutions"')) throw new Error('Homepage is missing the Solutions navigation');
 if (!index.includes('class="header-signin"') || !index.includes('class="nav-signin"')) throw new Error('Homepage is missing responsive Sign in controls');
@@ -80,7 +95,7 @@ const signinPage = read('signin.html');
 if (!signinPage.includes('No credentials are collected or submitted.')) throw new Error('Sign in demo disclosure is missing');
 if (!fm.fileExistsAtPath('solutions.html') || !fm.fileExistsAtPath('solutions.js')) throw new Error('Solutions directory files are missing');
 const solutionsPage = read('solutions.html');
-for (const marker of ['id="industries"', 'id="use-cases"', 'solutions.js?v=20260824-4', 'Demo solution groupings']) {
+for (const marker of ['id="industries"', 'id="use-cases"', 'solutions.js?v=20260824-5', 'Demo solution groupings']) {
   if (!solutionsPage.includes(marker)) throw new Error(`Missing ${marker} in solutions.html`);
 }
 for (const visual of ['payments-commerce', 'billing-revenue', 'treasury-finance', 'platforms-marketplaces', 'trust-business-tools']) {
