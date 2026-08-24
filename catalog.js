@@ -140,6 +140,7 @@ window.aiyaCatalog = {
   services: [
     {
       key: 'strategy', navCategory: 'Plan', title: 'Strategy & Experience', url: 'services/strategy-experience.html', code: 'S/E', kicker: 'PLAN BEFORE BUILDING', image: 'assets/service-visual-strategy-experience.jpg',
+      legacy: true,
       summary: 'Define the right product, customer journey, and interface before development begins.',
       capabilities: ['Product Strategy', 'UX / UI Design', 'Conversion Optimization'],
       deliverables: ['Product requirements and roadmaps', 'User flows and interface systems', 'Prototypes and conversion reviews'],
@@ -147,20 +148,21 @@ window.aiyaCatalog = {
     },
     {
       key: 'engineering', navCategory: 'Build', title: 'Software Engineering', url: 'services/software-engineering.html', code: 'DEV', kicker: 'PURPOSE-BUILT SOFTWARE', image: 'assets/service-visual-software-engineering.jpg',
-      summary: 'Build reliable digital products for customers, teams, and complex operations.',
-      capabilities: ['Web Development', 'Mobile App Development', 'Enterprise Platforms'],
-      deliverables: ['Responsive web applications', 'Native and cross-platform mobile products', 'Internal and customer-facing enterprise systems'],
-      useCases: ['Launching a customer application', 'Replacing manual operational tools', 'Modernizing legacy business software']
+      summary: 'Plan, design, build, and strengthen reliable digital products on one engineering foundation.',
+      capabilities: ['Product & Experience Design', 'Web & Mobile Development', 'Enterprise & Cloud Platforms', 'Performance & Reliability'],
+      deliverables: ['Product strategy and experience systems', 'Responsive web and mobile applications', 'Scalable cloud and enterprise platforms'],
+      useCases: ['Launching a new digital product', 'Modernizing customer and internal systems', 'Improving platform scale and reliability']
     },
     {
       key: 'integration', navCategory: 'Build', title: 'Integration & Automation', url: 'services/integration-automation.html', code: 'API', kicker: 'CONNECTED OPERATIONS', image: 'assets/service-visual-integration-automation.jpg',
       summary: 'Connect systems and automate repetitive work across the business.',
-      capabilities: ['API & System Integration', 'Data Connectivity', 'AI & Workflow Automation'],
-      deliverables: ['API design and implementation', 'Reliable system and data synchronization', 'AI-assisted and rule-based workflows'],
-      useCases: ['Connecting disconnected platforms', 'Reducing repetitive back-office work', 'Making operational data actionable']
+      capabilities: ['API & Data Integration', 'AI & Workflow Automation', 'CRM Systems'],
+      deliverables: ['Connected APIs and synchronized business data', 'AI-assisted and rule-based workflows', 'Configured customer relationship platforms'],
+      useCases: ['Connecting disconnected platforms', 'Reducing repetitive back-office work', 'Organizing sales and customer operations']
     },
     {
       key: 'cloud', navCategory: 'Operate & Grow', title: 'Cloud & Operations', url: 'services/cloud-operations.html', code: 'CLD', kicker: 'READY TO SCALE', image: 'assets/service-visual-cloud-operations.jpg',
+      legacy: true,
       summary: 'Modernize the foundation behind critical products and services.',
       capabilities: ['Cloud Architecture', 'Platform Modernization', 'Performance & Reliability'],
       deliverables: ['Cloud-ready application architecture', 'Legacy platform modernization', 'Performance, deployment, and observability improvements'],

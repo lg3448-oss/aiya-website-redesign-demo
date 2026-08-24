@@ -19,18 +19,20 @@ const pages = [
 ];
 
 if (offerings.length !== 44) throw new Error(`Expected 44 clickable products, observed ${offerings.length}`);
-if (window.aiyaCatalog.serviceCategories.length !== 5) throw new Error('Expected five service categories');
-if (serviceOfferings.length !== 15) throw new Error(`Expected 15 individual services, observed ${serviceOfferings.length}`);
+if (window.aiyaCatalog.serviceCategories.length !== 3) throw new Error('Expected three active service categories');
+if (serviceOfferings.length !== 10) throw new Error(`Expected 10 distinct individual services, observed ${serviceOfferings.length}`);
 if (new Set(serviceOfferings.map(item => item.key)).size !== serviceOfferings.length) throw new Error('Individual service keys must be unique');
 if (new Set(serviceOfferings.map(item => item.url)).size !== serviceOfferings.length) throw new Error('Individual service URLs must be unique');
-if (window.aiyaCatalog.serviceCategories.some(category => category.offerings.length !== 3)) throw new Error('Each service category must expose three individual services');
+if (window.aiyaCatalog.serviceCategories.map(category => category.offerings.length).join(',') !== '4,3,3') throw new Error('Expected a 4, 3, 3 service distribution');
+if (!serviceOfferings.some(item => item.key === 'crm-systems')) throw new Error('CRM Systems service is missing');
+if (window.aiyaCatalog.serviceCategories.some(category => ['Strategy & Experience', 'Cloud & Operations'].includes(category.title))) throw new Error('Merged legacy categories remain in active navigation');
 const serviceVisuals = window.aiyaCatalog.services.map(item => item.image);
 if (new Set(serviceVisuals).size !== 5) throw new Error('Each service category must use a distinct visual');
 if (serviceVisuals.includes('assets/aiya-chat-demo.png')) throw new Error('Chat preview image must not be reused as a service hero');
 for (const visual of serviceVisuals) {
   if (!fm.fileExistsAtPath(visual)) throw new Error(`Missing service visual: ${visual}`);
 }
-if (pages.length !== 64) throw new Error(`Expected 64 product, service, and overview pages, observed ${pages.length}`);
+if (pages.length !== 59) throw new Error(`Expected 59 product, service, and overview pages, observed ${pages.length}`);
 
 for (const { item, kind } of pages) {
   if (!fm.fileExistsAtPath(item.url)) throw new Error(`Missing detail page: ${item.url}`);
@@ -43,21 +45,24 @@ for (const { item, kind } of pages) {
     'FUTURE CHAT PREVIEW',
     '../assets/aiya-chat-demo.png',
     'mailto:info@aiya.us',
-    '../product-pages.js?v=20260822-1',
-    '../service-pages.js?v=20260822-1',
+    '../product-pages.js?v=20260824-2',
+    '../service-pages.js?v=20260824-2',
     `Demo content for ${singular} planning`
   ];
   for (const marker of required) {
     if (!html.includes(marker)) throw new Error(`Missing ${marker} in ${item.url}`);
   }
   if (/Stripe|stripe|—|–/.test(html)) throw new Error(`Forbidden public copy in ${item.url}`);
-  if (!Array.isArray(item.capabilities) || item.capabilities.length !== 3) throw new Error(`Invalid capabilities for ${item.title}`);
+  const validCapabilityCount = kind === 'service'
+    ? Array.isArray(item.capabilities) && item.capabilities.length >= 3 && item.capabilities.length <= 4
+    : Array.isArray(item.capabilities) && item.capabilities.length === 3;
+  if (!validCapabilityCount) throw new Error(`Invalid capabilities for ${item.title}`);
   if (!Array.isArray(item.deliverables) || item.deliverables.length !== 3) throw new Error(`Invalid deliverables for ${item.title}`);
   if (!Array.isArray(item.useCases) || item.useCases.length !== 3) throw new Error(`Invalid use cases for ${item.title}`);
 }
 
 const index = read('index.html');
-if (!index.includes('product-pages.js?v=20260822-1')) throw new Error('Homepage does not load product page routing data');
+if (!index.includes('product-pages.js?v=20260824-2')) throw new Error('Homepage does not load product page routing data');
 if (!fm.fileExistsAtPath('assets/aiya-chat-demo.png')) throw new Error('Missing chat demo image');
 for (const visual of ['payments-commerce', 'billing-revenue', 'treasury-finance', 'platforms-marketplaces', 'trust-business-tools']) {
   if (!fm.fileExistsAtPath(`assets/product-visual-${visual}.jpg`)) throw new Error(`Missing category visual: ${visual}`);

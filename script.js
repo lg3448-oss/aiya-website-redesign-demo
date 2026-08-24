@@ -103,7 +103,7 @@ document.querySelectorAll('.service-selector [data-service]').forEach(button => 
 });
 
 activateProductCategory('payments-commerce');
-activateService('strategy');
+activateService('engineering');
 
 const sections = [...document.querySelectorAll('.scene')];
 const navLinks = [...document.querySelectorAll('.main-nav > a, [data-mega-link]')];

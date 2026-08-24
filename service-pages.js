@@ -1,5 +1,23 @@
 (() => {
   const profiles = {
+    'Product & Experience Design': {
+      key: 'product-experience-design', summary: 'Shape product direction and design clear experiences before engineering moves into production.',
+      capabilities: ['Product Definition', 'UX and Interface Design', 'Experience Validation'],
+      deliverables: ['Focused product roadmap', 'Responsive experience system', 'Testable user flows and prototypes'],
+      useCases: ['Defining a new digital product', 'Simplifying a difficult workflow', 'Aligning business, design, and engineering']
+    },
+    'Web & Mobile Development': {
+      key: 'web-mobile-development', summary: 'Build connected web and mobile applications around the same product and business requirements.',
+      capabilities: ['Web Application Engineering', 'Mobile Product Engineering', 'Shared Backend Services'],
+      deliverables: ['Responsive web application', 'Mobile-ready product experience', 'Maintainable connected services'],
+      useCases: ['Launching across web and mobile', 'Extending an existing platform', 'Replacing disconnected customer tools']
+    },
+    'Enterprise & Cloud Platforms': {
+      key: 'enterprise-cloud-platforms', summary: 'Modernize and scale the platforms that support customers, teams, and critical operations.',
+      capabilities: ['Enterprise Architecture', 'Cloud Platform Engineering', 'Controlled Modernization'],
+      deliverables: ['Scalable platform foundation', 'Cloud-ready application environments', 'Phased modernization roadmap'],
+      useCases: ['Replacing legacy systems', 'Preparing a platform for growth', 'Unifying complex operational workflows']
+    },
     'Product Strategy': {
       key: 'product-strategy', summary: 'Turn business goals and customer needs into a focused product direction.',
       capabilities: ['Opportunity Definition', 'Product Roadmapping', 'Launch Planning'],
@@ -54,6 +72,18 @@
       deliverables: ['Prioritized automation plan', 'Connected automated workflows', 'Review and exception handling'],
       useCases: ['Reducing repetitive team tasks', 'Routing operational requests', 'Accelerating document and data work']
     },
+    'API & Data Integration': {
+      key: 'api-data-integration', summary: 'Connect applications and keep essential business data consistent through reliable integration flows.',
+      capabilities: ['API Architecture', 'Data Synchronization', 'Integration Monitoring'],
+      deliverables: ['Documented integration design', 'Connected application workflows', 'Validation and error visibility'],
+      useCases: ['Connecting legacy and modern systems', 'Reducing duplicate data entry', 'Sharing reliable data across teams']
+    },
+    'CRM Systems': {
+      key: 'crm-systems', summary: 'Configure connected CRM systems that give sales, service, and operations teams a shared customer view.',
+      capabilities: ['CRM Architecture', 'Workflow Configuration', 'Customer Data Integration'],
+      deliverables: ['Configured CRM workspace', 'Sales and service workflows', 'Connected customer data model'],
+      useCases: ['Organizing lead and account activity', 'Improving customer follow-up', 'Connecting CRM with existing business tools']
+    },
     'Cloud Architecture': {
       key: 'cloud-architecture', summary: 'Create a secure cloud foundation that can support reliable product growth.',
       capabilities: ['Architecture Planning', 'Environment Design', 'Security Foundations'],
@@ -92,7 +122,7 @@
     }
   };
 
-  window.aiyaCatalog.serviceCategories = window.aiyaCatalog.services.map(category => ({
+  window.aiyaCatalog.serviceCategories = window.aiyaCatalog.services.filter(category => !category.legacy).map(category => ({
     ...category,
     overviewUrl: category.url,
     offerings: category.capabilities.map(title => {
