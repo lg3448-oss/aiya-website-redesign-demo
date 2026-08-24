@@ -98,6 +98,7 @@
   .site-header{padding-left:18px;padding-right:18px}
   .scene{padding-left:18px;padding-right:18px}
   .scene::before,.scene-heading.compact{left:18px}
+  .capabilities::before{display:none}
   .main-nav a{font-size:16px}
   .hero{padding-bottom:32px;grid-template-rows:auto minmax(0,1fr)}
   .hero h1{font-size:clamp(40px,11.2vw,54px)}
