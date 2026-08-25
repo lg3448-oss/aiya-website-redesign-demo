@@ -80,8 +80,9 @@ for (const { item, kind } of pages) {
     'FUTURE CHAT PREVIEW',
     '../assets/aiya-chat-demo.png',
     'mailto:info@aiya.us',
-    '../product-pages.js?v=20260825-2',
-    '../service-pages.js?v=20260825-2',
+    '../product-pages.js?v=20260825-3',
+    '../service-pages.js?v=20260825-3',
+    '../i18n.js?v=20260825-3',
     `Demo content for ${singular} planning`
   ];
   for (const marker of required) {
@@ -103,16 +104,23 @@ for (const removedPath of ['products/orders-fulfillment.html', 'products/aiya-pa
 for (const removedCopy of ['Orders & Fulfillment', 'AIYAPad', 'AIYARobot', 'AIYAScan', 'data-product-category="hardware"']) {
   if (index.includes(removedCopy)) throw new Error(`Homepage still exposes removed product: ${removedCopy}`);
 }
-if (!index.includes('product-pages.js?v=20260825-2')) throw new Error('Homepage does not load product page routing data');
+if (!index.includes('product-pages.js?v=20260825-3')) throw new Error('Homepage does not load product page routing data');
+if (!index.includes('i18n.js?v=20260825-3')) throw new Error('Homepage does not load bilingual runtime');
+if (!fm.fileExistsAtPath('i18n.js')) throw new Error('Missing bilingual runtime');
+const i18n = read('i18n.js');
+for (const marker of ["'B2B & Global Commerce': 'B2B 与全球商务'", "'Web & Mobile Development': '网站与移动应用开发'", "'CRM Systems': 'CRM 系统'", 'aiya-language', 'language-switch']) {
+  if (!i18n.includes(marker)) throw new Error(`Missing bilingual policy marker: ${marker}`);
+}
 if (!fm.fileExistsAtPath('assets/aiya-chat-demo.png')) throw new Error('Missing chat demo image');
 if (!index.includes('data-mega-menu="solutions"')) throw new Error('Homepage is missing the Solutions navigation');
 if (!index.includes('class="header-signin"') || !index.includes('class="nav-signin"')) throw new Error('Homepage is missing responsive Sign in controls');
 if (!fm.fileExistsAtPath('signin.html')) throw new Error('Sign in demo page is missing');
 const signinPage = read('signin.html');
 if (!signinPage.includes('No credentials are collected or submitted.')) throw new Error('Sign in demo disclosure is missing');
+if (!signinPage.includes('i18n.js?v=20260825-3')) throw new Error('Sign in page does not load bilingual runtime');
 if (!fm.fileExistsAtPath('solutions.html') || !fm.fileExistsAtPath('solutions.js')) throw new Error('Solutions directory files are missing');
 const solutionsPage = read('solutions.html');
-for (const marker of ['id="industries"', 'id="use-cases"', 'solutions.js?v=20260825-2', 'Demo solution groupings']) {
+for (const marker of ['id="industries"', 'id="use-cases"', 'solutions.js?v=20260825-3', 'Demo solution groupings']) {
   if (!solutionsPage.includes(marker)) throw new Error(`Missing ${marker} in solutions.html`);
 }
 for (const visual of ['payments-commerce', 'billing-revenue', 'treasury-finance', 'platforms-marketplaces', 'trust-business-tools']) {

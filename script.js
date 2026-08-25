@@ -1,4 +1,5 @@
 const snapPage = document.querySelector('#snap-page');
+const i18nText = value => window.aiyaI18n?.t(value) || value;
 const initialHash = window.location.hash;
 if (initialHash) history.replaceState(null, '', `${window.location.pathname}${window.location.search}`);
 const slides = [...document.querySelectorAll('.hero-slide')];
@@ -27,10 +28,10 @@ document.querySelectorAll('[data-capability]').forEach(button => button.addEvent
   const key = button.dataset.capability;
   document.querySelectorAll('[data-capability]').forEach(item => item.classList.toggle('active', item === button));
   document.querySelector('.capability-visual').dataset.active = key;
-  document.querySelector('#capability-title').textContent = capabilityContent[key].title;
-  document.querySelector('#cap-node-one').textContent = capabilityContent[key].nodes[0];
-  document.querySelector('#cap-node-two').textContent = capabilityContent[key].nodes[1];
-  document.querySelector('#cap-node-three').textContent = capabilityContent[key].nodes[2];
+  document.querySelector('#capability-title').textContent = i18nText(capabilityContent[key].title);
+  document.querySelector('#cap-node-one').textContent = i18nText(capabilityContent[key].nodes[0]);
+  document.querySelector('#cap-node-two').textContent = i18nText(capabilityContent[key].nodes[1]);
+  document.querySelector('#cap-node-three').textContent = i18nText(capabilityContent[key].nodes[2]);
 }));
 
 const services = Object.fromEntries(window.aiyaCatalog.services.map(item => [item.key, item]));
@@ -73,7 +74,7 @@ function activateProductCategory(categoryKey) {
   const overview = document.querySelector('#product-overview');
   overview.hidden = false;
   overview.href = category.overviewUrl;
-  overview.textContent = `${category.title} overview \u2192\uFE0E`;
+  overview.textContent = `${category.title} ${i18nText('overview')} \u2192\uFE0E`;
 }
 
 document.querySelectorAll('.product-selector [data-product-category]').forEach(button => {
@@ -95,7 +96,7 @@ function activateService(key) {
   renderOfferings(offerings, category.offerings.map(item => ({ label: item.title, description: item.description, url: item.url })));
   const overview = document.querySelector('#service-overview');
   overview.href = service.url;
-  overview.textContent = `${service.title} overview \u2192\uFE0E`;
+  overview.textContent = `${service.title} ${i18nText('overview')} \u2192\uFE0E`;
 }
 
 document.querySelectorAll('.service-selector [data-service]').forEach(button => {

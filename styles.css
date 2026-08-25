@@ -161,6 +161,7 @@
 .mega-trigger:focus-visible,.mega-menu-item:focus-visible,.mega-menu a:focus-visible{outline:3px solid rgba(241,90,36,.42);outline-offset:3px}
 .mega-menu-footer{grid-column:1/-1;min-height:52px;padding:0 32px;border-top:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;color:#403932;font-size:12px;font-weight:850}
 .nav-contact,.nav-signin{display:none!important}
+.language-switch{min-width:58px;height:34px;padding:0 12px;border:1px solid rgba(241,90,36,.52);border-radius:8px;background:#fff8ec;color:#9f3514;font:inherit;font-size:11px;font-weight:850;letter-spacing:.04em;cursor:pointer;transition:background-color .2s ease,color .2s ease,transform .2s ease}.language-switch:hover,.language-switch:focus-visible{background:var(--orange);color:white}.language-switch:active{transform:translateY(1px)}.language-switch-mobile{display:none}.language-switch-standalone{margin-left:auto;margin-right:18px}html[lang="zh-CN"] body{font-family:"PingFang SC","Microsoft YaHei","Noto Sans CJK SC",Arial,sans-serif}html[lang="zh-CN"] .mega-menu-copy strong,html[lang="zh-CN"] .mega-menu-copy small{word-break:keep-all}
 .button-arrow{width:14px;height:14px;position:relative;display:block;flex:0 0 auto;transition:transform .25s ease}.button-arrow::before{content:"";position:absolute;left:1px;bottom:2px;width:13px;height:1.5px;background:currentColor;transform:rotate(-45deg);transform-origin:left center}.button-arrow::after{content:"";position:absolute;right:1px;top:1px;width:7px;height:7px;border-top:1.5px solid currentColor;border-right:1.5px solid currentColor}.button:hover .button-arrow,.button:focus-visible .button-arrow{transform:translate(2px,-2px)}
 .header-cta>span,.capability-list button>i,.selector-list button>i,.text-link>span,.flow-track>i,.mega-toggle>span,.mega-menu-arrow{font-family:Arial,"Segoe UI Symbol",sans-serif;font-variant-emoji:text}
 
@@ -186,6 +187,7 @@
   .mega-menu-footer{padding:0 14px}
   .main-nav .nav-contact{display:flex!important}
   .main-nav .nav-signin{display:flex!important;margin-top:8px;padding:12px 14px!important;border:1px solid var(--orange);border-radius:8px;background:#fff5de;color:#9f3514}
+  .language-switch-desktop{display:none}.language-switch-mobile{display:block;width:100%;height:44px;margin-top:10px;text-align:center}.language-switch-standalone{display:block;margin-left:auto;margin-right:12px}
 }
 
 @media(prefers-reduced-motion:reduce){

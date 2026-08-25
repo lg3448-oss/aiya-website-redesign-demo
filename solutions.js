@@ -15,7 +15,7 @@
       const description = document.createElement('p');
       description.textContent = item.description;
       const status = document.createElement('span');
-      status.textContent = 'Explore solution \u2197\uFE0E';
+      status.textContent = `${window.aiyaI18n?.t('Explore solution') || 'Explore solution'} \u2197\uFE0E`;
       card.append(number, title, description, status);
       return card;
     });
