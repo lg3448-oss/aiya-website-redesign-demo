@@ -34,7 +34,8 @@ for (const duplicateTitle of ['Android Development', 'iOS Development', 'Mobile 
   if (serviceOfferings.some(item => item.title === duplicateTitle)) throw new Error(`Redundant service remains active: ${duplicateTitle}`);
 }
 if (window.aiyaCatalog.serviceCategories.some(category => ['Strategy & Experience', 'Cloud & Operations'].includes(category.title))) throw new Error('Merged legacy categories remain in active navigation');
-if (industrySolutions.length !== 10) throw new Error(`Expected 10 distinct industries, observed ${industrySolutions.length}`);
+if (industrySolutions.length !== 9) throw new Error(`Expected 9 distinct industries, observed ${industrySolutions.length}`);
+if (industrySolutions.some(item => /government|nonprofit/i.test(`${item.key} ${item.title}`))) throw new Error('Government or nonprofit industry must not be present');
 if (useCaseSolutions.length !== 7) throw new Error(`Expected 7 distinct use cases, observed ${useCaseSolutions.length}`);
 if (!industrySolutions.some(item => item.key === 'manufacturing-wholesale')) throw new Error('Manufacturing & Wholesale industry is missing');
 if (!industrySolutions.some(item => item.key === 'healthcare-education')) throw new Error('Healthcare & Education industry is missing');
@@ -75,8 +76,8 @@ for (const { item, kind } of pages) {
     'FUTURE CHAT PREVIEW',
     '../assets/aiya-chat-demo.png',
     'mailto:info@aiya.us',
-    '../product-pages.js?v=20260824-6',
-    '../service-pages.js?v=20260824-6',
+    '../product-pages.js?v=20260824-7',
+    '../service-pages.js?v=20260824-7',
     `Demo content for ${singular} planning`
   ];
   for (const marker of required) {
@@ -92,7 +93,7 @@ for (const { item, kind } of pages) {
 }
 
 const index = read('index.html');
-if (!index.includes('product-pages.js?v=20260824-6')) throw new Error('Homepage does not load product page routing data');
+if (!index.includes('product-pages.js?v=20260824-7')) throw new Error('Homepage does not load product page routing data');
 if (!fm.fileExistsAtPath('assets/aiya-chat-demo.png')) throw new Error('Missing chat demo image');
 if (!index.includes('data-mega-menu="solutions"')) throw new Error('Homepage is missing the Solutions navigation');
 if (!index.includes('class="header-signin"') || !index.includes('class="nav-signin"')) throw new Error('Homepage is missing responsive Sign in controls');
@@ -101,7 +102,7 @@ const signinPage = read('signin.html');
 if (!signinPage.includes('No credentials are collected or submitted.')) throw new Error('Sign in demo disclosure is missing');
 if (!fm.fileExistsAtPath('solutions.html') || !fm.fileExistsAtPath('solutions.js')) throw new Error('Solutions directory files are missing');
 const solutionsPage = read('solutions.html');
-for (const marker of ['id="industries"', 'id="use-cases"', 'solutions.js?v=20260824-6', 'Demo solution groupings']) {
+for (const marker of ['id="industries"', 'id="use-cases"', 'solutions.js?v=20260824-7', 'Demo solution groupings']) {
   if (!solutionsPage.includes(marker)) throw new Error(`Missing ${marker} in solutions.html`);
 }
 for (const visual of ['payments-commerce', 'billing-revenue', 'treasury-finance', 'platforms-marketplaces', 'trust-business-tools']) {
