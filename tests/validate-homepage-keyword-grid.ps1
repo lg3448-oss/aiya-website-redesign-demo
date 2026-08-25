@@ -32,7 +32,7 @@ $runner = @'
         });
         const lastBox = links.at(-1).getBoundingClientRect();
         const stageBox = stage.getBoundingClientRect();
-        assert(lastBox.bottom <= stageBox.bottom + 1, `${tabName} clips its final row`);
+        assert(lastBox.bottom <= stageBox.bottom + 1, `${tabName} clips its final row (${Math.ceil(lastBox.bottom - stageBox.bottom)}px; stage ${Math.round(stageBox.height)}px; grid ${Math.round(grid.getBoundingClientRect().height)}px; first ${Math.round(links[0].getBoundingClientRect().height)}px/${getComputedStyle(links[0].querySelector('strong')).fontSize}; ${links.length} links)`);
       });
     };
 
@@ -48,7 +48,7 @@ $runner = @'
 '@
 
 try {
-  $source = Get-Content -Raw -LiteralPath (Join-Path $root 'index.html')
+  $source = [IO.File]::ReadAllText((Join-Path $root 'index.html'), [Text.Encoding]::UTF8)
   [IO.File]::WriteAllText($fixture, $source.Replace('</body>', "$runner`r`n</body>"), [Text.UTF8Encoding]::new($false))
 
   foreach ($viewport in @(

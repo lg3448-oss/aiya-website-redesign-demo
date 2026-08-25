@@ -45,12 +45,10 @@ function renderOfferings(container, offerings) {
     link.href = offering.url;
     const title = document.createElement('strong');
     title.textContent = offering.label;
-    const description = document.createElement('small');
-    description.textContent = offering.description;
     const arrow = document.createElement('span');
     arrow.setAttribute('aria-hidden', 'true');
     arrow.textContent = '\u2197\uFE0E';
-    link.append(title, description, arrow);
+    link.append(title, arrow);
     return link;
   }));
 }
