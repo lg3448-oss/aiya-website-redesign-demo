@@ -53,7 +53,7 @@ const render = ({ item, kind }) => {
   <script src="../catalog.js?v=20260825-3"></script>
   <script src="../product-pages.js?v=20260825-3"></script>
   <script src="../service-pages.js?v=20260825-3"></script>
-  <script src="../i18n.js?v=20260825-3"></script>
+  <script src="../i18n.js?v=20260825-4"></script>
   <script src="../mega-menu.js?v=20260825-3"></script>
   <script src="../detail.js?v=20260825-3"></script>
 </body>

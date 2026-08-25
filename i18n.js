@@ -18,7 +18,7 @@
     'Secure payment APIs and connected systems that simplify business operations.': '通过安全的支付 API 与互联系统简化企业运营。',
     'Scalable Platforms': '可扩展平台', 'Ready for Growth': '为增长做好准备',
     'Cloud-based digital platforms built to support modern and growing businesses.': '以云端数字平台支持现代企业持续增长。',
-    'Explore Solutions': '探索解决方案', 'The Vision Has No Limits': '愿景无界', 'Scroll to explore': '向下探索',
+    'Explore Solutions': '探索解决方案', 'The Vision Has No Limits': '思无限，创无境', 'Scroll to explore': '向下探索',
     'TECHNOLOGY CAPABILITIES': '技术能力', 'Connected expertise': '能力互联', 'One clear outcome': '聚焦清晰成果',
     'Choose a capability to see how AIYA turns complex technology into practical business advantage.': '选择一项能力，了解 AIYA 如何将复杂技术转化为切实的商业优势。',
     'API and Connectivity': 'API 与系统连接', 'Integrations · Data connectivity · Payment APIs': '系统集成 · 数据连接 · 支付 API',
