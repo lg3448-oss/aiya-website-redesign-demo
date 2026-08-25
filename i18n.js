@@ -63,14 +63,14 @@
     'Connect payouts, treasury workflows, financing, and digital asset infrastructure to business operations.': '将付款、资金流程、融资与数字资产基础设施连接到企业运营。',
     'Build payments, financial services, and commerce infrastructure for platforms and marketplaces.': '为平台与交易市场构建支付、金融服务和商务基础设施。',
     'Protect transactions, verify customers, connect business data, and support product growth.': '保护交易、验证客户、连接业务数据并支持产品增长。',
-    'AIYA Payments': 'AIYA Payments', 'Payment Operations': '支付运营', 'Smart Payment Links': '智能支付链接', 'AIYA Checkout': 'AIYA Checkout',
+    'AIYA Payments': 'AIYA 支付', 'Payment Operations': '支付运营', 'Smart Payment Links': '智能支付链接', 'AIYA Checkout': 'AIYA 结账',
     'Embedded Payment UI': '嵌入式支付界面', 'Payment Method Hub': '支付方式中心', 'In-Person Payments': '线下支付', 'Approval Optimization': '支付通过率优化',
     'Fast Checkout': '快速结账', 'Financial Data Connect': '财务数据连接', 'Online Storefront': '在线商城', 'Catalog & Inventory': '商品与库存',
-    'Customer Accounts': '客户账户', 'B2B & Global Commerce': 'B2B 与全球商务', 'AIYA Billing': 'AIYA Billing', 'Usage Billing': '按量计费',
-    'Subscription Management': '订阅管理', 'AIYA Invoicing': 'AIYA Invoicing', 'Tax Automation': '税务自动化', 'Revenue Accounting': '营收会计',
+    'Customer Accounts': '客户账户', 'B2B & Global Commerce': 'B2B 与全球商务', 'AIYA Billing': 'AIYA 计费', 'Usage Billing': '按量计费',
+    'Subscription Management': '订阅管理', 'AIYA Invoicing': 'AIYA 发票', 'Tax Automation': '税务自动化', 'Revenue Accounting': '营收会计',
     'Revenue Analytics': '营收分析', 'Finance Data Pipeline': '财务数据管道', 'Treasury Operations': '资金运营', 'Global Payouts': '全球付款',
     'Business Financing': '企业融资', 'Digital Asset Infrastructure': '数字资产基础设施', 'Digital Asset Onramp': '数字资产购买入口',
-    'AIYA Connect': 'AIYA Connect', 'Platform Financing': '平台融资', 'Embedded Treasury': '嵌入式资金服务', 'Card Issuing': '发卡服务',
+    'AIYA Connect': 'AIYA 平台连接', 'Platform Financing': '平台融资', 'Embedded Treasury': '嵌入式资金服务', 'Card Issuing': '发卡服务',
     'Marketplace Commerce': '交易市场商务', 'Fraud & Risk': '欺诈与风险管理', 'Identity Verification': '身份验证', 'Product Strategy': '产品战略',
     'Business Launch Systems': '业务启动系统', 'Sustainability Integrations': '可持续发展集成', 'Growth Strategy': '增长战略',
     'Content & Campaigns': '内容与营销活动', 'AIYA Gift Card': 'AIYA 礼品卡',
@@ -152,7 +152,19 @@
     'Build the right capability mix': '组合适合您的能力', 'These related AIYA capabilities provide a starting point for this demo solution.': '这些相关 AIYA 能力为本演示解决方案提供起点。',
     'START WITH YOUR OPERATING MODEL': '从您的运营模式出发', 'Shape this solution around your business.': '围绕您的业务定制解决方案。',
     'Demo solution content. Final capabilities, availability, and requirements subject to company approval.': '解决方案演示内容，最终能力、可用范围与要求以公司批准为准。',
-    'AIYA contact preview': 'AIYA 联系功能预览', 'Demo preview of a future AIYA customer support chat': '未来 AIYA 客户支持聊天功能演示图'
+    'AIYA contact preview': 'AIYA 联系功能预览', 'Demo preview of a future AIYA customer support chat': '未来 AIYA 客户支持聊天功能演示图',
+    'AIYA TECHNOLOGY SYSTEM': 'AIYA 科技系统', 'AIYA Kiosk': 'AIYA 自助终端', 'AIYA Commerce': 'AIYA 商务', 'AIYA Revenue': 'AIYA 营收', 'AIYA Marketing': 'AIYA 营销',
+    'CONNECTED': '互联', 'CONNECTED BY': '互联平台', 'PLATFORM': '平台', 'PLATFORMS': '平台', 'PAYMENTS': '支付', 'WORKFLOWS': '工作流程', 'INSIGHTS': '洞察',
+    'SCALE': '扩展', 'GROWTH': '增长', 'SECURITY': '安全', 'FINTECH': '金融科技', 'CLOVER': 'Clover', 'PAY': '支付',
+    'Payments and Commerce capabilities': '支付与商务能力', 'Product categories': '产品分类', 'Service categories': '服务分类',
+    'AIYA connected technology ecosystem': 'AIYA 互联技术生态系统', 'Connected AI, API, payments, and cloud platform visualization': 'AI、API、支付与云平台互联示意图',
+    'AI, APIs, payment systems, and cloud services connected through one enterprise platform': 'AI、API、支付系统与云服务通过统一企业平台连接',
+    'AI automation': 'AI 自动化', 'Payment APIs': '支付 API', 'Cloud platform': '云平台', 'AIYA Kiosk self-service restaurant ordering system': 'AIYA 餐厅自助点餐终端',
+    'Kiosk order flow': '自助终端业务流程', 'AIYA Kiosk · Self-service ordering system': 'AIYA 自助终端 · 自助点餐系统',
+    'capability preview': '能力预览', 'capabilities': '能力', 'services': '服务',
+    'Abstract technology visual for': '技术主题视觉图：', 'visual': '视觉图', 'Switch to English': '切换到英文',
+    'Payment Links': '支付链接', 'B2B Global Commerce': 'B2B 全球商务', '1 view': '统一视图', '↓ work': '减少工作',
+    '© 2026 AIYA Technology System, LLC': '© 2026 AIYA 科技系统有限公司', '100 East Broadway 12 FL New York NY 10002': '美国纽约州纽约市东百老汇街100号12层，邮编10002'
   };
 
   const translate = value => {
@@ -160,6 +172,8 @@
     const match = value.match(/^(\s*)(.*?)(\s*)$/s);
     const core = match[2];
     if (zh[core]) return `${match[1]}${zh[core]}${match[3]}`;
+    const affixed = core.match(/^([←→↗↓⌄︎︎\s]*)(.*?)([←→↗↓⌄︎︎\s]*)$/);
+    if (affixed && zh[affixed[2]]) return `${match[1]}${affixed[1]}${zh[affixed[2]]}${affixed[3]}${match[3]}`;
     return value;
   };
 
@@ -174,9 +188,129 @@
     return value;
   };
 
+  const normalizeChineseCatalog = catalog => {
+    if (language !== 'zh' || !catalog) return;
+    const categoryCopy = {
+      'payments-commerce': {
+        deliverables: ['品牌化支付与商务体验', '客户及运营系统连接', '报表与异常处理流程'],
+        useCases: ['上线新的销售渠道', '替换分散的支付工具', '连接线上与线下商务']
+      },
+      'billing-revenue': {
+        deliverables: ['计费与营收流程配置', '面向客户的账单体验', '财务与报表系统连接'],
+        useCases: ['开展订阅或按量计费业务', '改进账单运营', '连接营收与财务数据']
+      },
+      'treasury-finance': {
+        deliverables: ['资金与财务流程配置', '企业系统集成', '运营可视化与控制'],
+        useCases: ['协调复杂资金流动', '增加金融服务能力', '改进财务运营']
+      },
+      'platforms-marketplaces': {
+        deliverables: ['平台品牌化用户体验', '账户与交易工作流程', '平台团队运营工具'],
+        useCases: ['上线软件平台', '构建多方交易市场', '嵌入金融服务能力']
+      },
+      'trust-business-tools': {
+        deliverables: ['面向业务的工作流程设计', '系统与数据集成', '清晰的团队运营工具'],
+        useCases: ['降低运营风险', '上线新的客户体验', '连接增长与业务系统']
+      }
+    };
+    const categoryMonograms = { 'payments-commerce': '支付', 'billing-revenue': '营收', 'treasury-finance': '财务', 'platforms-marketplaces': '平台', 'trust-business-tools': '风控' };
+    catalog.productCategories?.forEach(category => {
+      category.kicker = category.title;
+      category.monogram = categoryMonograms[category.key] || '产品';
+      category.offerings.forEach(item => {
+        item.kicker = category.title;
+        item.monogram = '产品';
+        if (!/[\u3400-\u9fff]/.test(item.summary || '')) item.summary = `${item.title}用于${item.description}，并可根据企业需求连接相关业务系统。`;
+        item.capabilities = [`${item.title}核心配置`, '客户体验与工作流程', '业务数据与系统连接'];
+        item.deliverables = categoryCopy[category.key].deliverables;
+        item.useCases = categoryCopy[category.key].useCases;
+      });
+    });
+    const productMonograms = { commerce: '商务', revenue: '营收', marketing: '营销' };
+    const productCapabilities = {
+      commerce: ['在线商城', '定制结账', '商品与库存', '客户账户', 'B2B 与全球商务'],
+      revenue: ['线上与线下支付', '计费与订阅', '发票与支付链接', '平台支付与付款', '风险与身份验证流程', '税务与营收报表集成'],
+      marketing: ['增长战略', '内容与营销活动', 'AIYA 礼品卡']
+    };
+    catalog.products?.forEach(item => {
+      item.kicker = item.title;
+      item.monogram = productMonograms[item.key] || '产品';
+      item.summary = `${item.title}连接客户体验、业务系统与日常运营，支持企业持续发展。`;
+      item.capabilities = productCapabilities[item.key] || ['产品配置', '系统连接', '运营支持'];
+      item.deliverables = ['围绕业务需求设计的产品方案', '客户体验与运营系统连接', '可维护、可扩展的交付成果'];
+      item.useCases = ['上线新的数字业务', '替换分散的业务工具', '连接客户体验与内部运营'];
+    });
+    const serviceCategoryUseCases = {
+      engineering: ['上线新的数字产品', '升级客户与内部系统', '提升平台扩展性与可靠性'],
+      integration: ['连接分散的平台', '减少重复后台工作', '统一销售与客户运营'],
+      growth: ['建立有效客户需求', '提升自然搜索曝光', '协调产品或市场推广']
+    };
+    const serviceCapabilities = {
+      strategy: ['产品战略', 'UX / UI 设计', '转化率优化'],
+      engineering: ['产品与体验设计', '定制软件开发', '网站与移动应用开发', '电商平台开发', '企业与云平台', '性能与可靠性'],
+      integration: ['API、数据与支付集成', 'AI 与工作流程自动化', 'CRM 系统'],
+      cloud: ['云架构', '平台现代化改造', '性能与可靠性'],
+      growth: ['数字营销', 'SEO 与内容', '营销活动开发']
+    };
+    catalog.services?.forEach(item => {
+      item.kicker = item.title;
+      item.code = item.key === 'integration' ? 'API' : (item.key === 'engineering' ? '开发' : item.key === 'growth' ? '增长' : '服务');
+      item.summary = `${item.title}围绕企业需求提供规划、实施、交付与持续优化。`;
+      item.capabilities = serviceCapabilities[item.key] || ['方案规划', '实施与集成', '持续优化'];
+      item.deliverables = ['业务需求与实施方案', '可维护的系统与工作流程', '测试、交付与持续优化'];
+      item.useCases = serviceCategoryUseCases[item.key] || ['规划新的数字能力', '改进现有业务流程', '支持持续运营与增长'];
+    });
+    catalog.serviceCategories?.forEach(category => {
+      category.kicker = category.title;
+      category.code = category.key === 'integration' ? 'API' : (category.key === 'engineering' ? '开发' : '增长');
+      category.offerings.forEach(item => {
+        item.kicker = category.title;
+        item.monogram = '服务';
+        item.summary = `${item.title}围绕企业实际流程提供规划、实施与持续优化。`;
+        item.description = item.summary;
+        item.capabilities = [`${item.title}方案设计`, `${item.title}实施与集成`, '测试、交付与持续优化'];
+        item.deliverables = ['明确的实施路线与需求', '可维护的交付成果', '测试与上线支持'];
+        item.useCases = serviceCategoryUseCases[category.key];
+      });
+    });
+    catalog.solutionCategories?.forEach(category => {
+      category.offerings.forEach(item => {
+        item.headline = `为${item.title}打造互联数字体验。`;
+        item.overview = `${item.description.replace(/[。.]$/, '')}通过连接软件、支付、数据与运营流程，形成适合实际业务的统一解决方案。`;
+        item.capabilities = ['客户体验与数字渠道', '支付、数据与系统连接', '运营流程与自动化'];
+        item.outcomes = ['减少分散流程与重复工作', '提升团队与客户体验', '建立可持续扩展的运营基础'];
+      });
+    });
+  };
+
+  const applySolutionDetail = () => {
+    if (language !== 'zh') return;
+    const page = document.querySelector('[data-solution-key]');
+    if (!page) return;
+    const item = window.aiyaCatalog?.solutionCategories?.flatMap(category => category.offerings).find(candidate => candidate.key === page.dataset.solutionKey);
+    if (!item) return;
+    const setText = (selector, value) => { const element = document.querySelector(selector); if (element) element.textContent = value; };
+    setText('.solution-detail-copy h1', item.title);
+    setText('.solution-detail-copy h2', item.headline);
+    setText('.solution-detail-copy>p', item.overview);
+    document.querySelectorAll('.solution-capability-section article h3').forEach((element, index) => { element.textContent = item.capabilities[index] || ''; });
+    document.querySelectorAll('.solution-outcome-section li span').forEach((element, index) => { element.textContent = item.outcomes[index] || ''; });
+    document.querySelectorAll('.solution-connected-section strong').forEach((element, index) => { element.textContent = item.connected[index]?.title || element.textContent; });
+    const visual = document.querySelector('.solution-detail-visual img');
+    if (visual) visual.alt = `${item.title}技术主题视觉图`;
+    const category = window.aiyaCatalog.solutionCategories.find(candidate => candidate.offerings.some(offering => offering.key === item.key));
+    setText('.solution-detail-visual>small', `${category?.title || '解决方案'} · ${item.title}`);
+    document.title = `${item.title}解决方案 | AIYA 科技系统`;
+    const meta = document.querySelector('meta[name="description"]');
+    if (meta) meta.content = item.overview;
+  };
+
   const applyDocument = () => {
     if (language !== 'zh') return;
     document.documentElement.lang = 'zh-CN';
+    const pageName = window.location.pathname.split('/').pop();
+    if (!pageName || pageName === 'index.html') document.title = 'AIYA 科技系统';
+    else if (pageName === 'solutions.html') document.title = '解决方案 | AIYA 科技系统';
+    else if (pageName === 'signin.html') document.title = '登录 | AIYA 科技系统';
     const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
       acceptNode(node) {
         return /^(SCRIPT|STYLE|NOSCRIPT)$/.test(node.parentElement?.tagName || '') || !node.nodeValue.trim()
@@ -222,6 +356,8 @@
 
   window.aiyaI18n = { language, t: translate, applyDocument, switchLanguage };
   translateCatalog(window.aiyaCatalog);
+  normalizeChineseCatalog(window.aiyaCatalog);
   applyDocument();
+  applySolutionDetail();
   injectSwitches();
 })();

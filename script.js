@@ -66,7 +66,7 @@ function activateProductCategory(categoryKey) {
   document.querySelector('#product-description').textContent = category.summary;
   const image = document.querySelector('#product-image');
   image.src = category.image;
-  image.alt = `${category.title} capability preview`;
+  image.alt = window.aiyaI18n?.language === 'zh' ? `${category.title}能力预览` : `${category.title} capability preview`;
   document.querySelector('#product-monogram').textContent = category.monogram;
   const offerings = document.querySelector('#product-offerings');
   offerings.setAttribute('aria-label', `${category.title} capabilities`);
