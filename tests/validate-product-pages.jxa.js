@@ -9,18 +9,22 @@ eval(read('product-pages.js'));
 eval(read('service-pages.js'));
 
 const offerings = window.aiyaCatalog.productCategories.flatMap(category => category.offerings);
-const hardware = window.aiyaCatalog.products.filter(item => ['pad', 'robot', 'scan'].includes(item.key));
 const serviceOfferings = window.aiyaCatalog.serviceCategories.flatMap(category => category.offerings);
 const industrySolutions = window.aiyaCatalog.solutionCategories.find(category => category.key === 'industries')?.offerings || [];
 const useCaseSolutions = window.aiyaCatalog.solutionCategories.find(category => category.key === 'use-cases')?.offerings || [];
 const pages = [
   ...offerings.filter(item => item.key).map(item => ({ item, kind: 'offering' })),
-  ...hardware.map(item => ({ item, kind: 'product' })),
   ...window.aiyaCatalog.services.map(item => ({ item, kind: 'service' })),
   ...window.aiyaCatalog.serviceCategories.flatMap(category => category.offerings).map(item => ({ item, kind: 'service-offering' }))
 ];
 
-if (offerings.length !== 44) throw new Error(`Expected 44 clickable products, observed ${offerings.length}`);
+if (offerings.length !== 40) throw new Error(`Expected 40 clickable products, observed ${offerings.length}`);
+for (const removedProduct of ['Orders & Fulfillment', 'AIYAPad', 'AIYARobot', 'AIYAScan']) {
+  if (offerings.some(item => item.title === removedProduct) || window.aiyaCatalog.products.some(item => item.title === removedProduct)) {
+    throw new Error(`Removed product remains active: ${removedProduct}`);
+  }
+}
+if (window.aiyaCatalog.productCategories.some(category => category.key === 'hardware')) throw new Error('Removed Hardware category remains active');
 if (window.aiyaCatalog.serviceCategories.length !== 3) throw new Error('Expected three active service categories');
 if (serviceOfferings.length !== 12) throw new Error(`Expected 12 distinct individual services, observed ${serviceOfferings.length}`);
 if (new Set(serviceOfferings.map(item => item.key)).size !== serviceOfferings.length) throw new Error('Individual service keys must be unique');
@@ -63,7 +67,7 @@ if (serviceVisuals.includes('assets/aiya-chat-demo.png')) throw new Error('Chat 
 for (const visual of serviceVisuals) {
   if (!fm.fileExistsAtPath(visual)) throw new Error(`Missing service visual: ${visual}`);
 }
-if (pages.length !== 61) throw new Error(`Expected 61 product, service, and overview pages, observed ${pages.length}`);
+if (pages.length !== 57) throw new Error(`Expected 57 product, service, and overview pages, observed ${pages.length}`);
 
 for (const { item, kind } of pages) {
   if (!fm.fileExistsAtPath(item.url)) throw new Error(`Missing detail page: ${item.url}`);
@@ -76,8 +80,8 @@ for (const { item, kind } of pages) {
     'FUTURE CHAT PREVIEW',
     '../assets/aiya-chat-demo.png',
     'mailto:info@aiya.us',
-    '../product-pages.js?v=20260824-7',
-    '../service-pages.js?v=20260824-7',
+    '../product-pages.js?v=20260825-1',
+    '../service-pages.js?v=20260825-1',
     `Demo content for ${singular} planning`
   ];
   for (const marker of required) {
@@ -93,7 +97,13 @@ for (const { item, kind } of pages) {
 }
 
 const index = read('index.html');
-if (!index.includes('product-pages.js?v=20260824-7')) throw new Error('Homepage does not load product page routing data');
+for (const removedPath of ['products/orders-fulfillment.html', 'products/aiya-pad.html', 'products/aiya-robot.html', 'products/aiya-scan.html']) {
+  if (fm.fileExistsAtPath(removedPath)) throw new Error(`Removed product page still exists: ${removedPath}`);
+}
+for (const removedCopy of ['Orders & Fulfillment', 'AIYAPad', 'AIYARobot', 'AIYAScan', 'data-product-category="hardware"']) {
+  if (index.includes(removedCopy)) throw new Error(`Homepage still exposes removed product: ${removedCopy}`);
+}
+if (!index.includes('product-pages.js?v=20260825-1')) throw new Error('Homepage does not load product page routing data');
 if (!fm.fileExistsAtPath('assets/aiya-chat-demo.png')) throw new Error('Missing chat demo image');
 if (!index.includes('data-mega-menu="solutions"')) throw new Error('Homepage is missing the Solutions navigation');
 if (!index.includes('class="header-signin"') || !index.includes('class="nav-signin"')) throw new Error('Homepage is missing responsive Sign in controls');
@@ -102,7 +112,7 @@ const signinPage = read('signin.html');
 if (!signinPage.includes('No credentials are collected or submitted.')) throw new Error('Sign in demo disclosure is missing');
 if (!fm.fileExistsAtPath('solutions.html') || !fm.fileExistsAtPath('solutions.js')) throw new Error('Solutions directory files are missing');
 const solutionsPage = read('solutions.html');
-for (const marker of ['id="industries"', 'id="use-cases"', 'solutions.js?v=20260824-7', 'Demo solution groupings']) {
+for (const marker of ['id="industries"', 'id="use-cases"', 'solutions.js?v=20260825-1', 'Demo solution groupings']) {
   if (!solutionsPage.includes(marker)) throw new Error(`Missing ${marker} in solutions.html`);
 }
 for (const visual of ['payments-commerce', 'billing-revenue', 'treasury-finance', 'platforms-marketplaces', 'trust-business-tools']) {
