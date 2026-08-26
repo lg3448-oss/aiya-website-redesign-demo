@@ -223,7 +223,7 @@
 
 /* Keep the Services artwork clear of its heading and code label. */
 .service-symbol::after{left:150px;width:160px}
-@media(min-width:761px){.services .service-layout{transform:translateY(clamp(54px,7vh,76px))}}
+@media(min-width:761px){.services .service-layout{transform:translateY(clamp(54px,7vh,76px))}.services .service-stage{padding-top:24px}}
 
 /* Product capability story pages */
 .product-capability-page{--product-soft:#f2e7d9;--product-wash:#fff8ee}

@@ -34,7 +34,7 @@ const render = ({ item, kind }) => {
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="${escapeHtml(item.summary)}">
   <title>${escapeHtml(item.title)} | AIYA Technology</title>
-  <link rel="stylesheet" href="../styles.css?v=20260826-2">
+  <link rel="stylesheet" href="../styles.css?v=20260826-3">
 </head>
 <body class="detail-page product-capability-page" data-detail-kind="${kind}" data-detail-key="${item.key}" data-asset-prefix="../">
   <div class="ambient-bg" aria-hidden="true"><i></i><i></i><i></i><b></b></div>

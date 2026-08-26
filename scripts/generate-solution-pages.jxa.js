@@ -29,7 +29,7 @@ const render = ({ item, category }) => {
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="${escapeHtml(item.overview)}">
   <title>${escapeHtml(item.title)} Solutions | AIYA Technology</title>
-  <link rel="stylesheet" href="../styles.css?v=20260826-2">
+  <link rel="stylesheet" href="../styles.css?v=20260826-3">
 </head>
 <body class="detail-page solution-detail-page" data-solution-key="${item.key}" data-solution-category="${category.key}">
   <div class="ambient-bg" aria-hidden="true"><i></i><i></i><i></i><b></b></div>
