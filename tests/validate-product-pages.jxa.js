@@ -80,9 +80,9 @@ for (const { item, kind } of pages) {
     'FUTURE CHAT PREVIEW',
     '../assets/aiya-chat-demo.png',
     'mailto:info@aiya.us',
-    '../product-pages.js?v=20260825-5',
+    '../product-pages.js?v=20260826-1',
     '../service-pages.js?v=20260825-5',
-    '../i18n.js?v=20260825-6',
+    '../i18n.js?v=20260826-1',
     `Demo content for ${singular} planning`
   ];
   for (const marker of required) {
@@ -104,8 +104,8 @@ for (const removedPath of ['products/orders-fulfillment.html', 'products/aiya-pa
 for (const removedCopy of ['Orders & Fulfillment', 'AIYAPad', 'AIYARobot', 'AIYAScan', 'data-product-category="hardware"']) {
   if (index.includes(removedCopy)) throw new Error(`Homepage still exposes removed product: ${removedCopy}`);
 }
-if (!index.includes('product-pages.js?v=20260825-5')) throw new Error('Homepage does not load product page routing data');
-if (!index.includes('i18n.js?v=20260825-6')) throw new Error('Homepage does not load bilingual runtime');
+if (!index.includes('product-pages.js?v=20260826-1')) throw new Error('Homepage does not load product page routing data');
+if (!index.includes('i18n.js?v=20260826-1')) throw new Error('Homepage does not load bilingual runtime');
 if (!fm.fileExistsAtPath('i18n.js')) throw new Error('Missing bilingual runtime');
 const i18n = read('i18n.js');
 for (const marker of ["'B2B & Global Commerce': 'B2B 与全球商务'", "'Web & Mobile Development': '网站与移动应用开发'", "'CRM Systems': 'CRM 系统'", "'AIYA Payments': 'AIYA 支付'", 'normalizeChineseCatalog', 'applySolutionDetail', 'aiya-language', 'language-switch']) {
@@ -114,14 +114,22 @@ for (const marker of ["'B2B & Global Commerce': 'B2B 与全球商务'", "'Web & 
 if (!fm.fileExistsAtPath('assets/aiya-chat-demo.png')) throw new Error('Missing chat demo image');
 if (!index.includes('data-mega-menu="solutions"')) throw new Error('Homepage is missing the Solutions navigation');
 if (!index.includes('<a href="news.html">News</a>')) throw new Error('Homepage is missing the News navigation');
-if (!fm.fileExistsAtPath('news.html')) throw new Error('News placeholder page is missing');
+if (!fm.fileExistsAtPath('news.html')) throw new Error('News homepage is missing');
 const newsPage = read('news.html');
-if (!newsPage.includes('<h1 id="news-title">Under Construction</h1>')) throw new Error('News page is missing its construction status');
+for (const marker of ['LATEST ARTICLE', 'news/connected-business-technology.html', 'news/events.html', 'news/stories.html', 'Learn More']) {
+  if (!newsPage.includes(marker)) throw new Error(`News homepage is missing ${marker}`);
+}
+for (const newsPath of ['news/connected-business-technology.html', 'news/events.html', 'news/stories.html']) {
+  if (!fm.fileExistsAtPath(newsPath)) throw new Error(`News content page is missing: ${newsPath}`);
+}
+for (const productMarker of ["'Usage Billing': '账单计费'", 'Branded Customer Credit Program', 'AIYA Gift Card & Loyalty Points']) {
+  if (!i18n.includes(productMarker) && !read('product-pages.js').includes(productMarker)) throw new Error(`Updated product content is missing: ${productMarker}`);
+}
 if (!index.includes('class="header-signin" href="https://suite.aiya.us/login"') || !index.includes('class="nav-signin" href="https://suite.aiya.us/login"')) throw new Error('Homepage is missing AIYA Suite Sign in links');
 if (!fm.fileExistsAtPath('signin.html')) throw new Error('Sign in demo page is missing');
 const signinPage = read('signin.html');
 if (!signinPage.includes('No credentials are collected or submitted.')) throw new Error('Sign in demo disclosure is missing');
-if (!signinPage.includes('i18n.js?v=20260825-6')) throw new Error('Sign in page does not load bilingual runtime');
+if (!signinPage.includes('i18n.js?v=20260826-1')) throw new Error('Sign in page does not load bilingual runtime');
 if (!fm.fileExistsAtPath('solutions.html') || !fm.fileExistsAtPath('solutions.js')) throw new Error('Solutions directory files are missing');
 const solutionsPage = read('solutions.html');
 for (const marker of ['id="industries"', 'id="use-cases"', 'solutions.js?v=20260825-5', 'Demo solution groupings']) {

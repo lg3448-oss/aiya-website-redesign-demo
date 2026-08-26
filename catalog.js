@@ -56,7 +56,7 @@ window.aiyaCatalog = {
         { title: 'AIYA Connect', description: 'Payments for platforms', url: 'products/aiya-revenue.html' },
         { title: 'Platform Financing', description: 'Customer financing integrations', url: 'products/aiya-revenue.html' },
         { title: 'Embedded Treasury', description: 'Embedded financial service workflows', url: 'products/aiya-revenue.html' },
-        { title: 'Card Issuing', description: 'Physical and virtual card systems', url: 'products/aiya-revenue.html' },
+        { title: 'Branded Customer Credit Program', description: 'Customer credit for purchases with your business', url: 'products/aiya-revenue.html' },
         { title: 'Marketplace Commerce', description: 'Multi-party commerce operations', url: 'products/aiya-commerce.html' }
       ]
     },
@@ -72,7 +72,7 @@ window.aiyaCatalog = {
         { title: 'Sustainability Integrations', description: 'Connected climate and impact data', url: 'services/integration-automation.html' },
         { title: 'Growth Strategy', description: 'Connected acquisition planning', url: 'products/aiya-marketing.html' },
         { title: 'Content & Campaigns', description: 'Creative campaign execution', url: 'products/aiya-marketing.html' },
-        { title: 'AIYA Gift Card', description: 'Repeat-customer gift experiences', url: 'products/aiya-marketing.html' }
+        { title: 'AIYA Gift Card & Loyalty Points', description: 'Gift balances and repeat-customer rewards', url: 'products/aiya-marketing.html' }
       ]
     }
   ],
@@ -97,7 +97,7 @@ window.aiyaCatalog = {
       key: 'marketing', group: 'AIYA Products', navCategory: 'Marketing', title: 'AIYA Marketing', url: 'products/aiya-marketing.html',
       kicker: 'GROWTH · STRATEGY', monogram: 'MKT', image: 'assets/service-marketing.png',
       summary: 'Digital strategy and creative execution connected to the technology behind the business.',
-      capabilities: ['Growth Strategy', 'Content and Campaigns', 'AIYA Gift Card'],
+      capabilities: ['Growth Strategy', 'Content and Campaigns', 'AIYA Gift Card & Loyalty Points'],
       deliverables: ['Digital growth planning', 'Campaign creative and execution', 'Gift-card customer experiences'],
       useCases: ['Launching a new offer', 'Connecting marketing with conversion', 'Building repeat-customer programs']
     }

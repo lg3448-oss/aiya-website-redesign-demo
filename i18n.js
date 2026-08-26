@@ -8,6 +8,22 @@
   const zh = {
     'Home': '首页', 'Products': '产品', 'Services': '服务', 'Solutions': '解决方案', 'News': '新闻', 'Company': '公司', 'Contact': '联系我们',
     'Under Construction': '正在建设', 'News and updates are coming soon.': '新闻与动态即将上线。', 'Return Home': '返回首页',
+    'AIYA NEWS': 'AIYA 新闻', 'AIYA News': 'AIYA 新闻', 'AIYA Events': 'AIYA 活动', 'AIYA Stories': 'AIYA 故事',
+    'LATEST ARTICLE': '最新文章', 'Building the next chapter of connected business technology': '构建互联商业科技的新篇章',
+    'A look at how AIYA is bringing software, payments, automation, and customer operations into one connected experience.': '了解 AIYA 如何将软件、支付、自动化与客户运营整合为统一互联体验。',
+    'Read Article': '阅读文章', 'Read the latest AIYA article': '阅读 AIYA 最新文章', 'FEATURED IMAGE PLACEHOLDER': '推荐文章图片占位符',
+    'MORE FROM AIYA': '更多 AIYA 动态', 'Events and stories': '活动与故事', 'EVENTS': '活动', 'STORIES': '故事',
+    'EVENT IMAGE PLACEHOLDER': '活动图片占位符', 'STORY IMAGE PLACEHOLDER': '故事图片占位符', 'ARTICLE IMAGE PLACEHOLDER': '文章图片占位符',
+    'Meet AIYA at upcoming events': '在近期活动中与 AIYA 见面', 'Stories from connected businesses': '互联企业故事', 'Learn More': '了解更多',
+    'Explore upcoming conversations, demonstrations, and opportunities to connect with the AIYA team.': '了解即将举行的交流、演示，以及与 AIYA 团队沟通的机会。',
+    'See how connected software, payments, and operations can support practical business progress.': '了解互联软件、支付与运营如何推动企业取得切实进展。',
+    'Back to News': '返回新闻', 'AIYA is creating a clearer way for businesses to connect the software, payment experiences, customer tools, and operational workflows they use every day.': 'AIYA 正在帮助企业以更清晰的方式连接日常使用的软件、支付体验、客户工具与运营流程。',
+    'One connected direction': '统一互联方向', 'Instead of treating every business need as a separate tool, AIYA brings related capabilities together around the customer journey and the work teams need to complete.': 'AIYA 不再把每项业务需求视为彼此独立的工具，而是围绕客户旅程与团队实际工作整合相关能力。',
+    'Designed for practical progress': '为切实进展而设计', 'The goal is a technology foundation that can begin with a focused need and expand as the business, customer experience, and operating model evolve.': '目标是建立能够从明确需求起步，并随业务、客户体验与运营模式持续扩展的技术基础。',
+    'This page will feature upcoming AIYA events, demonstrations, industry conversations, and opportunities to meet the team.': '本页面将展示 AIYA 即将举行的活动、产品演示、行业交流以及与团队见面的机会。',
+    'Event calendar in preparation': '活动日程正在准备中', 'Confirmed dates, locations, registration details, and event recaps will be published here as they become available.': '确认后的日期、地点、报名信息与活动回顾将在准备完成后发布于此。',
+    'This page will share approved customer stories and practical perspectives on connected software, payments, automation, and growth.': '本页面将分享经批准的客户故事，以及有关互联软件、支付、自动化与增长的实践观点。',
+    'Stories are being prepared': '故事内容正在准备中', 'Customer names, outcomes, and supporting details will be added after company and customer approval.': '客户名称、成果与相关细节将在获得公司及客户批准后添加。',
     'Sign in': '登录', 'Talk to our team': '联系我们', 'Talk to Our Team': '联系我们', 'Talk to Us': '联系我们',
     'View All Products': '查看全部产品', 'View All Services': '查看全部服务', 'View All Solutions': '查看全部解决方案', 'overview': '概览',
     'Open navigation': '打开导航', 'Main navigation': '主导航', 'Primary navigation': '主导航',
@@ -67,29 +83,29 @@
     'AIYA Payments': 'AIYA 支付', 'Payment Operations': '支付运营', 'Smart Payment Links': '智能支付链接', 'AIYA Checkout': 'AIYA 结账',
     'Embedded Payment UI': '嵌入式支付界面', 'Payment Method Hub': '支付方式中心', 'In-Person Payments': '线下支付', 'Approval Optimization': '支付通过率优化',
     'Fast Checkout': '快速结账', 'Financial Data Connect': '财务数据连接', 'Online Storefront': '在线商城', 'Catalog & Inventory': '商品与库存',
-    'Customer Accounts': '客户账户', 'B2B & Global Commerce': 'B2B 与全球商务', 'AIYA Billing': 'AIYA 计费', 'Usage Billing': '按量计费',
+    'Customer Accounts': '客户账户', 'B2B & Global Commerce': 'B2B 与全球商务', 'AIYA Billing': 'AIYA 计费', 'Usage Billing': '账单计费',
     'Subscription Management': '订阅管理', 'AIYA Invoicing': 'AIYA 发票', 'Tax Automation': '税务自动化', 'Revenue Accounting': '营收会计',
     'Revenue Analytics': '营收分析', 'Finance Data Pipeline': '财务数据管道', 'Treasury Operations': '资金运营', 'Global Payouts': '全球付款',
     'Business Financing': '企业融资', 'Digital Asset Infrastructure': '数字资产基础设施', 'Digital Asset Onramp': '数字资产购买入口',
-    'AIYA Connect': 'AIYA 平台连接', 'Platform Financing': '平台融资', 'Embedded Treasury': '嵌入式资金服务', 'Card Issuing': '发卡服务',
+    'AIYA Connect': 'AIYA 平台连接', 'Platform Financing': '平台融资', 'Embedded Treasury': '嵌入式资金服务', 'Branded Customer Credit Program': '企业品牌信用账户',
     'Marketplace Commerce': '交易市场商务', 'Fraud & Risk': '欺诈与风险管理', 'Identity Verification': '身份验证', 'Product Strategy': '产品战略',
     'Business Launch Systems': '业务启动系统', 'Sustainability Integrations': '可持续发展集成', 'Growth Strategy': '增长战略',
-    'Content & Campaigns': '内容与营销活动', 'AIYA Gift Card': 'AIYA 礼品卡',
+    'Content & Campaigns': '内容与营销活动', 'AIYA Gift Card & Loyalty Points': 'AIYA 礼品卡与会员积分',
     'Online payment processing': '在线支付处理', 'Managed payment workflows': '支付工作流程管理', 'No-code payment collection': '无需代码的收款方式',
     'Custom checkout experiences': '定制结账体验', 'Flexible payment components': '灵活的支付组件', 'Connected payment methods': '互联支付方式',
     'Connected point-of-sale payments': '互联销售点支付', 'Payment acceptance improvements': '提升支付通过率', 'Accelerated repeat checkout': '加快重复购买结账',
     'Linked financial account data': '连接财务账户数据', 'Custom digital storefronts': '定制数字商城', 'Connected product operations': '互联商品运营',
     'Customer identity and history': '客户身份与历史记录', 'Business buying across markets': '跨市场 B2B 采购',
-    'Recurring revenue operations': '经常性营收运营', 'Metered and usage-based billing': '计量与按量计费', 'Subscription lifecycle workflows': '订阅生命周期流程',
+    'Recurring revenue operations': '经常性营收运营', 'Metered and usage-based billing': '计量与账单计费', 'Subscription lifecycle workflows': '订阅生命周期流程',
     'One-time and recurring invoices': '一次性与周期性发票', 'Sales tax and VAT integrations': '销售税与 VAT 集成', 'Revenue recognition workflows': '营收确认流程',
     'Custom revenue reporting': '定制营收报表', 'Revenue and finance data sync': '营收与财务数据同步',
     'Connected business finance workflows': '互联企业财务流程', 'Payouts to third parties': '向第三方付款', 'Financing system integrations': '融资系统集成',
     'Wallet and digital asset systems': '钱包与数字资产系统', 'Embeddable purchase experiences': '可嵌入的购买体验',
     'Payments for platforms': '平台支付', 'Customer financing integrations': '客户融资集成', 'Embedded financial service workflows': '嵌入式金融服务流程',
-    'Physical and virtual card systems': '实体卡与虚拟卡系统', 'Multi-party commerce operations': '多方商务运营',
+    'Customer credit for purchases with your business': '用于在企业内消费的客户信用账户', 'Multi-party commerce operations': '多方商务运营',
     'Fraud prevention workflows': '欺诈防范流程', 'Online identity workflows': '在线身份验证流程', 'Roadmaps and launch planning': '路线图与上线规划',
     'Digital foundations for new ventures': '新业务的数字基础', 'Connected climate and impact data': '连接环境与影响数据', 'Connected acquisition planning': '互联获客规划',
-    'Creative campaign execution': '营销活动创意执行', 'Repeat-customer gift experiences': '回头客礼品体验',
+    'Creative campaign execution': '营销活动创意执行', 'Gift balances and repeat-customer rewards': '礼品余额与回头客积分奖励',
     'Software Engineering': '软件工程', 'Integration & Automation': '系统集成与自动化', 'Growth': '增长服务',
     'Product & Experience Design': '产品与体验设计', 'Custom Software Development': '定制软件开发', 'Web & Mobile Development': '网站与移动应用开发',
     'Ecommerce Platform Development': '电商平台开发', 'Enterprise & Cloud Platforms': '企业与云平台', 'Performance & Reliability': '性能与可靠性',
@@ -224,13 +240,25 @@
         item.capabilities = [`${item.title}核心配置`, '客户体验与工作流程', '业务数据与系统连接'];
         item.deliverables = categoryCopy[category.key].deliverables;
         item.useCases = categoryCopy[category.key].useCases;
+        if (item.key === 'usage-billing') {
+          item.summary = '账单计费用于根据已确认的商品、服务、费用和账户活动生成清晰的客户账单。';
+          item.capabilities = ['客户账单生成', '灵活计费规则', '账单与客户账户数据连接'];
+        }
+        if (item.key === 'card-issuing') {
+          item.summary = '企业品牌信用账户帮助企业向客户提供专属信用额度，客户可使用该额度在企业内购买商品或服务。';
+          item.capabilities = ['企业品牌客户信用账户', '信用额度与消费规则', '客户账户生命周期管理'];
+        }
+        if (item.key === 'aiya-gift-card') {
+          item.summary = 'AIYA 礼品卡与会员积分结合储值礼品卡和忠诚度积分，让客户通过重复消费获取积分，并在后续购买中兑换使用。';
+          item.capabilities = ['礼品卡购买与余额管理', '会员积分获取与兑换', '客户奖励计划连接'];
+        }
       });
     });
     const productMonograms = { commerce: '商务', revenue: '营收', marketing: '营销' };
     const productCapabilities = {
       commerce: ['在线商城', '定制结账', '商品与库存', '客户账户', 'B2B 与全球商务'],
       revenue: ['线上与线下支付', '计费与订阅', '发票与支付链接', '平台支付与付款', '风险与身份验证流程', '税务与营收报表集成'],
-      marketing: ['增长战略', '内容与营销活动', 'AIYA 礼品卡']
+      marketing: ['增长战略', '内容与营销活动', 'AIYA 礼品卡与会员积分']
     };
     catalog.products?.forEach(item => {
       item.kicker = item.title;
@@ -312,6 +340,10 @@
     if (!pageName || pageName === 'index.html') document.title = 'AIYA 科技系统';
     else if (pageName === 'solutions.html') document.title = '解决方案 | AIYA 科技系统';
     else if (pageName === 'signin.html') document.title = '登录 | AIYA 科技系统';
+    else if (pageName === 'news.html') document.title = '新闻 | AIYA 科技系统';
+    else if (pageName === 'connected-business-technology.html') document.title = '互联商业科技 | AIYA 新闻';
+    else if (pageName === 'events.html') document.title = '活动 | AIYA 新闻';
+    else if (pageName === 'stories.html') document.title = '故事 | AIYA 新闻';
     const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
       acceptNode(node) {
         return /^(SCRIPT|STYLE|NOSCRIPT)$/.test(node.parentElement?.tagName || '') || !node.nodeValue.trim()
