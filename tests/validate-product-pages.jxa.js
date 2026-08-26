@@ -113,7 +113,7 @@ for (const marker of ["'B2B & Global Commerce': 'B2B 与全球商务'", "'Web & 
 }
 if (!fm.fileExistsAtPath('assets/aiya-chat-demo.png')) throw new Error('Missing chat demo image');
 if (!index.includes('data-mega-menu="solutions"')) throw new Error('Homepage is missing the Solutions navigation');
-if (!index.includes('class="header-signin"') || !index.includes('class="nav-signin"')) throw new Error('Homepage is missing responsive Sign in controls');
+if (!index.includes('class="header-signin" href="https://suite.aiya.us/login"') || !index.includes('class="nav-signin" href="https://suite.aiya.us/login"')) throw new Error('Homepage is missing AIYA Suite Sign in links');
 if (!fm.fileExistsAtPath('signin.html')) throw new Error('Sign in demo page is missing');
 const signinPage = read('signin.html');
 if (!signinPage.includes('No credentials are collected or submitted.')) throw new Error('Sign in demo disclosure is missing');
