@@ -6,7 +6,7 @@
   const language = requested === 'zh' || requested === 'en' ? requested : (stored === 'zh' ? 'zh' : 'en');
 
   const zh = {
-    'Home': '首页', 'Products': '产品', 'Services': '服务', 'Solutions': '解决方案', 'NEWS': '新闻', 'Company': '公司', 'Contact': '联系我们',
+    'Home': '首页', 'Products': '产品', 'Services': '服务', 'Solutions': '解决方案', 'News': '新闻', 'Company': '公司', 'Contact': '联系我们',
     'Under Construction': '正在建设', 'News and updates are coming soon.': '新闻与动态即将上线。', 'Return Home': '返回首页',
     'Sign in': '登录', 'Talk to our team': '联系我们', 'Talk to Our Team': '联系我们', 'Talk to Us': '联系我们',
     'View All Products': '查看全部产品', 'View All Services': '查看全部服务', 'View All Solutions': '查看全部解决方案', 'overview': '概览',

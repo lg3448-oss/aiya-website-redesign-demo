@@ -61,5 +61,5 @@ const render = ({ item, kind }) => {
 `;
 };
 
-pages.forEach(page => write(page.item.url, render(page).replace('<a href="../index.html#company">Company</a>', '<a href="../news.html">NEWS</a><a href="../index.html#company">Company</a>')));
+pages.forEach(page => write(page.item.url, render(page).replace('<a href="../index.html#company">Company</a>', '<a href="../news.html">News</a><a href="../index.html#company">Company</a>')));
 `${pages.length} product and service pages generated`;
