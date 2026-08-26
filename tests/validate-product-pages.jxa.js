@@ -113,6 +113,10 @@ for (const marker of ["'B2B & Global Commerce': 'B2B 与全球商务'", "'Web & 
 }
 if (!fm.fileExistsAtPath('assets/aiya-chat-demo.png')) throw new Error('Missing chat demo image');
 if (!index.includes('data-mega-menu="solutions"')) throw new Error('Homepage is missing the Solutions navigation');
+if (!index.includes('<a href="news.html">NEWS</a>')) throw new Error('Homepage is missing the NEWS navigation');
+if (!fm.fileExistsAtPath('news.html')) throw new Error('News placeholder page is missing');
+const newsPage = read('news.html');
+if (!newsPage.includes('<h1 id="news-title">Under Construction</h1>')) throw new Error('News page is missing its construction status');
 if (!index.includes('class="header-signin" href="https://suite.aiya.us/login"') || !index.includes('class="nav-signin" href="https://suite.aiya.us/login"')) throw new Error('Homepage is missing AIYA Suite Sign in links');
 if (!fm.fileExistsAtPath('signin.html')) throw new Error('Sign in demo page is missing');
 const signinPage = read('signin.html');

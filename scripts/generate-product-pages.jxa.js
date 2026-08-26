@@ -34,7 +34,7 @@ const render = ({ item, kind }) => {
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="${escapeHtml(item.summary)}">
   <title>${escapeHtml(item.title)} | AIYA Technology</title>
-  <link rel="stylesheet" href="../styles.css?v=20260826-1">
+  <link rel="stylesheet" href="../styles.css?v=20260826-2">
 </head>
 <body class="detail-page product-capability-page" data-detail-kind="${kind}" data-detail-key="${item.key}" data-asset-prefix="../">
   <div class="ambient-bg" aria-hidden="true"><i></i><i></i><i></i><b></b></div>
@@ -61,5 +61,5 @@ const render = ({ item, kind }) => {
 `;
 };
 
-pages.forEach(page => write(page.item.url, render(page)));
+pages.forEach(page => write(page.item.url, render(page).replace('<a href="../index.html#company">Company</a>', '<a href="../news.html">NEWS</a><a href="../index.html#company">Company</a>')));
 `${pages.length} product and service pages generated`;
