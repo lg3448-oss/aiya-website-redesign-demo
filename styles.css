@@ -221,6 +221,10 @@
 .detail-chat-panel>p{max-width:34ch;margin:0 0 18px;color:var(--muted);font-size:13px;line-height:1.55}.detail-chat-panel>.button{width:100%;justify-content:space-between}
 @media(max-width:760px){.capability-hero{display:grid}.capability-hero-actions{margin-top:24px}.detail-chat-panel{padding:18px}.detail-chat-panel>img{max-height:330px}.detail-chat-heading>span{font-size:32px}}
 
+/* Keep the Services artwork clear of its heading and code label. */
+.service-symbol::after{left:150px;width:160px}
+@media(min-width:761px){.services .service-layout{transform:translateY(clamp(54px,7vh,76px))}}
+
 /* Product capability story pages */
 .product-capability-page{--product-soft:#f2e7d9;--product-wash:#fff8ee}
 .product-capability-page .capability-hero{min-height:820px;grid-template-columns:minmax(360px,.82fr) minmax(500px,1.18fr);gap:clamp(44px,6vw,96px);padding-bottom:110px}
