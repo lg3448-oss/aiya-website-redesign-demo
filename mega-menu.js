@@ -1,4 +1,5 @@
 window.initializeAiyaMegaMenus = ({ pathPrefix = '' } = {}) => {
+  const i18nText = value => window.aiyaI18n?.t(value) || value;
   const withPrefix = path => (path.startsWith('/') ? path : `${pathPrefix}${path}`);
   const controller = new AbortController();
   const listenerOptions = { signal: controller.signal };
@@ -113,7 +114,7 @@ window.initializeAiyaMegaMenus = ({ pathPrefix = '' } = {}) => {
           const overview = document.createElement('a');
           overview.className = 'mega-menu-overview';
           overview.href = withPrefix(parent.overviewUrl);
-          overview.textContent = `${parent.title} overview \u2192\uFE0E`;
+          overview.textContent = `${parent.title} ${i18nText('overview')} \u2192\uFE0E`;
           group.append(overview);
         }
         return group;

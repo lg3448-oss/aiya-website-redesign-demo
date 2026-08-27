@@ -17,7 +17,6 @@ window.aiyaCatalog = {
         { title: 'Financial Data Connect', description: 'Linked financial account data', url: '/products/aiya-revenue.html' },
         { title: 'Online Storefront', description: 'Custom digital storefronts', url: '/products/aiya-commerce.html' },
         { title: 'Catalog & Inventory', description: 'Connected product operations', url: '/products/aiya-commerce.html' },
-        { title: 'Orders & Fulfillment', description: 'Order lifecycle workflows', url: '/products/aiya-commerce.html' },
         { title: 'Customer Accounts', description: 'Customer identity and history', url: '/products/aiya-commerce.html' },
         { title: 'B2B & Global Commerce', description: 'Business buying across markets', url: '/products/aiya-commerce.html' }
       ]
@@ -57,7 +56,7 @@ window.aiyaCatalog = {
         { title: 'AIYA Connect', description: 'Payments for platforms', url: '/products/aiya-revenue.html' },
         { title: 'Platform Financing', description: 'Customer financing integrations', url: '/products/aiya-revenue.html' },
         { title: 'Embedded Treasury', description: 'Embedded financial service workflows', url: '/products/aiya-revenue.html' },
-        { title: 'Card Issuing', description: 'Physical and virtual card systems', url: '/products/aiya-revenue.html' },
+        { title: 'Branded Customer Credit Program', description: 'Customer credit for purchases with your business', url: '/products/aiya-revenue.html' },
         { title: 'Marketplace Commerce', description: 'Multi-party commerce operations', url: '/products/aiya-commerce.html' }
       ]
     },
@@ -73,17 +72,7 @@ window.aiyaCatalog = {
         { title: 'Sustainability Integrations', description: 'Connected climate and impact data', url: '/services/integration-automation.html' },
         { title: 'Growth Strategy', description: 'Connected acquisition planning', url: '/products/aiya-marketing.html' },
         { title: 'Content & Campaigns', description: 'Creative campaign execution', url: '/products/aiya-marketing.html' },
-        { title: 'AIYA Gift Card', description: 'Repeat-customer gift experiences', url: '/products/aiya-marketing.html' }
-      ]
-    },
-    {
-      key: 'hardware', title: 'Hardware', kicker: 'CONNECTED · HARDWARE', monogram: 'HW',
-      image: '/assets/product-pad.png', overviewUrl: '/products/aiya-pad.html',
-      summary: 'Purpose-built devices connected to Aiya software, payments, and hospitality workflows.',
-      offerings: [
-        { title: 'AIYAPad', description: 'Mobile service hardware', url: '/products/aiya-pad.html' },
-        { title: 'AIYARobot', description: 'Automated delivery support', url: '/products/aiya-robot.html' },
-        { title: 'AIYAScan', description: 'QR self-service ordering', url: '/products/aiya-scan.html' }
+        { title: 'AIYA Gift Card & Loyalty Points', description: 'Gift balances and repeat-customer rewards', url: '/products/aiya-marketing.html' }
       ]
     }
   ],
@@ -92,8 +81,8 @@ window.aiyaCatalog = {
       key: 'commerce', group: 'Business Platforms', navCategory: 'Commerce', title: 'AIYA Commerce', url: '/products/aiya-commerce.html',
       kicker: 'COMMERCE · OPERATIONS', monogram: 'COM', image: '/assets/aiya-commerce.png',
       summary: 'A unified commerce system connecting customer experience with daily operations.',
-      capabilities: ['Online Storefront', 'Custom Checkout', 'Catalog & Inventory', 'Orders & Fulfillment', 'Customer Accounts', 'B2B & Global Commerce'],
-      deliverables: ['Custom storefronts and headless commerce', 'Checkout and customer-account experiences', 'Catalog, inventory, order, and fulfillment workflows', 'B2B pricing, purchasing, and global-market configuration'],
+      capabilities: ['Online Storefront', 'Custom Checkout', 'Catalog & Inventory', 'Customer Accounts', 'B2B & Global Commerce'],
+      deliverables: ['Custom storefronts and headless commerce', 'Checkout and customer-account experiences', 'Catalog and inventory workflows', 'B2B pricing, purchasing, and global-market configuration'],
       useCases: ['Launching a new digital sales channel', 'Replacing disconnected commerce tools', 'Supporting B2C and B2B from one operating model']
     },
     {
@@ -105,34 +94,10 @@ window.aiyaCatalog = {
       useCases: ['Adding payments to software products', 'Launching recurring or usage-based revenue', 'Connecting revenue data with finance operations']
     },
     {
-      key: 'pad', group: 'AIYA Products', navCategory: 'Hardware', title: 'AIYAPad', url: '/products/aiya-pad.html',
-      kicker: 'SERVICE · MOBILITY', monogram: 'PAD', image: '/assets/product-pad.png',
-      summary: 'Flexible table-side tools designed for faster hospitality service.',
-      capabilities: ['Table-Side Ordering', 'Menu and Order Access', 'Staff Workflow Support'],
-      deliverables: ['Branded tablet ordering interfaces', 'Menu and order-system connections', 'Role-based staff workflows'],
-      useCases: ['Full-service restaurants', 'High-volume hospitality teams', 'Businesses modernizing table service']
-    },
-    {
-      key: 'robot', group: 'AIYA Products', navCategory: 'Hardware', title: 'AIYARobot', url: '/products/aiya-robot.html',
-      kicker: 'AUTOMATION · SERVICE', monogram: 'BOT', image: '/assets/product-robot.png',
-      summary: 'Automated delivery support that helps teams focus attention where customers need it.',
-      capabilities: ['Delivery Automation', 'Route and Task Support', 'Service Workflow Integration'],
-      deliverables: ['Robot workflow configuration', 'Dispatch and task interfaces', 'Operational system integrations'],
-      useCases: ['Restaurants and hospitality venues', 'Repeatable indoor delivery routes', 'Teams reducing low-value transit work']
-    },
-    {
-      key: 'scan', group: 'AIYA Products', navCategory: 'Hardware', title: 'AIYAScan', url: '/products/aiya-scan.html',
-      kicker: 'QR · SELF SERVICE', monogram: 'QR', image: '/assets/product-scan.png',
-      summary: 'QR ordering that connects customers directly to the restaurant workflow.',
-      capabilities: ['QR Menu', 'Self-Service Ordering', 'Order and Payment Flow'],
-      deliverables: ['Mobile-first QR experiences', 'Menu and ordering interfaces', 'Order and payment integrations'],
-      useCases: ['Dine-in self-service', 'Fast-casual operations', 'Low-friction menu access']
-    },
-    {
       key: 'marketing', group: 'AIYA Products', navCategory: 'Marketing', title: 'AIYA Marketing', url: '/products/aiya-marketing.html',
       kicker: 'GROWTH · STRATEGY', monogram: 'MKT', image: '/assets/service-marketing.png',
       summary: 'Digital strategy and creative execution connected to the technology behind the business.',
-      capabilities: ['Growth Strategy', 'Content and Campaigns', 'AIYA Gift Card'],
+      capabilities: ['Growth Strategy', 'Content and Campaigns', 'AIYA Gift Card & Loyalty Points'],
       deliverables: ['Digital growth planning', 'Campaign creative and execution', 'Gift-card customer experiences'],
       useCases: ['Launching a new offer', 'Connecting marketing with conversion', 'Building repeat-customer programs']
     }
@@ -194,7 +159,7 @@ window.aiyaCatalog = {
     {
       key: 'use-cases', title: 'By Use Case', overviewUrl: 'solutions.html#use-cases',
       offerings: [
-        { key: 'digital-agentic-commerce', title: 'Digital & Agentic Commerce', description: 'Connect online buying with AI-assisted discovery and action.', url: '/solutions/digital-agentic-commerce.html', image: '/assets/product-visual-payments-commerce.jpg', headline: 'Turn discovery into a connected path to purchase.', overview: 'Bring storefronts, AI-assisted product discovery, checkout, payments, and fulfillment data into a commerce experience built for emerging customer journeys.', capabilities: ['Digital storefront and product discovery', 'AI-assisted commerce experiences', 'Checkout, payment, and fulfillment connections'], outcomes: ['Reduce friction from intent to purchase', 'Keep commerce data connected', 'Prepare customer journeys for new interfaces'], connected: [{ title: 'Online Storefront', url: '/products/online-storefront.html' }, { title: 'AIYA Checkout', url: '/products/aiya-checkout.html' }, { title: 'Orders & Fulfillment', url: '/products/orders-fulfillment.html' }] },
+        { key: 'digital-agentic-commerce', title: 'Digital & Agentic Commerce', description: 'Connect online buying with AI-assisted discovery and action.', url: '/solutions/digital-agentic-commerce.html', image: '/assets/product-visual-payments-commerce.jpg', headline: 'Turn discovery into a connected path to purchase.', overview: 'Bring storefronts, AI-assisted product discovery, checkout, payments, and fulfillment data into a commerce experience built for emerging customer journeys.', capabilities: ['Digital storefront and product discovery', 'AI-assisted commerce experiences', 'Checkout, payment, and fulfillment connections'], outcomes: ['Reduce friction from intent to purchase', 'Keep commerce data connected', 'Prepare customer journeys for new interfaces'], connected: [{ title: 'Online Storefront', url: '/products/online-storefront.html' }, { title: 'AIYA Checkout', url: '/products/aiya-checkout.html' }, { title: 'Customer Accounts', url: '/products/customer-accounts.html' }] },
         { key: 'crypto', title: 'Crypto', description: 'Build digital asset payment and infrastructure experiences.', url: '/solutions/crypto.html', image: '/assets/product-visual-treasury-finance.jpg', headline: 'Connect digital assets with practical product experiences.', overview: 'Design and integrate crypto onramps, digital asset workflows, and payment experiences around a clear customer and operational model.', capabilities: ['Fiat-to-crypto onboarding flows', 'Digital asset infrastructure integration', 'Payment and wallet experience design'], outcomes: ['Make complex flows easier to understand', 'Connect digital assets to existing products', 'Create a flexible foundation for future capabilities'], connected: [{ title: 'Digital Asset Onramp', url: '/products/digital-asset-onramp.html' }, { title: 'Digital Asset Infrastructure', url: '/products/digital-asset-infrastructure.html' }, { title: 'Identity Verification', url: '/products/identity-verification.html' }] },
         { key: 'embedded-finance-payments', title: 'Embedded Finance & Payments', description: 'Add payments and financial capabilities inside digital products.', url: '/solutions/embedded-finance-payments.html', image: '/assets/product-visual-platforms-marketplaces.jpg', headline: 'Make financial capabilities part of the product experience.', overview: 'Embed payment acceptance, connected accounts, payouts, and financial workflows inside the software customers already use.', capabilities: ['Embedded payment experiences', 'Connected account and payout flows', 'Financial feature integration'], outcomes: ['Keep users inside one product journey', 'Create new platform capabilities', 'Connect money movement with operations'], connected: [{ title: 'AIYA Connect', url: '/products/aiya-connect.html' }, { title: 'Embedded Treasury', url: '/products/embedded-treasury.html' }, { title: 'Global Payouts', url: '/products/global-payouts.html' }] },
         { key: 'finance-automation-management', title: 'Finance Automation & Management', description: 'Connect billing, reporting, reconciliation, and financial visibility.', url: '/solutions/finance-automation-management.html', image: '/assets/product-visual-billing-revenue.jpg', headline: 'Replace fragmented finance work with connected flows.', overview: 'Bring billing, invoicing, tax, reporting, and data movement together so finance teams spend less time reconciling disconnected systems.', capabilities: ['Billing and invoice automation', 'Tax and revenue workflows', 'Financial data and reporting connections'], outcomes: ['Reduce repetitive finance tasks', 'Improve operational visibility', 'Create more consistent reporting inputs'], connected: [{ title: 'AIYA Billing', url: '/products/aiya-billing.html' }, { title: 'Revenue Accounting', url: '/products/revenue-accounting.html' }, { title: 'Finance Data Pipeline', url: '/products/finance-data-pipeline.html' }] },

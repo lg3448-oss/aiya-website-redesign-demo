@@ -1,4 +1,5 @@
 const snapPage = document.querySelector('#snap-page');
+const i18nText = value => window.aiyaI18n?.t(value) || value;
 const initialHash = window.location.hash;
 if (initialHash) history.replaceState(null, '', `${window.location.pathname}${window.location.search}`);
 const slides = [...document.querySelectorAll('.hero-slide')];
@@ -27,10 +28,10 @@ document.querySelectorAll('[data-capability]').forEach(button => button.addEvent
   const key = button.dataset.capability;
   document.querySelectorAll('[data-capability]').forEach(item => item.classList.toggle('active', item === button));
   document.querySelector('.capability-visual').dataset.active = key;
-  document.querySelector('#capability-title').textContent = capabilityContent[key].title;
-  document.querySelector('#cap-node-one').textContent = capabilityContent[key].nodes[0];
-  document.querySelector('#cap-node-two').textContent = capabilityContent[key].nodes[1];
-  document.querySelector('#cap-node-three').textContent = capabilityContent[key].nodes[2];
+  document.querySelector('#capability-title').textContent = i18nText(capabilityContent[key].title);
+  document.querySelector('#cap-node-one').textContent = i18nText(capabilityContent[key].nodes[0]);
+  document.querySelector('#cap-node-two').textContent = i18nText(capabilityContent[key].nodes[1]);
+  document.querySelector('#cap-node-three').textContent = i18nText(capabilityContent[key].nodes[2]);
 }));
 
 const services = Object.fromEntries(window.aiyaCatalog.services.map(item => [item.key, item]));
@@ -44,12 +45,10 @@ function renderOfferings(container, offerings) {
     link.href = offering.url;
     const title = document.createElement('strong');
     title.textContent = offering.label;
-    const description = document.createElement('small');
-    description.textContent = offering.description;
     const arrow = document.createElement('span');
     arrow.setAttribute('aria-hidden', 'true');
     arrow.textContent = '\u2197\uFE0E';
-    link.append(title, description, arrow);
+    link.append(title, arrow);
     return link;
   }));
 }
@@ -65,7 +64,7 @@ function activateProductCategory(categoryKey) {
   document.querySelector('#product-description').textContent = category.summary;
   const image = document.querySelector('#product-image');
   image.src = category.image;
-  image.alt = `${category.title} capability preview`;
+  image.alt = window.aiyaI18n?.language === 'zh' ? `${category.title}能力预览` : `${category.title} capability preview`;
   document.querySelector('#product-monogram').textContent = category.monogram;
   const offerings = document.querySelector('#product-offerings');
   offerings.setAttribute('aria-label', `${category.title} capabilities`);
@@ -73,7 +72,7 @@ function activateProductCategory(categoryKey) {
   const overview = document.querySelector('#product-overview');
   overview.hidden = false;
   overview.href = category.overviewUrl;
-  overview.textContent = `${category.title} overview \u2192\uFE0E`;
+  overview.textContent = `${category.title} ${i18nText('overview')} \u2192\uFE0E`;
 }
 
 document.querySelectorAll('.product-selector [data-product-category]').forEach(button => {
@@ -95,7 +94,7 @@ function activateService(key) {
   renderOfferings(offerings, category.offerings.map(item => ({ label: item.title, description: item.description, url: item.url })));
   const overview = document.querySelector('#service-overview');
   overview.href = service.url;
-  overview.textContent = `${service.title} overview \u2192\uFE0E`;
+  overview.textContent = `${service.title} ${i18nText('overview')} \u2192\uFE0E`;
 }
 
 document.querySelectorAll('.service-selector [data-service]').forEach(button => {

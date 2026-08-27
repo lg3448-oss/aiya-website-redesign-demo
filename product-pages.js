@@ -12,7 +12,6 @@
     'Financial Data Connect': ['financial-data-connect', 'Connect customer-authorized financial account data to products and internal workflows.', ['Account connection', 'Permission-based financial data', 'Data-driven product workflows']],
     'Online Storefront': ['online-storefront', 'Create a digital storefront designed around your catalog, customers, and operating model.', ['Custom storefront experience', 'Catalog presentation', 'Commerce system connection']],
     'Catalog & Inventory': ['catalog-inventory', 'Keep product information and inventory activity connected across selling channels.', ['Catalog management', 'Inventory visibility', 'Channel synchronization']],
-    'Orders & Fulfillment': ['orders-fulfillment', 'Coordinate orders from purchase through preparation, delivery, pickup, or completion.', ['Order lifecycle management', 'Fulfillment routing', 'Status and exception workflows']],
     'Customer Accounts': ['customer-accounts', 'Give customers a secure place to manage profiles, orders, preferences, and purchasing history.', ['Customer profiles', 'Order history', 'Account and preference controls']],
     'B2B & Global Commerce': ['b2b-global-commerce', 'Support business purchasing and multi-market selling through configurable commerce workflows.', ['Business buying workflows', 'Market and currency configuration', 'Customer-specific commerce rules']],
     'AIYA Billing': ['aiya-billing', 'Operate recurring revenue with configurable pricing, collection, and customer billing workflows.', ['Recurring billing', 'Pricing configuration', 'Revenue operations']],
@@ -31,7 +30,7 @@
     'AIYA Connect': ['aiya-connect', 'Enable platforms to onboard businesses, accept payments, and route funds between participants.', ['Connected account onboarding', 'Platform payments', 'Multi-party money movement']],
     'Platform Financing': ['platform-financing', 'Offer financing experiences to eligible businesses through a platform-branded workflow.', ['Embedded financing experience', 'Business onboarding', 'Offer and repayment visibility']],
     'Embedded Treasury': ['embedded-treasury', 'Add branded balance, movement, and financial workflow capabilities inside a platform.', ['Embedded financial accounts', 'Balance and transfer workflows', 'Platform-level controls']],
-    'Card Issuing': ['card-issuing', 'Create physical or virtual card programs with configurable spending and operational controls.', ['Physical and virtual cards', 'Spending controls', 'Card lifecycle management']],
+    'Branded Customer Credit Program': ['card-issuing', 'Give customers a branded credit account they can use to purchase from your business, with configurable limits and account controls.', ['Branded customer credit accounts', 'Credit limits and purchase controls', 'Customer account lifecycle management']],
     'Marketplace Commerce': ['marketplace-commerce', 'Coordinate buyers, sellers, orders, fees, and payouts through one marketplace operating model.', ['Seller onboarding', 'Multi-party orders', 'Fees and payout coordination']],
     'Fraud & Risk': ['fraud-risk', 'Identify suspicious activity and give teams configurable tools to review and manage transaction risk.', ['Risk signals', 'Review workflows', 'Configurable transaction rules']],
     'Identity Verification': ['identity-verification', 'Add identity checks to onboarding, account access, and higher-risk customer actions.', ['Document and identity workflows', 'Verification status handling', 'Risk-based customer steps']],
@@ -40,7 +39,7 @@
     'Sustainability Integrations': ['sustainability-integrations', 'Connect climate and impact data to products, reporting, and customer experiences.', ['Impact data connection', 'Reporting workflows', 'Customer-facing integrations']],
     'Growth Strategy': ['growth-strategy', 'Turn business goals into a focused acquisition, retention, and conversion plan.', ['Growth planning', 'Channel priorities', 'Conversion roadmap']],
     'Content & Campaigns': ['content-campaigns', 'Plan and deliver coordinated content and campaigns across the channels your customers use.', ['Campaign planning', 'Creative production', 'Channel coordination']],
-    'AIYA Gift Card': ['aiya-gift-card', 'Create branded gift-card experiences connected to checkout and repeat-customer programs.', ['Gift-card purchase flow', 'Redemption experience', 'Customer program connection']]
+    'AIYA Gift Card & Loyalty Points': ['aiya-gift-card', 'Combine branded gift-card balances with a loyalty points program that rewards repeat purchases and lets customers earn and redeem value.', ['Gift-card purchase and balance', 'Loyalty points earning and redemption', 'Customer rewards program connection']]
   };
 
   const categoryCopy = {
