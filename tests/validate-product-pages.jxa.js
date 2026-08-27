@@ -117,11 +117,12 @@ if (!index.includes('data-mega-menu="solutions"')) throw new Error('Homepage is 
 if (!index.includes('<a href="news.html">News</a>')) throw new Error('Homepage is missing the News navigation');
 if (!fm.fileExistsAtPath('news.html')) throw new Error('News homepage is missing');
 const newsPage = read('news.html');
-for (const marker of ['LATEST ARTICLE', 'news/connected-business-technology.html', 'news/events.html', 'news/stories.html', 'Learn More']) {
+for (const marker of ['LATEST ARTICLE', 'news/connected-business-technology.html', 'news/events.html', 'news/stories.html', 'Learn More', 'Under Construction']) {
   if (!newsPage.includes(marker)) throw new Error(`News homepage is missing ${marker}`);
 }
 for (const newsPath of ['news/connected-business-technology.html', 'news/events.html', 'news/stories.html']) {
   if (!fm.fileExistsAtPath(newsPath)) throw new Error(`News content page is missing: ${newsPath}`);
+  if (!read(newsPath).includes('Under Construction')) throw new Error(`News content page is missing construction status: ${newsPath}`);
 }
 for (const productMarker of ["'Usage Billing': '账单计费'", 'Branded Customer Credit Program', 'AIYA Gift Card & Loyalty Points']) {
   if (!i18n.includes(productMarker) && !read('product-pages.js').includes(productMarker)) throw new Error(`Updated product content is missing: ${productMarker}`);
