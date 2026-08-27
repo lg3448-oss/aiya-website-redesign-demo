@@ -76,7 +76,6 @@
     'Platforms & Marketplaces': '平台与交易市场', 'Trust & Business Tools': '风控与业务工具',
     'Accept payments, build checkout experiences, and connect online and in-person commerce.': '接收支付、打造结账体验，并连接线上与线下商务场景。',
     'Manage recurring, usage-based, and invoice revenue with connected reporting and finance data.': '通过互联报表与财务数据管理订阅、按量计费和发票营收。',
-    'Connect payouts, treasury workflows, financing, and digital asset infrastructure to business operations.': '将付款、资金流程、融资与数字资产基础设施连接到企业运营。',
     'Build payments, financial services, and commerce infrastructure for platforms and marketplaces.': '为平台与交易市场构建支付、金融服务和商务基础设施。',
     'Protect transactions, verify customers, connect business data, and support product growth.': '保护交易、验证客户、连接业务数据并支持产品增长。',
     'AIYA Payments': 'AIYA 支付', 'Payment Operations': '支付运营', 'Smart Payment Links': '智能支付链接', 'AIYA Checkout': 'AIYA 结账',
@@ -85,8 +84,8 @@
     'Customer Accounts': '客户账户', 'B2B & Global Commerce': 'B2B 与全球商务', 'AIYA Billing': 'AIYA 计费', 'Usage Billing': '账单计费',
     'Subscription Management': '订阅管理', 'AIYA Invoicing': 'AIYA 发票', 'Tax Automation': '税务自动化', 'Revenue Accounting': '营收会计',
     'Revenue Analytics': '营收分析', 'Finance Data Pipeline': '财务数据管道', 'Treasury Operations': '资金运营', 'Global Payouts': '全球付款',
-    'Business Financing': '企业融资', 'Digital Asset Infrastructure': '数字资产基础设施', 'Digital Asset Onramp': '数字资产购买入口',
-    'AIYA Connect': 'AIYA 平台连接', 'Platform Financing': '平台融资', 'Embedded Treasury': '嵌入式资金服务', 'Branded Customer Credit Program': '企业品牌信用账户',
+    'Financial Services API Integration': '金融服务API技术对接', 'Digital Asset Infrastructure': '数字资产基础设施', 'Digital Asset Onramp': '数字资产购买入口',
+    'AIYA Connect': 'AIYA 平台连接', 'Embedded Treasury': '嵌入式资金服务',
     'Marketplace Commerce': '交易市场商务', 'Fraud & Risk': '欺诈与风险管理', 'Identity Verification': '身份验证', 'Product Strategy': '产品战略',
     'Business Launch Systems': '业务启动系统', 'Sustainability Integrations': '可持续发展集成', 'Growth Strategy': '增长战略',
     'Content & Campaigns': '内容与营销活动', 'AIYA Gift Card & Loyalty Points': 'AIYA 礼品卡与会员积分',
@@ -98,13 +97,36 @@
     'Recurring revenue operations': '经常性营收运营', 'Metered and usage-based billing': '计量与账单计费', 'Subscription lifecycle workflows': '订阅生命周期流程',
     'One-time and recurring invoices': '一次性与周期性发票', 'Sales tax and VAT integrations': '销售税与 VAT 集成', 'Revenue recognition workflows': '营收确认流程',
     'Custom revenue reporting': '定制营收报表', 'Revenue and finance data sync': '营收与财务数据同步',
-    'Connected business finance workflows': '互联企业财务流程', 'Payouts to third parties': '向第三方付款', 'Financing system integrations': '融资系统集成',
+    'Connected business finance workflows': '互联企业财务流程', 'Payouts to third parties': '向第三方付款', 'Third-party financial service system connectivity': '第三方金融服务系统连接',
     'Wallet and digital asset systems': '钱包与数字资产系统', 'Embeddable purchase experiences': '可嵌入的购买体验',
-    'Payments for platforms': '平台支付', 'Customer financing integrations': '客户融资集成', 'Embedded financial service workflows': '嵌入式金融服务流程',
+    'Payments for platforms': '平台支付', 'Embedded financial service workflows': '嵌入式金融服务流程',
     'Customer credit for purchases with your business': '用于在企业内消费的客户信用账户', 'Multi-party commerce operations': '多方商务运营',
     'Fraud prevention workflows': '欺诈防范流程', 'Online identity workflows': '在线身份验证流程', 'Roadmaps and launch planning': '路线图与上线规划',
     'Digital foundations for new ventures': '新业务的数字基础', 'Connected climate and impact data': '连接环境与影响数据', 'Connected acquisition planning': '互联获客规划',
     'Creative campaign execution': '营销活动创意执行', 'Gift balances and repeat-customer rewards': '礼品余额与回头客积分奖励',
+    'Connect payouts, treasury workflows, financial service APIs, and digital asset infrastructure to business operations.': '将付款、资金流程、金融服务API与数字资产基础设施连接到企业运营。',
+    'TECHNOLOGY INFRASTRUCTURE': '技术基础设施', 'Technology Infrastructure for Financial Service Connectivity': '金融服务系统连接技术基础设施',
+    'Connect software platforms with independent third-party financial service providers through secure APIs and system integrations. AIYA provides software development, API connectivity, data integration, workflow automation, and technical support only. AIYA does not offer, arrange, broker, refer, approve, service, or fund any loan or financing product.': '通过安全的API及系统集成，帮助企业软件平台连接独立第三方金融服务提供商。AIYA仅提供软件开发、API连接、数据集成、工作流程自动化及相关技术支持。AIYA不提供、不安排、不经纪、不转介、不审批、不管理，也不出资任何贷款或融资产品。',
+    'API integration': 'API系统对接', 'Secure data connectivity': '安全数据连接', 'Testing and technical support': '测试及技术支持',
+    'AIYA helps businesses, software platforms, and financial service providers connect their systems through secure APIs, data integrations, and customized software workflows.': 'AIYA通过安全API、数据集成及定制化软件工作流程，帮助企业、软件平台和金融服务机构实现不同系统之间的技术连接。',
+    'Our role is strictly limited to technology development and system integration. AIYA does not provide or participate in lending or financing activities.': 'AIYA的角色严格限于软件开发及系统技术集成。AIYA不提供也不参与任何贷款或融资业务。',
+    'Explore API Integration': '了解API技术对接', 'Contact Our Integration Team': '联系我们的系统集成团队', 'Secure financial service API and system connectivity': '安全的金融服务API及系统连接', 'API / DATA / WORKFLOWS': 'API / 数据 / 工作流程',
+    'OUR TECHNOLOGY SERVICES': '我们的技术服务', 'Technical connections built around independently operated systems': '围绕独立运营系统构建技术连接',
+    'API Integration': 'API系统对接', 'Connect eligible business applications with APIs made available by independent third-party financial service providers.': '将符合技术条件的商业应用程序与独立第三方金融服务机构提供的API进行连接。',
+    'Custom Software Development': '定制软件开发', 'Develop user interfaces, dashboards, data connections, and operational tools based on the client’s technical requirements.': '根据客户的技术需求，开发用户界面、管理后台、数据连接及运营工具。',
+    'Data Connectivity': '数据连接', 'Support the secure transmission of authorized data between independently operated systems.': '协助在相互独立运营的系统之间安全传输经授权的数据。',
+    'Workflow Automation': '工作流程自动化', 'Build technical workflows for document submission, application-status updates, notifications, and reporting.': '建立文件提交、申请状态更新、系统通知及报告等技术工作流程。',
+    'Testing and Technical Support': '测试及技术支持', 'Assist with API testing, sandbox environments, implementation, troubleshooting, and ongoing technical maintenance.': '协助完成API测试、Sandbox测试环境、系统实施、故障排查及后续技术维护。',
+    'View Integration Capabilities': '查看技术对接能力', 'WHO WE SERVE': '我们的服务对象', 'Built for teams connecting financial service technology': '服务于连接金融服务技术的团队',
+    'Financial technology companies': '金融科技公司', 'Banks and regulated financial institutions': '银行及受监管金融机构', 'Independent financing providers': '独立第三方融资机构', 'SaaS and software platforms': 'SaaS及软件平台', 'Marketplaces': '交易平台', 'Payment companies': '支付公司', 'Businesses requiring third-party financial system integrations': '需要连接第三方金融系统的企业',
+    'AIYA’S ROLE': 'AIYA的角色', 'Software development and technology integration only': '仅提供软件开发及技术系统集成', 'AIYA acts solely as a software developer and technology integration provider.': 'AIYA仅作为软件开发及技术系统集成服务提供商。', 'AIYA does not:': 'AIYA不从事以下业务：',
+    'Offer loans or financing': '不提供贷款或融资', 'Accept financing applications on its own behalf': '不以自身名义接收融资申请', 'Recommend or refer applicants to lenders': '不向贷款机构推荐或转介申请人', 'Arrange or broker financing transactions': '不安排或经纪融资交易', 'Evaluate creditworthiness': '不评估申请人的信用状况', 'Perform underwriting': '不进行贷款审核', 'Approve or decline applications': '不批准或拒绝融资申请', 'Determine interest rates, fees, or financing terms': '不决定利率、费用或融资条款', 'Make lending or credit decisions': '不作出任何贷款或信贷决定', 'Provide or advance loan funds': '不提供或垫付贷款资金', 'Collect loan payments': '不收取贷款还款', 'Service or manage loans': '不管理或服务贷款账户', 'Guarantee approval or funding': '不保证申请获批或获得资金', 'Assume credit or repayment risk': '不承担信贷或还款风险',
+    'IMPORTANT TECHNOLOGY SERVICES DISCLOSURE': '重要技术服务声明', 'Technology services with clearly defined boundaries': '职责边界清晰的技术服务',
+    'AIYA Technology System LLC is a technology and software integration company. AIYA is not a bank, lender, financing provider, loan broker, financing broker, or credit services provider.': 'AIYA Technology System LLC是一家科技及软件系统集成公司。AIYA并非银行、贷款机构、融资提供商、贷款经纪人、融资经纪人或信用服务机构。',
+    'AIYA does not offer, arrange, broker, refer, approve, service, or fund loans or other financing products. AIYA does not make credit decisions and does not participate in any financing agreement between a financial service provider and its customer.': 'AIYA不提供、不安排、不经纪、不转介、不审批、不管理，也不出资任何贷款或其他融资产品。AIYA不作出信贷决定，也不参与金融服务机构与其客户之间签订的任何融资协议。',
+    'Any financial products displayed or accessed through an integrated third-party system are independently offered, reviewed, approved, funded, and administered by the applicable third-party provider. The third-party provider is solely responsible for its products, eligibility requirements, disclosures, pricing, fees, terms, regulatory obligations, customer agreements, and servicing activities.': '任何通过第三方集成系统展示或访问的金融产品，均由相应的独立第三方机构负责提供、审核、批准、出资及管理。相关第三方机构独立负责其产品、申请资格、法定披露、价格、费用、条款、监管责任、客户合同及后续服务。',
+    'AIYA’s services are limited to software development, API connectivity, data integration, workflow automation, implementation, and technical support.': 'AIYA提供的服务仅限于软件开发、API连接、数据集成、工作流程自动化、系统实施及技术支持。',
+    'TECHNICAL CONSULTATION': '技术咨询', 'Connect your systems with a clearly scoped integration plan.': '通过职责范围清晰的技术对接方案连接您的系统。', 'Request Technical Consultation': '申请技术咨询',
     'Software Engineering': '软件工程', 'Integration & Automation': '系统集成与自动化', 'Growth': '增长服务',
     'Product & Experience Design': '产品与体验设计', 'Custom Software Development': '定制软件开发', 'Web & Mobile Development': '网站与移动应用开发',
     'Ecommerce Platform Development': '电商平台开发', 'Enterprise & Cloud Platforms': '企业与云平台', 'Performance & Reliability': '性能与可靠性',
@@ -117,7 +139,7 @@
     'Beauty, Wellness & Fitness': '美容、健康与健身', 'Healthcare & Education': '医疗与教育', 'Automotive': '汽车行业',
     'Home & Field Services': '家庭与现场服务', 'Professional Services': '专业服务', 'Entertainment': '娱乐行业', 'Manufacturing & Wholesale': '制造与批发',
     'Digital & Agentic Commerce': '数字与智能代理商务', 'Crypto': '加密货币', 'Embedded Finance & Payments': '嵌入式金融与支付',
-    'Finance Automation & Management': '财务自动化与管理', 'Global Business': '全球业务', 'Marketplaces': '交易市场', 'Platforms & SaaS': '平台与 SaaS',
+    'Finance Automation & Management': '财务自动化与管理', 'Global Business': '全球业务', 'Marketplaces': '交易平台', 'Platforms & SaaS': '平台与 SaaS',
     'Restaurants, cafes, hotels, venues, and guest experiences.': '适用于餐厅、咖啡馆、酒店、场馆与宾客体验。',
     'Grocery, convenience, specialty, and consumer retail.': '适用于杂货、便利店、专业门店与消费零售。',
     'Salons, spas, studios, gyms, and membership businesses.': '适用于美容院、水疗、工作室、健身房与会员制业务。',
@@ -239,9 +261,9 @@
           item.summary = '账单计费用于根据已确认的商品、服务、费用和账户活动生成清晰的客户账单。';
           item.capabilities = ['客户账单生成', '灵活计费规则', '账单与客户账户数据连接'];
         }
-        if (item.key === 'card-issuing') {
-          item.summary = '企业品牌信用账户帮助企业向客户提供专属信用额度，客户可使用该额度在企业内购买商品或服务。';
-          item.capabilities = ['企业品牌客户信用账户', '信用额度与消费规则', '客户账户生命周期管理'];
+        if (item.key === 'financial-services-api-integration') {
+          item.summary = '通过安全的API及系统集成，帮助企业软件平台连接独立第三方金融服务提供商。AIYA仅提供软件开发、API连接、数据集成、工作流程自动化及相关技术支持。';
+          item.capabilities = ['API系统对接', '安全数据连接', '工作流程自动化', '测试及技术支持'];
         }
         if (item.key === 'aiya-gift-card') {
           item.summary = 'AIYA 礼品卡与会员积分结合储值礼品卡和忠诚度积分，让客户通过重复消费获取积分，并在后续购买中兑换使用。';
@@ -339,6 +361,7 @@
     else if (pageName === 'connected-business-technology.html') document.title = '互联商业科技 | AIYA 新闻';
     else if (pageName === 'events.html') document.title = '活动 | AIYA 新闻';
     else if (pageName === 'stories.html') document.title = '故事 | AIYA 新闻';
+    else if (pageName === 'financial-services-api-integration.html') document.title = '金融服务API技术对接 | AIYA 科技系统';
     const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
       acceptNode(node) {
         return /^(SCRIPT|STYLE|NOSCRIPT)$/.test(node.parentElement?.tagName || '') || !node.nodeValue.trim()
