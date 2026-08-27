@@ -44,7 +44,7 @@ const render = ({ item, category }) => {
     <section class="solution-connected-section"><header><small>CONNECTED AIYA PRODUCTS &amp; SERVICES</small><h2>Build the right capability mix</h2><p>These related AIYA capabilities provide a starting point for this demo solution.</p></header><div>${connectedCards}</div></section>
     <section class="solutions-cta"><small>START WITH YOUR OPERATING MODEL</small><h2>Shape this solution around your business.</h2><a class="button primary" href="../index.html#contact">Talk to Our Team <span>↗︎</span></a></section>
   </main>
-  <footer class="detail-footer"><img src="../assets/logo.png" alt="AIYA Technology"><span>Demo solution content. Final capabilities, availability, and requirements subject to company approval.</span></footer>
+  <footer class="detail-footer"><img src="../assets/logo.png" alt="AIYA Technology"></footer>
   <script src="../catalog.js?v=20260826-1"></script>
   <script src="../product-pages.js?v=20260826-1"></script>
   <script src="../service-pages.js?v=20260825-5"></script>

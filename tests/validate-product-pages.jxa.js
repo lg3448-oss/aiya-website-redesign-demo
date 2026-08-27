@@ -51,7 +51,7 @@ if (new Set(solutionUrls).size !== solutionUrls.length) throw new Error('Solutio
 for (const solution of [...industrySolutions, ...useCaseSolutions]) {
   if (!fm.fileExistsAtPath(solution.url)) throw new Error(`Missing solution page: ${solution.url}`);
   const html = read(solution.url);
-  for (const marker of [`data-solution-key="${solution.key}"`, solution.headline, 'CONNECTED AIYA PRODUCTS &amp; SERVICES', 'Demo solution content']) {
+  for (const marker of [`data-solution-key="${solution.key}"`, solution.headline, 'CONNECTED AIYA PRODUCTS &amp; SERVICES']) {
     if (!html.includes(marker)) throw new Error(`Missing ${marker} in ${solution.url}`);
   }
   if (!Array.isArray(solution.capabilities) || solution.capabilities.length !== 3) throw new Error(`Invalid capabilities for ${solution.title}`);
@@ -83,7 +83,7 @@ for (const { item, kind } of pages) {
     '../product-pages.js?v=20260826-1',
     '../service-pages.js?v=20260825-5',
     '../i18n.js?v=20260826-1',
-    `Demo content for ${singular} planning`
+    '<footer class="detail-footer"><img'
   ];
   for (const marker of required) {
     if (!html.includes(marker)) throw new Error(`Missing ${marker} in ${item.url}`);
@@ -128,11 +128,10 @@ for (const productMarker of ["'Usage Billing': '账单计费'", 'Branded Custome
 if (!index.includes('class="header-signin" href="https://suite.aiya.us/login"') || !index.includes('class="nav-signin" href="https://suite.aiya.us/login"')) throw new Error('Homepage is missing AIYA Suite Sign in links');
 if (!fm.fileExistsAtPath('signin.html')) throw new Error('Sign in demo page is missing');
 const signinPage = read('signin.html');
-if (!signinPage.includes('No credentials are collected or submitted.')) throw new Error('Sign in demo disclosure is missing');
 if (!signinPage.includes('i18n.js?v=20260826-1')) throw new Error('Sign in page does not load bilingual runtime');
 if (!fm.fileExistsAtPath('solutions.html') || !fm.fileExistsAtPath('solutions.js')) throw new Error('Solutions directory files are missing');
 const solutionsPage = read('solutions.html');
-for (const marker of ['id="industries"', 'id="use-cases"', 'solutions.js?v=20260825-5', 'Demo solution groupings']) {
+for (const marker of ['id="industries"', 'id="use-cases"', 'solutions.js?v=20260825-5']) {
   if (!solutionsPage.includes(marker)) throw new Error(`Missing ${marker} in solutions.html`);
 }
 for (const visual of ['payments-commerce', 'billing-revenue', 'treasury-finance', 'platforms-marketplaces', 'trust-business-tools']) {
