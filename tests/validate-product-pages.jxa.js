@@ -82,7 +82,7 @@ for (const { item, kind } of pages) {
     'mailto:info@aiya.us',
     '../product-pages.js?v=20260826-1',
     '../service-pages.js?v=20260825-5',
-    '../i18n.js?v=20260826-1',
+    '../i18n.js?v=20260827-1',
     '<footer class="detail-footer"><img'
   ];
   for (const marker of required) {
@@ -105,12 +105,13 @@ for (const removedCopy of ['Orders & Fulfillment', 'AIYAPad', 'AIYARobot', 'AIYA
   if (index.includes(removedCopy)) throw new Error(`Homepage still exposes removed product: ${removedCopy}`);
 }
 if (!index.includes('product-pages.js?v=20260826-1')) throw new Error('Homepage does not load product page routing data');
-if (!index.includes('i18n.js?v=20260826-1')) throw new Error('Homepage does not load bilingual runtime');
+if (!index.includes('i18n.js?v=20260827-1')) throw new Error('Homepage does not load bilingual runtime');
 if (!fm.fileExistsAtPath('i18n.js')) throw new Error('Missing bilingual runtime');
 const i18n = read('i18n.js');
 for (const marker of ["'B2B & Global Commerce': 'B2B 与全球商务'", "'Web & Mobile Development': '网站与移动应用开发'", "'CRM Systems': 'CRM 系统'", "'AIYA Payments': 'AIYA 支付'", 'normalizeChineseCatalog', 'applySolutionDetail', 'aiya-language', 'language-switch']) {
   if (!i18n.includes(marker)) throw new Error(`Missing bilingual policy marker: ${marker}`);
 }
+if (!i18n.includes("getItem('aiya-language-v2')") || !i18n.includes("(stored === 'zh' ? 'zh' : 'en')")) throw new Error('English-first language preference policy is missing');
 if (!fm.fileExistsAtPath('assets/aiya-chat-demo.png')) throw new Error('Missing chat demo image');
 if (!index.includes('data-mega-menu="solutions"')) throw new Error('Homepage is missing the Solutions navigation');
 if (!index.includes('<a href="news.html">News</a>')) throw new Error('Homepage is missing the News navigation');
@@ -128,7 +129,7 @@ for (const productMarker of ["'Usage Billing': '账单计费'", 'Branded Custome
 if (!index.includes('class="header-signin" href="https://suite.aiya.us/login"') || !index.includes('class="nav-signin" href="https://suite.aiya.us/login"')) throw new Error('Homepage is missing AIYA Suite Sign in links');
 if (!fm.fileExistsAtPath('signin.html')) throw new Error('Sign in demo page is missing');
 const signinPage = read('signin.html');
-if (!signinPage.includes('i18n.js?v=20260826-1')) throw new Error('Sign in page does not load bilingual runtime');
+if (!signinPage.includes('i18n.js?v=20260827-1')) throw new Error('Sign in page does not load bilingual runtime');
 if (!fm.fileExistsAtPath('solutions.html') || !fm.fileExistsAtPath('solutions.js')) throw new Error('Solutions directory files are missing');
 const solutionsPage = read('solutions.html');
 for (const marker of ['id="industries"', 'id="use-cases"', 'solutions.js?v=20260825-5']) {

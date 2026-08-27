@@ -2,7 +2,7 @@
   const params = new URLSearchParams(window.location.search);
   const requested = params.get('lang');
   let stored = null;
-  try { stored = window.localStorage.getItem('aiya-language'); } catch (_) {}
+  try { stored = window.localStorage.getItem('aiya-language-v2'); } catch (_) {}
   const language = requested === 'zh' || requested === 'en' ? requested : (stored === 'zh' ? 'zh' : 'en');
 
   const zh = {
@@ -358,7 +358,7 @@
   };
 
   const switchLanguage = next => {
-    try { window.localStorage.setItem('aiya-language', next); } catch (_) {}
+    try { window.localStorage.setItem('aiya-language-v2', next); } catch (_) {}
     const url = new URL(window.location.href);
     if (next === 'zh') url.searchParams.set('lang', 'zh');
     else url.searchParams.delete('lang');

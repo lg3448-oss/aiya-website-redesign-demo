@@ -48,7 +48,7 @@ const render = ({ item, category }) => {
   <script src="../catalog.js?v=20260826-1"></script>
   <script src="../product-pages.js?v=20260826-1"></script>
   <script src="../service-pages.js?v=20260825-5"></script>
-  <script src="../i18n.js?v=20260826-1"></script>
+  <script src="../i18n.js?v=20260827-1"></script>
   <script src="../mega-menu.js?v=20260825-5"></script>
   <script>window.initializeAiyaMegaMenus({ pathPrefix: '../' });</script>
 </body>
