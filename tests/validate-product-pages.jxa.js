@@ -120,6 +120,7 @@ const newsPage = read('news.html');
 for (const marker of ['LATEST ARTICLE', 'news/connected-business-technology.html', 'news/events.html', 'news/stories.html', 'Learn More', 'Under Construction']) {
   if (!newsPage.includes(marker)) throw new Error(`News homepage is missing ${marker}`);
 }
+if (!newsPage.includes('styles.css?v=20260827-1')) throw new Error('News homepage does not load centered construction status styles');
 for (const newsPath of ['news/connected-business-technology.html', 'news/events.html', 'news/stories.html']) {
   if (!fm.fileExistsAtPath(newsPath)) throw new Error(`News content page is missing: ${newsPath}`);
   if (!read(newsPath).includes('Under Construction')) throw new Error(`News content page is missing construction status: ${newsPath}`);
