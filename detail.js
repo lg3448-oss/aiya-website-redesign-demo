@@ -5,6 +5,7 @@ if (detailPage) {
   if (!item) throw new Error(`Unknown catalog item: ${detailPage.dataset.detailKind}/${detailPage.dataset.detailKey}`);
 
   const assetPrefix = detailPage.dataset.assetPrefix || '';
+  const withPrefix = path => (path.startsWith('/') ? path : `${assetPrefix}${path}`);
   detailPage.dataset.detailCategory = (item.navCategory || 'AIYA').toLowerCase().replace(/[^a-z0-9]+/g, '-');
   detailPage.classList.toggle('long-title', item.title.length > 23);
   document.querySelector('#detail-kicker').textContent = item.kicker;
@@ -14,7 +15,7 @@ if (detailPage) {
 
   const image = document.querySelector('#detail-image');
   if (image && item.image) {
-    const imageUrl = `${assetPrefix}${item.image}`;
+    const imageUrl = withPrefix(item.image);
     image.src = detailPage.dataset.detailKind.startsWith('service')
       ? `${imageUrl}?asset=20260820-9`
       : imageUrl;
@@ -59,7 +60,7 @@ if (detailPage) {
     const links = related.map(candidate => {
       const link = document.createElement('a');
       link.className = 'related-product-link';
-      link.href = `${assetPrefix}${candidate.url}`;
+      link.href = withPrefix(candidate.url);
       const copy = document.createElement('span');
       const title = document.createElement('strong');
       title.textContent = candidate.title;

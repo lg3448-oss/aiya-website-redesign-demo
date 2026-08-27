@@ -1,5 +1,5 @@
 window.initializeAiyaMegaMenus = ({ pathPrefix = '' } = {}) => {
-  const withPrefix = path => `${pathPrefix}${path}`;
+  const withPrefix = path => (path.startsWith('/') ? path : `${pathPrefix}${path}`);
   const controller = new AbortController();
   const listenerOptions = { signal: controller.signal };
   const menuRoots = [...document.querySelectorAll('[data-mega-menu]')];

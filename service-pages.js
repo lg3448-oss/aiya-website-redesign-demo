@@ -143,7 +143,7 @@
         ...profile,
         title,
         description: profile.summary,
-        url: `services/${profile.key}.html`,
+        url: `/services/${profile.key}.html`,
         navCategory: category.title,
         kicker: category.kicker,
         monogram: profile.key.split('-').map(part => part[0]).join('').slice(0, 3).toUpperCase(),
