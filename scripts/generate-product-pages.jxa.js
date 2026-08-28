@@ -12,7 +12,7 @@ eval(read('service-pages.js'));
 
 const offeringPages = window.aiyaCatalog.productCategories
   .flatMap(category => category.offerings)
-  .filter(item => item.key && item.capabilities);
+  .filter(item => item.key && item.capabilities && item.key !== 'financial-services-api-integration');
 const pages = [
   ...offeringPages.map(item => ({ item, kind: 'offering' })),
   ...window.aiyaCatalog.services.map(item => ({ item, kind: 'service' })),
@@ -49,11 +49,11 @@ const render = ({ item, kind }) => {
     <section class="detail-section related-product-section reveal-section"><div class="detail-section-intro"><small>${relatedLabel}</small><h2>${relatedTitle}</h2><p>${relatedCopy}</p></div><div class="related-product-grid" id="detail-related-products"></div></section>
     <section class="detail-cta reveal-section"><small>DEMO ${singular.toUpperCase()} CONTENT</small><h2>Explore how this capability could fit your business.</h2><a class="button primary" href="../index.html#${section}">View All ${plural} <span>→︎</span></a></section>
   </main>
-  <footer class="detail-footer"><img src="../assets/logo.png" alt="AIYA Technology"><span>Demo content for ${singular.toLowerCase()} planning. Final capabilities subject to company approval.</span></footer>
-  <script src="../catalog.js?v=20260826-1"></script>
-  <script src="../product-pages.js?v=20260826-1"></script>
+  <footer class="detail-footer"><img src="../assets/logo.png" alt="AIYA Technology"></footer>
+  <script src="../catalog.js?v=20260827-2"></script>
+  <script src="../product-pages.js?v=20260827-2"></script>
   <script src="../service-pages.js?v=20260825-5"></script>
-  <script src="../i18n.js?v=20260826-1"></script>
+  <script src="../i18n.js?v=20260827-2"></script>
   <script src="../mega-menu.js?v=20260825-5"></script>
   <script src="../detail.js?v=20260825-5"></script>
 </body>

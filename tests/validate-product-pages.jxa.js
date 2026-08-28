@@ -13,12 +13,16 @@ const serviceOfferings = window.aiyaCatalog.serviceCategories.flatMap(category =
 const industrySolutions = window.aiyaCatalog.solutionCategories.find(category => category.key === 'industries')?.offerings || [];
 const useCaseSolutions = window.aiyaCatalog.solutionCategories.find(category => category.key === 'use-cases')?.offerings || [];
 const pages = [
-  ...offerings.filter(item => item.key).map(item => ({ item, kind: 'offering' })),
+  ...offerings.filter(item => item.key && item.key !== 'financial-services-api-integration').map(item => ({ item, kind: 'offering' })),
   ...window.aiyaCatalog.services.map(item => ({ item, kind: 'service' })),
   ...window.aiyaCatalog.serviceCategories.flatMap(category => category.offerings).map(item => ({ item, kind: 'service-offering' }))
 ];
 
-if (offerings.length !== 40) throw new Error(`Expected 40 clickable products, observed ${offerings.length}`);
+if (offerings.length !== 38) throw new Error(`Expected 38 consolidated clickable products, observed ${offerings.length}`);
+const integrationProducts = offerings.filter(item => item.key === 'financial-services-api-integration');
+if (integrationProducts.length !== 1) throw new Error(`Expected one Financial Services API Integration product, observed ${integrationProducts.length}`);
+if (!window.aiyaCatalog.productCategories.find(category => category.key === 'treasury-finance')?.offerings.some(item => item.key === 'financial-services-api-integration')) throw new Error('Financial Services API Integration must be listed under Treasury & Finance');
+if (window.aiyaCatalog.productCategories.find(category => category.key === 'platforms-marketplaces')?.offerings.some(item => /financ|credit/i.test(`${item.key} ${item.title}`))) throw new Error('Legacy financing or credit products remain under Platforms & Marketplaces');
 for (const removedProduct of ['Orders & Fulfillment', 'AIYAPad', 'AIYARobot', 'AIYAScan']) {
   if (offerings.some(item => item.title === removedProduct) || window.aiyaCatalog.products.some(item => item.title === removedProduct)) {
     throw new Error(`Removed product remains active: ${removedProduct}`);
@@ -51,7 +55,7 @@ if (new Set(solutionUrls).size !== solutionUrls.length) throw new Error('Solutio
 for (const solution of [...industrySolutions, ...useCaseSolutions]) {
   if (!fm.fileExistsAtPath(solution.url)) throw new Error(`Missing solution page: ${solution.url}`);
   const html = read(solution.url);
-  for (const marker of [`data-solution-key="${solution.key}"`, solution.headline, 'CONNECTED AIYA PRODUCTS &amp; SERVICES', 'Demo solution content']) {
+  for (const marker of [`data-solution-key="${solution.key}"`, solution.headline, 'CONNECTED AIYA PRODUCTS &amp; SERVICES']) {
     if (!html.includes(marker)) throw new Error(`Missing ${marker} in ${solution.url}`);
   }
   if (!Array.isArray(solution.capabilities) || solution.capabilities.length !== 3) throw new Error(`Invalid capabilities for ${solution.title}`);
@@ -67,7 +71,7 @@ if (serviceVisuals.includes('assets/aiya-chat-demo.png')) throw new Error('Chat 
 for (const visual of serviceVisuals) {
   if (!fm.fileExistsAtPath(visual)) throw new Error(`Missing service visual: ${visual}`);
 }
-if (pages.length !== 57) throw new Error(`Expected 57 product, service, and overview pages, observed ${pages.length}`);
+if (pages.length !== 54) throw new Error(`Expected 54 standard product, service, and overview pages, observed ${pages.length}`);
 
 for (const { item, kind } of pages) {
   if (!fm.fileExistsAtPath(item.url)) throw new Error(`Missing detail page: ${item.url}`);
@@ -80,10 +84,10 @@ for (const { item, kind } of pages) {
     'FUTURE CHAT PREVIEW',
     '../assets/aiya-chat-demo.png',
     'mailto:info@aiya.us',
-    '../product-pages.js?v=20260826-1',
+    '../product-pages.js?v=20260827-2',
     '../service-pages.js?v=20260825-5',
-    '../i18n.js?v=20260826-1',
-    `Demo content for ${singular} planning`
+    '../i18n.js?v=20260827-2',
+    '<footer class="detail-footer"><img'
   ];
   for (const marker of required) {
     if (!html.includes(marker)) throw new Error(`Missing ${marker} in ${item.url}`);
@@ -97,46 +101,59 @@ for (const { item, kind } of pages) {
   if (!Array.isArray(item.useCases) || item.useCases.length !== 3) throw new Error(`Invalid use cases for ${item.title}`);
 }
 
+const integrationPath = 'products/financial-services-api-integration.html';
+if (!fm.fileExistsAtPath(integrationPath)) throw new Error('Financial Services API Integration page is missing');
+const integrationPage = read(integrationPath);
+for (const marker of ['Financial Services API Integration', 'Technology Infrastructure for Financial Service Connectivity', 'OUR TECHNOLOGY SERVICES', 'AIYA does not:', 'IMPORTANT TECHNOLOGY SERVICES DISCLOSURE', 'Contact Our Integration Team', 'Request Technical Consultation']) {
+  if (!integrationPage.includes(marker)) throw new Error(`Financial Services API Integration page is missing ${marker}`);
+}
+if (!read('i18n.js').includes("'Financial Services API Integration': '金融服务API技术对接'") || !read('i18n.js').includes("'IMPORTANT TECHNOLOGY SERVICES DISCLOSURE': '重要技术服务声明'")) throw new Error('Financial Services API Integration Chinese content is incomplete');
+for (const forbiddenCta of ['Apply Now', 'Apply for Financing', 'Get Funding', 'Check Eligibility', 'Get Approved']) {
+  if (integrationPage.includes(forbiddenCta)) throw new Error(`Forbidden financial CTA remains: ${forbiddenCta}`);
+}
+
 const index = read('index.html');
-for (const removedPath of ['products/orders-fulfillment.html', 'products/aiya-pad.html', 'products/aiya-robot.html', 'products/aiya-scan.html']) {
+for (const removedPath of ['products/orders-fulfillment.html', 'products/aiya-pad.html', 'products/aiya-robot.html', 'products/aiya-scan.html', 'products/business-financing.html', 'products/platform-financing.html', 'products/card-issuing.html']) {
   if (fm.fileExistsAtPath(removedPath)) throw new Error(`Removed product page still exists: ${removedPath}`);
 }
-for (const removedCopy of ['Orders & Fulfillment', 'AIYAPad', 'AIYARobot', 'AIYAScan', 'data-product-category="hardware"']) {
+for (const removedCopy of ['Orders & Fulfillment', 'AIYAPad', 'AIYARobot', 'AIYAScan', 'Business Financing', 'Platform Financing', 'Branded Customer Credit Program', 'data-product-category="hardware"']) {
   if (index.includes(removedCopy)) throw new Error(`Homepage still exposes removed product: ${removedCopy}`);
 }
-if (!index.includes('product-pages.js?v=20260826-1')) throw new Error('Homepage does not load product page routing data');
-if (!index.includes('i18n.js?v=20260826-1')) throw new Error('Homepage does not load bilingual runtime');
+if (!index.includes('product-pages.js?v=20260827-2')) throw new Error('Homepage does not load product page routing data');
+if (!index.includes('i18n.js?v=20260827-2')) throw new Error('Homepage does not load bilingual runtime');
 if (!fm.fileExistsAtPath('i18n.js')) throw new Error('Missing bilingual runtime');
 const i18n = read('i18n.js');
 for (const marker of ["'B2B & Global Commerce': 'B2B 与全球商务'", "'Web & Mobile Development': '网站与移动应用开发'", "'CRM Systems': 'CRM 系统'", "'AIYA Payments': 'AIYA 支付'", 'normalizeChineseCatalog', 'applySolutionDetail', 'aiya-language', 'language-switch']) {
   if (!i18n.includes(marker)) throw new Error(`Missing bilingual policy marker: ${marker}`);
 }
+if (!i18n.includes("getItem('aiya-language-v2')") || !i18n.includes("(stored === 'zh' ? 'zh' : 'en')")) throw new Error('English-first language preference policy is missing');
 if (!fm.fileExistsAtPath('assets/aiya-chat-demo.png')) throw new Error('Missing chat demo image');
 if (!index.includes('data-mega-menu="solutions"')) throw new Error('Homepage is missing the Solutions navigation');
 if (!index.includes('<a href="news.html">News</a>')) throw new Error('Homepage is missing the News navigation');
 if (!fm.fileExistsAtPath('news.html')) throw new Error('News homepage is missing');
 const newsPage = read('news.html');
-for (const marker of ['LATEST ARTICLE', 'news/connected-business-technology.html', 'news/events.html', 'news/stories.html', 'Learn More']) {
+for (const marker of ['LATEST ARTICLE', 'news/connected-business-technology.html', 'news/events.html', 'news/stories.html', 'Learn More', 'Under Construction']) {
   if (!newsPage.includes(marker)) throw new Error(`News homepage is missing ${marker}`);
 }
+if (!newsPage.includes('styles.css?v=20260827-1')) throw new Error('News homepage does not load centered construction status styles');
 for (const newsPath of ['news/connected-business-technology.html', 'news/events.html', 'news/stories.html']) {
   if (!fm.fileExistsAtPath(newsPath)) throw new Error(`News content page is missing: ${newsPath}`);
+  if (!read(newsPath).includes('Under Construction')) throw new Error(`News content page is missing construction status: ${newsPath}`);
 }
-for (const productMarker of ["'Usage Billing': '账单计费'", 'Branded Customer Credit Program', 'AIYA Gift Card & Loyalty Points']) {
+for (const productMarker of ["'Usage Billing': '账单计费'", 'Financial Services API Integration', 'AIYA Gift Card & Loyalty Points']) {
   if (!i18n.includes(productMarker) && !read('product-pages.js').includes(productMarker)) throw new Error(`Updated product content is missing: ${productMarker}`);
 }
 if (!index.includes('class="header-signin" href="https://suite.aiya.us/login"') || !index.includes('class="nav-signin" href="https://suite.aiya.us/login"')) throw new Error('Homepage is missing AIYA Suite Sign in links');
 if (!fm.fileExistsAtPath('signin.html')) throw new Error('Sign in demo page is missing');
 const signinPage = read('signin.html');
-if (!signinPage.includes('No credentials are collected or submitted.')) throw new Error('Sign in demo disclosure is missing');
-if (!signinPage.includes('i18n.js?v=20260826-1')) throw new Error('Sign in page does not load bilingual runtime');
+if (!signinPage.includes('i18n.js?v=20260827-2')) throw new Error('Sign in page does not load bilingual runtime');
 if (!fm.fileExistsAtPath('solutions.html') || !fm.fileExistsAtPath('solutions.js')) throw new Error('Solutions directory files are missing');
 const solutionsPage = read('solutions.html');
-for (const marker of ['id="industries"', 'id="use-cases"', 'solutions.js?v=20260825-5', 'Demo solution groupings']) {
+for (const marker of ['id="industries"', 'id="use-cases"', 'solutions.js?v=20260825-5']) {
   if (!solutionsPage.includes(marker)) throw new Error(`Missing ${marker} in solutions.html`);
 }
 for (const visual of ['payments-commerce', 'billing-revenue', 'treasury-finance', 'platforms-marketplaces', 'trust-business-tools']) {
   if (!fm.fileExistsAtPath(`assets/product-visual-${visual}.jpg`)) throw new Error(`Missing category visual: ${visual}`);
 }
 
-JSON.stringify({ productPages: pages.filter(page => ['offering', 'product'].includes(page.kind)).length, servicePages: window.aiyaCatalog.serviceCategories.flatMap(category => category.offerings).length, serviceOverviewPages: window.aiyaCatalog.services.length, status: 'PASS' });
+JSON.stringify({ productPages: offerings.length, servicePages: window.aiyaCatalog.serviceCategories.flatMap(category => category.offerings).length, serviceOverviewPages: window.aiyaCatalog.services.length, status: 'PASS' });
