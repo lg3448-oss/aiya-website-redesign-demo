@@ -24,13 +24,14 @@ function Invoke-KoreanBrowserCheck {
   param(
     [string]$Page,
     [hashtable]$Viewport,
-    [switch]$Fallback
+    [switch]$Fallback,
+    [switch]$Chinese
   )
 
   $sourcePath = Join-Path $root $Page
   $sourceDirectory = Split-Path -Parent $sourcePath
   $fixture = Join-Path $sourceDirectory ".korean-language-test-$runId.html"
-  $profile = Join-Path $tempRoot "aiya-korean-profile-$runId-$($Viewport.Name)-$([IO.Path]::GetFileNameWithoutExtension($Page))-$([int]$Fallback.IsPresent)"
+  $profile = Join-Path $tempRoot "aiya-korean-profile-$runId-$($Viewport.Name)-$([IO.Path]::GetFileNameWithoutExtension($Page))-$([int]$Fallback.IsPresent)-$([int]$Chinese.IsPresent)"
   $stdout = Join-Path $tempRoot "aiya-korean-output-$runId-$([guid]::NewGuid().ToString('N')).html"
   $stderr = Join-Path $tempRoot "aiya-korean-error-$runId-$([guid]::NewGuid().ToString('N')).log"
   $artifacts.Add($fixture)
@@ -46,7 +47,17 @@ function Invoke-KoreanBrowserCheck {
     const assert = (condition, message) => { if (!condition) throw new Error(message); };
     const params = new URLSearchParams(location.search);
     const selectors = [...document.querySelectorAll('.language-selector')];
-    const visibleSelectors = selectors.filter(selector => getComputedStyle(selector).display !== 'none');
+    if (innerWidth <= 760) document.querySelector('.nav-toggle')?.click();
+    const visibleSelectors = selectors.filter(selector => selector.getClientRects().length > 0);
+
+    if (params.get('lang') === 'zh') {
+      assert(window.aiyaI18n?.language === 'zh', 'Chinese selection regressed');
+      assert(document.documentElement.lang === 'zh-CN', 'Chinese document language regressed');
+      assert(document.querySelector('.language-switch')?.textContent.includes('\u4E2D\u6587'), 'Chinese selector label is wrong');
+      assert(/[\u3400-\u9FFF]/.test(document.body.textContent), 'Chinese page copy is missing');
+      document.body.dataset.koreanI18nTest = 'PASS';
+      return;
+    }
 
     if (params.get('fallback') === '1') {
       assert(window.aiyaI18n?.language === 'en', 'unsupported language did not fall back to English');
@@ -57,11 +68,17 @@ function Invoke-KoreanBrowserCheck {
     }
 
     if (params.get('probe') === 'keep' && params.get('lang') !== 'ko') {
-      assert(window.aiyaI18n?.language === 'en', 'English selection was not persisted');
-      assert(params.get('probe') === 'keep', 'non-language query parameter was lost');
-      assert(location.hash === '#company', 'URL hash was lost');
-      assert(document.querySelector('.language-switch')?.textContent.includes('English'), 'English selector label is wrong');
-      document.body.dataset.koreanI18nTest = 'PASS';
+      window.setTimeout(() => {
+        try {
+          assert(window.aiyaI18n?.language === 'en', 'English selection was not persisted');
+          assert(params.get('probe') === 'keep', 'non-language query parameter was lost');
+          assert(location.hash === '#company', 'URL hash was lost');
+          assert(document.querySelector('.language-switch')?.textContent.includes('English'), 'English selector label is wrong');
+          document.body.dataset.koreanI18nTest = 'PASS';
+        } catch (error) {
+          document.body.dataset.koreanI18nTest = 'FAIL: ' + error.message;
+        }
+      }, 240);
       return;
     }
 
@@ -78,15 +95,31 @@ function Invoke-KoreanBrowserCheck {
     assert(menu.querySelector('[data-language="ko"]')?.getAttribute('aria-current') === 'true', 'Korean option is not marked active');
     assert(/[\uAC00-\uD7AF]/.test(document.body.textContent), 'Korean page copy is missing');
     assert(document.documentElement.scrollWidth === document.documentElement.clientWidth, 'horizontal overflow detected');
+    document.querySelectorAll('.hero-slide.active h1,.hero-slide.active p').forEach(element => {
+      const range = document.createRange();
+      range.selectNodeContents(element);
+      const textBox = range.getBoundingClientRect();
+      const elementBox = element.getBoundingClientRect();
+      assert(textBox.right <= elementBox.right + 1, element.tagName.toLowerCase() + ' text is clipped on the right');
+    });
 
     trigger.click();
     assert(trigger.getAttribute('aria-expanded') === 'true' && !menu.hidden, 'selector did not open');
+    const menuBox = menu.getBoundingClientRect();
+    assert(menuBox.left >= 0 && menuBox.right <= innerWidth + 1, 'language menu extends beyond the viewport');
     document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
     assert(trigger.getAttribute('aria-expanded') === 'false' && menu.hidden, 'Escape did not close selector');
 
     if ($($isHome.ToString().ToLowerInvariant())) {
-      trigger.click();
-      menu.querySelector('[data-language="en"]').click();
+      window.setTimeout(() => {
+        try {
+          assert(location.hash === '#company', 'initial URL hash was not restored');
+          trigger.click();
+          menu.querySelector('[data-language="en"]').click();
+        } catch (error) {
+          document.body.dataset.koreanI18nTest = 'FAIL: ' + error.message;
+        }
+      }, 240);
       return;
     }
 
@@ -104,6 +137,8 @@ function Invoke-KoreanBrowserCheck {
   $fixtureUri = [uri]::new($fixture).AbsoluteUri
   if ($Fallback) {
     $url = "$fixtureUri`?lang=fr&fallback=1"
+  } elseif ($Chinese) {
+    $url = "$fixtureUri`?lang=zh"
   } elseif ($isHome) {
     $url = "$fixtureUri`?lang=ko&probe=keep#company"
   } else {
@@ -134,12 +169,32 @@ function Invoke-KoreanBrowserCheck {
 }
 
 try {
+  $htmlFiles = Get-ChildItem -LiteralPath $root -Recurse -Filter '*.html' | Where-Object { $_.FullName -notmatch '[\\/]\.worktrees[\\/]' }
+  foreach ($htmlFile in $htmlFiles) {
+    $htmlSource = [IO.File]::ReadAllText($htmlFile.FullName, [Text.Encoding]::UTF8)
+    if ($htmlSource -notmatch 'i18n\.js\?v=20260828-1') { throw "Missing current i18n script: $($htmlFile.FullName)" }
+    if ($htmlSource -notmatch 'styles\.css\?v=20260828-1') { throw "Missing current stylesheet cache version: $($htmlFile.FullName)" }
+  }
+
+  $i18nSource = [IO.File]::ReadAllText((Join-Path $root 'i18n.js'), [Text.Encoding]::UTF8)
+  function Get-DictionaryKeys([string]$name) {
+    $dictionaryStart = $i18nSource.IndexOf("  const $name = {")
+    $dictionaryEnd = $i18nSource.IndexOf("`n  };", $dictionaryStart)
+    $dictionarySource = $i18nSource.Substring($dictionaryStart, $dictionaryEnd - $dictionaryStart)
+    return @([regex]::Matches($dictionarySource, "'((?:[^'\\]|\\.)*)'\s*:") | ForEach-Object { $_.Groups[1].Value } | Sort-Object -Unique)
+  }
+  $zhKeys = Get-DictionaryKeys 'zh'
+  $koKeys = Get-DictionaryKeys 'ko'
+  $missingKoreanKeys = @(Compare-Object $zhKeys $koKeys -PassThru | Where-Object { $_.SideIndicator -eq '<=' })
+  if ($missingKoreanKeys.Count) { throw "Korean dictionary is missing: $($missingKoreanKeys -join ', ')" }
+
   foreach ($page in $pages) {
     foreach ($viewport in $viewports) {
       Invoke-KoreanBrowserCheck -Page $page -Viewport $viewport
     }
   }
   Invoke-KoreanBrowserCheck -Page 'index.html' -Viewport $viewports[0] -Fallback
+  Invoke-KoreanBrowserCheck -Page 'index.html' -Viewport $viewports[0] -Chinese
 }
 finally {
   foreach ($artifact in ($artifacts | Select-Object -Unique)) {

@@ -204,18 +204,252 @@
     '© 2026 AIYA Technology System, LLC': '© 2026 AIYA 科技系统有限公司', '100 East Broadway 12 FL New York NY 10002': '美国纽约州纽约市东百老汇街100号12层，邮编10002'
   };
 
+  const ko = {
+    'Home': '홈', 'Products': '제품', 'Services': '서비스', 'Solutions': '솔루션', 'News': '뉴스', 'Company': '회사 소개', 'Contact': '문의',
+    'Under Construction': '준비 중', 'News and updates are coming soon.': '뉴스와 새로운 소식을 곧 만나보실 수 있습니다.', 'Return Home': '홈으로 돌아가기',
+    'AIYA NEWS': 'AIYA 뉴스', 'AIYA News': 'AIYA 뉴스', 'AIYA Events': 'AIYA 이벤트', 'AIYA Stories': 'AIYA 스토리',
+    'LATEST ARTICLE': '최신 기사', 'Building the next chapter of connected business technology': '연결형 비즈니스 기술의 다음 장을 열다',
+    'A look at how AIYA is bringing software, payments, automation, and customer operations into one connected experience.': 'AIYA가 소프트웨어, 결제, 자동화, 고객 운영을 하나의 연결된 경험으로 통합하는 방식을 소개합니다.',
+    'Read Article': '기사 읽기', 'Read the latest AIYA article': 'AIYA 최신 기사 읽기',
+    'MORE FROM AIYA': 'AIYA의 더 많은 소식', 'Events and stories': '이벤트와 스토리', 'EVENTS': '이벤트', 'STORIES': '스토리',
+    'Meet AIYA at upcoming events': '다가오는 이벤트에서 AIYA를 만나보세요', 'Stories from connected businesses': '연결된 비즈니스의 이야기', 'Learn More': '자세히 보기',
+    'Explore upcoming conversations, demonstrations, and opportunities to connect with the AIYA team.': '다가오는 대화, 데모, AIYA 팀과 만날 수 있는 기회를 확인하세요.',
+    'See how connected software, payments, and operations can support practical business progress.': '연결된 소프트웨어, 결제, 운영이 실질적인 비즈니스 성장을 지원하는 방식을 확인하세요.',
+    'Back to News': '뉴스로 돌아가기',
+    'AIYA is creating a clearer way for businesses to connect the software, payment experiences, customer tools, and operational workflows they use every day.': 'AIYA는 기업이 매일 사용하는 소프트웨어, 결제 경험, 고객 도구, 운영 워크플로를 더욱 명확하게 연결할 수 있도록 지원합니다.',
+    'One connected direction': '하나로 연결된 방향',
+    'Instead of treating every business need as a separate tool, AIYA brings related capabilities together around the customer journey and the work teams need to complete.': 'AIYA는 각각의 비즈니스 요구를 별도 도구로 다루는 대신 고객 여정과 팀의 실제 업무를 중심으로 관련 기능을 통합합니다.',
+    'Designed for practical progress': '실질적인 성과를 위한 설계',
+    'The goal is a technology foundation that can begin with a focused need and expand as the business, customer experience, and operating model evolve.': '명확한 요구에서 시작해 비즈니스, 고객 경험, 운영 모델의 발전에 따라 확장할 수 있는 기술 기반을 구축하는 것이 목표입니다.',
+    'This page will feature upcoming AIYA events, demonstrations, industry conversations, and opportunities to meet the team.': '이 페이지에서는 예정된 AIYA 이벤트, 데모, 업계 대화 및 팀과 만날 수 있는 기회를 소개합니다.',
+    'Event calendar in preparation': '이벤트 일정 준비 중',
+    'Confirmed dates, locations, registration details, and event recaps will be published here as they become available.': '확정된 날짜, 장소, 등록 정보 및 이벤트 리뷰가 준비되는 대로 이곳에 게시됩니다.',
+    'This page will share approved customer stories and practical perspectives on connected software, payments, automation, and growth.': '이 페이지에서는 승인된 고객 사례와 연결형 소프트웨어, 결제, 자동화 및 성장에 관한 실질적인 관점을 공유합니다.',
+    'Stories are being prepared': '스토리 준비 중',
+    'Customer names, outcomes, and supporting details will be added after company and customer approval.': '고객명, 성과 및 관련 세부 정보는 회사와 고객의 승인을 받은 후 추가됩니다.',
+    'Sign in': '로그인', 'Talk to our team': '팀에 문의하기', 'Talk to Our Team': '팀에 문의하기', 'Talk to Us': '문의하기',
+    'View All Products': '모든 제품 보기', 'View All Services': '모든 서비스 보기', 'View All Solutions': '모든 솔루션 보기', 'overview': '개요',
+    'Open navigation': '내비게이션 열기', 'Main navigation': '메인 내비게이션', 'Primary navigation': '주요 내비게이션',
+    'Products menu': '제품 메뉴', 'Services menu': '서비스 메뉴', 'Solutions menu': '솔루션 메뉴',
+    'Toggle products menu': '제품 메뉴 전환', 'Toggle services menu': '서비스 메뉴 전환', 'Toggle solutions menu': '솔루션 메뉴 전환',
+    'AI-Powered Software': 'AI 기반 소프트웨어', 'Built for Real Business': '실제 비즈니스를 위한 설계',
+    'Automation, intelligent workflows, and scalable software designed around business needs.': '비즈니스 요구를 중심으로 설계된 자동화, 지능형 워크플로, 확장 가능한 소프트웨어입니다.',
+    'Connected Payments': '연결형 결제', 'Powerful Integrations': '강력한 시스템 연동',
+    'Secure payment APIs and connected systems that simplify business operations.': '안전한 결제 API와 연결된 시스템으로 비즈니스 운영을 간소화합니다.',
+    'Scalable Platforms': '확장 가능한 플랫폼', 'Ready for Growth': '성장을 위한 준비',
+    'Cloud-based digital platforms built to support modern and growing businesses.': '현대적이고 성장하는 비즈니스를 지원하도록 구축된 클라우드 기반 디지털 플랫폼입니다.',
+    'Explore Solutions': '솔루션 살펴보기', 'The Vision Has No Limits': '비전에는 한계가 없습니다', 'Scroll to explore': '스크롤하여 살펴보기',
+    'TECHNOLOGY CAPABILITIES': '기술 역량', 'Connected expertise': '연결된 전문성', 'One clear outcome': '하나의 명확한 성과',
+    'Choose a capability to see how AIYA turns complex technology into practical business advantage.': '역량을 선택하고 AIYA가 복잡한 기술을 실질적인 비즈니스 경쟁력으로 전환하는 방식을 확인하세요.',
+    'API and Connectivity': 'API 및 연결성', 'Integrations · Data connectivity · Payment APIs': '시스템 연동 · 데이터 연결 · 결제 API',
+    'Payments and FinTech': '결제 및 핀테크', 'Processing · FinTech · Clover POS': '결제 처리 · 핀테크 · Clover POS',
+    'AI and Automation': 'AI 및 자동화', 'AI software · Workflows · Intelligence': 'AI 소프트웨어 · 워크플로 · 인텔리전스',
+    'Cloud and Enterprise': '클라우드 및 엔터프라이즈', 'Cloud · Enterprise · Transformation': '클라우드 · 엔터프라이즈 · 혁신',
+    'FEATURED PRODUCT': '주요 제품', 'Self-Service Made Simple': '더 간편한 셀프서비스',
+    'A streamlined self-ordering system that helps restaurants serve guests faster, reduce ordering friction, and keep every order connected.': '레스토랑이 고객을 더 빠르게 응대하고 주문 불편을 줄이며 모든 주문을 연결할 수 있도록 지원하는 효율적인 셀프 주문 시스템입니다.',
+    'Self-Service Ordering': '셀프 주문', 'Customizable Menu': '맞춤형 메뉴', 'Integrated Payments': '통합 결제', 'POS Order Sync': 'POS 주문 동기화',
+    'Explore AIYA Kiosk': 'AIYA 키오스크 살펴보기', 'Guest Order': '고객 주문', 'Secure Payment': '안전한 결제', 'POS Sync': 'POS 동기화',
+    'AIYA PRODUCTS': 'AIYA 제품', 'One platform family': '하나의 플랫폼 제품군', 'Built around business': '비즈니스 중심 설계',
+    'SERVICES': '서비스', 'Expertise where': '전문성이 만나는 곳', 'technology meets growth': '기술과 성장의 연결',
+    'CONNECTED BY AIYA': 'AIYA로 연결', 'One Connected': '하나로 연결된', 'Technology Ecosystem': '기술 생태계',
+    'APIs, payments, AI, and cloud software working together.': 'API, 결제, AI, 클라우드 소프트웨어가 함께 작동합니다.',
+    'Customer': '고객', 'Applications': '애플리케이션', 'Online': '온라인', 'Ordering': '주문', 'Payment': '결제', 'Automation': '자동화',
+    'Cloud': '클라우드', 'Systems': '시스템', 'Business': '비즈니스', 'Data': '데이터', 'Merchant': '판매자', 'ONE PLATFORM': '하나의 플랫폼',
+    'WHY AIYA': 'AIYA를 선택하는 이유', 'Technology depth': '깊이 있는 기술력', 'Business perspective': '비즈니스 관점',
+    'One team brings the strategy, engineering, payment knowledge, and operational understanding to move ideas forward.': '하나의 팀이 전략, 엔지니어링, 결제 전문성, 운영 이해를 결합해 아이디어를 현실로 발전시킵니다.',
+    'In-house developers': '내부 개발자', 'Projects & cases': '프로젝트 및 사례', 'U.S. locations': '미국 내 거점',
+    'End-to-End Technology': '엔드투엔드 기술', 'Payment Expertise': '결제 전문성', 'API Connectivity': 'API 연결',
+    'AI-Powered Automation': 'AI 기반 자동화', 'Scalable Platforms': '확장 가능한 플랫폼', 'Business-Focused Solutions': '비즈니스 중심 솔루션',
+    'RESULTS': '성과', 'Outcomes clients': '고객이 이해할 수 있는', 'can understand': '명확한 성과',
+    'Presentation format for future approved customer stories.': '향후 승인된 고객 사례를 위한 프레젠테이션 형식입니다.',
+    'Demo result · 01': '데모 결과 · 01', 'Placeholder · 02': '예시 · 02', 'Placeholder · 03': '예시 · 03', 'Placeholder · 04': '예시 · 04',
+    'Faster Order Processing': '더 빠른 주문 처리', 'Simplified Operations': '간소화된 운영', 'Reduced Manual Workflow': '수작업 감소',
+    'A connected order flow reduces handoffs from customer to merchant.': '연결된 주문 흐름으로 고객에서 판매자까지의 인계 단계를 줄입니다.',
+    'Orders, menus, payments, and reporting become easier to manage.': '주문, 메뉴, 결제, 보고를 더 쉽게 관리할 수 있습니다.',
+    'Secure payment infrastructure supports every digital channel.': '안전한 결제 인프라가 모든 디지털 채널을 지원합니다.',
+    'Automation gives teams more time for customers and growth.': '자동화를 통해 팀은 고객과 성장에 더 많은 시간을 집중할 수 있습니다.',
+    'All results shown in this prototype are demonstration content pending approved customer data.': '이 프로토타입에 표시된 모든 결과는 승인된 고객 데이터가 제공되기 전까지 데모 콘텐츠입니다.',
+    'COMPANY': '회사 소개', 'Technology Built': '기술을 구축합니다', 'Around Business': '비즈니스를 중심으로',
+    'AIYA creates connected software, payment solutions, and digital platforms that help businesses operate more efficiently and grow with confidence.': 'AIYA는 기업이 더 효율적으로 운영하고 자신 있게 성장할 수 있도록 연결형 소프트웨어, 결제 솔루션, 디지털 플랫폼을 구축합니다.',
+    'Meet AIYA': 'AIYA 소개', 'Strategy': '전략', 'Software': '소프트웨어', 'Growth': '성장',
+    'START A CONVERSATION': '대화 시작하기', 'Let’s Build': '함께 만들어갑니다', 'What Comes Next': '다음 단계',
+    'Bring us the business challenge. We’ll help define the connected technology behind the solution.': '비즈니스 과제를 알려주세요. 솔루션을 뒷받침할 연결형 기술을 함께 정의하겠습니다.',
+    'USA Office': '미국 사무소', 'Phone': '전화', 'Email': '이메일', 'Trusted by businesses across industries': '다양한 산업의 기업이 신뢰합니다',
+    'Back to top': '맨 위로', 'All rights reserved.': '모든 권리 보유.',
+    'Payments & Commerce': '결제 및 커머스', 'Billing & Revenue': '청구 및 매출', 'Treasury & Finance': '자금 및 재무',
+    'Platforms & Marketplaces': '플랫폼 및 마켓플레이스', 'Trust & Business Tools': '신뢰 및 비즈니스 도구',
+    'Accept payments, build checkout experiences, and connect online and in-person commerce.': '결제를 수락하고 체크아웃 경험을 구축하며 온라인과 오프라인 커머스를 연결합니다.',
+    'Manage recurring, usage-based, and invoice revenue with connected reporting and finance data.': '연결된 보고 및 재무 데이터로 정기, 사용량 기반, 인보이스 매출을 관리합니다.',
+    'Build payments, financial services, and commerce infrastructure for platforms and marketplaces.': '플랫폼과 마켓플레이스를 위한 결제, 금융 서비스, 커머스 인프라를 구축합니다.',
+    'Protect transactions, verify customers, connect business data, and support product growth.': '거래를 보호하고 고객을 인증하며 비즈니스 데이터를 연결해 제품 성장을 지원합니다.',
+    'AIYA Payments': 'AIYA 결제', 'Payment Operations': '결제 운영', 'Smart Payment Links': '스마트 결제 링크', 'AIYA Checkout': 'AIYA 체크아웃',
+    'Embedded Payment UI': '임베디드 결제 UI', 'Payment Method Hub': '결제 수단 허브', 'In-Person Payments': '대면 결제',
+    'Approval Optimization': '승인율 최적화', 'Fast Checkout': '빠른 체크아웃', 'Financial Data Connect': '금융 데이터 연결',
+    'Online Storefront': '온라인 스토어', 'Catalog & Inventory': '카탈로그 및 재고', 'Customer Accounts': '고객 계정',
+    'B2B & Global Commerce': 'B2B 및 글로벌 커머스', 'AIYA Billing': 'AIYA 청구', 'Usage Billing': '사용량 기반 청구',
+    'Subscription Management': '구독 관리', 'AIYA Invoicing': 'AIYA 인보이스', 'Tax Automation': '세금 자동화',
+    'Revenue Accounting': '매출 회계', 'Revenue Analytics': '매출 분석', 'Finance Data Pipeline': '재무 데이터 파이프라인',
+    'Treasury Operations': '자금 운영', 'Global Payouts': '글로벌 지급', 'Financial Services API Integration': '금융 서비스 API 연동',
+    'Digital Asset Infrastructure': '디지털 자산 인프라', 'Digital Asset Onramp': '디지털 자산 온램프', 'AIYA Connect': 'AIYA 커넥트',
+    'Embedded Treasury': '임베디드 자금 관리', 'Marketplace Commerce': '마켓플레이스 커머스', 'Fraud & Risk': '사기 및 위험 관리',
+    'Identity Verification': '신원 인증', 'Product Strategy': '제품 전략', 'Business Launch Systems': '비즈니스 출시 시스템',
+    'Sustainability Integrations': '지속가능성 연동', 'Growth Strategy': '성장 전략', 'Content & Campaigns': '콘텐츠 및 캠페인',
+    'AIYA Gift Card & Loyalty Points': 'AIYA 기프트카드 및 로열티 포인트',
+    'Online payment processing': '온라인 결제 처리', 'Managed payment workflows': '관리형 결제 워크플로', 'No-code payment collection': '노코드 결제 수금',
+    'Custom checkout experiences': '맞춤형 체크아웃 경험', 'Flexible payment components': '유연한 결제 구성 요소', 'Connected payment methods': '연결된 결제 수단',
+    'Connected point-of-sale payments': '연결형 POS 결제', 'Payment acceptance improvements': '결제 승인 개선', 'Accelerated repeat checkout': '간편한 재구매 체크아웃',
+    'Linked financial account data': '연결된 금융 계정 데이터', 'Custom digital storefronts': '맞춤형 디지털 스토어', 'Connected product operations': '연결된 상품 운영',
+    'Customer identity and history': '고객 신원 및 이력', 'Business buying across markets': '시장 간 B2B 구매', 'Recurring revenue operations': '반복 매출 운영',
+    'Metered and usage-based billing': '계량 및 사용량 기반 청구', 'Subscription lifecycle workflows': '구독 수명주기 워크플로',
+    'One-time and recurring invoices': '일회성 및 정기 인보이스', 'Sales tax and VAT integrations': '판매세 및 VAT 연동',
+    'Revenue recognition workflows': '매출 인식 워크플로', 'Custom revenue reporting': '맞춤형 매출 보고',
+    'Revenue and finance data sync': '매출 및 재무 데이터 동기화', 'Connected business finance workflows': '연결된 비즈니스 재무 워크플로',
+    'Payouts to third parties': '제3자 지급', 'Third-party financial service system connectivity': '제3자 금융 서비스 시스템 연결',
+    'Wallet and digital asset systems': '지갑 및 디지털 자산 시스템', 'Embeddable purchase experiences': '임베드 가능한 구매 경험',
+    'Payments for platforms': '플랫폼 결제', 'Embedded financial service workflows': '임베디드 금융 서비스 워크플로',
+    'Customer credit for purchases with your business': '비즈니스 구매를 위한 고객 크레딧', 'Multi-party commerce operations': '다자간 커머스 운영',
+    'Fraud prevention workflows': '사기 방지 워크플로', 'Online identity workflows': '온라인 신원 워크플로',
+    'Roadmaps and launch planning': '로드맵 및 출시 계획', 'Digital foundations for new ventures': '신규 사업을 위한 디지털 기반',
+    'Connected climate and impact data': '연결된 기후 및 영향 데이터', 'Connected acquisition planning': '연결형 고객 확보 계획',
+    'Creative campaign execution': '크리에이티브 캠페인 실행', 'Gift balances and repeat-customer rewards': '기프트 잔액 및 재구매 고객 리워드',
+    'Connect payouts, treasury workflows, financial service APIs, and digital asset infrastructure to business operations.': '지급, 자금 워크플로, 금융 서비스 API, 디지털 자산 인프라를 비즈니스 운영과 연결합니다.',
+    'TECHNOLOGY INFRASTRUCTURE': '기술 인프라', 'Technology Infrastructure for Financial Service Connectivity': '금융 서비스 연결을 위한 기술 인프라',
+    'Connect software platforms with independent third-party financial service providers through secure APIs and system integrations. AIYA provides software development, API connectivity, data integration, workflow automation, and technical support only. AIYA does not offer, arrange, broker, refer, approve, service, or fund any loan or financing product.': '안전한 API와 시스템 연동을 통해 소프트웨어 플랫폼을 독립적인 제3자 금융 서비스 제공업체와 연결합니다. AIYA는 소프트웨어 개발, API 연결, 데이터 통합, 워크플로 자동화 및 기술 지원만 제공합니다. AIYA는 대출 또는 금융 상품을 제공, 주선, 중개, 추천, 승인, 관리하거나 자금을 지원하지 않습니다.',
+    'API integration': 'API 연동', 'Secure data connectivity': '안전한 데이터 연결', 'Testing and technical support': '테스트 및 기술 지원',
+    'AIYA helps businesses, software platforms, and financial service providers connect their systems through secure APIs, data integrations, and customized software workflows.': 'AIYA는 기업, 소프트웨어 플랫폼, 금융 서비스 제공업체가 안전한 API, 데이터 통합, 맞춤형 소프트웨어 워크플로를 통해 시스템을 연결하도록 지원합니다.',
+    'Our role is strictly limited to technology development and system integration. AIYA does not provide or participate in lending or financing activities.': 'AIYA의 역할은 기술 개발과 시스템 연동으로 엄격히 제한됩니다. AIYA는 대출 또는 금융 활동을 제공하거나 이에 참여하지 않습니다.',
+    'Explore API Integration': 'API 연동 살펴보기', 'Contact Our Integration Team': '연동 팀에 문의하기',
+    'Secure financial service API and system connectivity': '안전한 금융 서비스 API 및 시스템 연결', 'API / DATA / WORKFLOWS': 'API / 데이터 / 워크플로',
+    'OUR TECHNOLOGY SERVICES': '기술 서비스', 'Technical connections built around independently operated systems': '독립 운영 시스템을 중심으로 구축한 기술 연결',
+    'API Integration': 'API 연동',
+    'Connect eligible business applications with APIs made available by independent third-party financial service providers.': '적격 비즈니스 애플리케이션을 독립적인 제3자 금융 서비스 제공업체가 제공하는 API와 연결합니다.',
+    'Custom Software Development': '맞춤형 소프트웨어 개발',
+    'Develop user interfaces, dashboards, data connections, and operational tools based on the client’s technical requirements.': '고객의 기술 요구사항에 따라 사용자 인터페이스, 대시보드, 데이터 연결 및 운영 도구를 개발합니다.',
+    'Data Connectivity': '데이터 연결', 'Support the secure transmission of authorized data between independently operated systems.': '독립적으로 운영되는 시스템 간 승인된 데이터의 안전한 전송을 지원합니다.',
+    'Workflow Automation': '워크플로 자동화', 'Build technical workflows for document submission, application-status updates, notifications, and reporting.': '문서 제출, 신청 상태 업데이트, 알림 및 보고를 위한 기술 워크플로를 구축합니다.',
+    'Testing and Technical Support': '테스트 및 기술 지원',
+    'Assist with API testing, sandbox environments, implementation, troubleshooting, and ongoing technical maintenance.': 'API 테스트, 샌드박스 환경, 구현, 문제 해결 및 지속적인 기술 유지보수를 지원합니다.',
+    'View Integration Capabilities': '연동 역량 보기', 'WHO WE SERVE': '지원 대상',
+    'Built for teams connecting financial service technology': '금융 서비스 기술을 연결하는 팀을 위한 설계',
+    'Financial technology companies': '핀테크 기업', 'Banks and regulated financial institutions': '은행 및 규제 금융기관',
+    'Independent financing providers': '독립 금융 제공업체', 'SaaS and software platforms': 'SaaS 및 소프트웨어 플랫폼',
+    'Marketplaces': '마켓플레이스', 'Payment companies': '결제 기업',
+    'Businesses requiring third-party financial system integrations': '제3자 금융 시스템 연동이 필요한 기업',
+    'AIYA’S ROLE': 'AIYA의 역할', 'Software development and technology integration only': '소프트웨어 개발 및 기술 연동에 한정',
+    'AIYA acts solely as a software developer and technology integration provider.': 'AIYA는 소프트웨어 개발 및 기술 연동 제공업체로서만 역할을 수행합니다.',
+    'AIYA does not:': 'AIYA는 다음 업무를 수행하지 않습니다:', 'Offer loans or financing': '대출 또는 금융 제공',
+    'Accept financing applications on its own behalf': '자체 명의의 금융 신청 접수', 'Recommend or refer applicants to lenders': '신청자를 대출기관에 추천 또는 소개',
+    'Arrange or broker financing transactions': '금융 거래 주선 또는 중개', 'Evaluate creditworthiness': '신용도 평가', 'Perform underwriting': '인수 심사',
+    'Approve or decline applications': '신청 승인 또는 거절', 'Determine interest rates, fees, or financing terms': '이자율, 수수료 또는 금융 조건 결정',
+    'Make lending or credit decisions': '대출 또는 신용 결정', 'Provide or advance loan funds': '대출 자금 제공 또는 선지급',
+    'Collect loan payments': '대출 상환금 수금', 'Service or manage loans': '대출 관리', 'Guarantee approval or funding': '승인 또는 자금 제공 보장',
+    'Assume credit or repayment risk': '신용 또는 상환 위험 부담',
+    'IMPORTANT TECHNOLOGY SERVICES DISCLOSURE': '중요 기술 서비스 고지', 'Technology services with clearly defined boundaries': '명확한 범위의 기술 서비스',
+    'AIYA Technology System LLC is a technology and software integration company. AIYA is not a bank, lender, financing provider, loan broker, financing broker, or credit services provider.': 'AIYA Technology System LLC는 기술 및 소프트웨어 연동 회사입니다. AIYA는 은행, 대출기관, 금융 제공업체, 대출 중개업체, 금융 중개업체 또는 신용 서비스 제공업체가 아닙니다.',
+    'AIYA does not offer, arrange, broker, refer, approve, service, or fund loans or other financing products. AIYA does not make credit decisions and does not participate in any financing agreement between a financial service provider and its customer.': 'AIYA는 대출 또는 기타 금융 상품을 제공, 주선, 중개, 추천, 승인, 관리하거나 자금을 지원하지 않습니다. AIYA는 신용 결정을 내리지 않으며 금융 서비스 제공업체와 고객 간의 어떠한 금융 계약에도 참여하지 않습니다.',
+    'Any financial products displayed or accessed through an integrated third-party system are independently offered, reviewed, approved, funded, and administered by the applicable third-party provider. The third-party provider is solely responsible for its products, eligibility requirements, disclosures, pricing, fees, terms, regulatory obligations, customer agreements, and servicing activities.': '연동된 제3자 시스템을 통해 표시되거나 이용되는 모든 금융 상품은 해당 제3자 제공업체가 독립적으로 제공, 검토, 승인, 자금 지원 및 관리합니다. 제3자 제공업체는 자사 상품, 자격 요건, 고지, 가격, 수수료, 조건, 규제 의무, 고객 계약 및 관리 활동에 대해 전적인 책임을 집니다.',
+    'AIYA’s services are limited to software development, API connectivity, data integration, workflow automation, implementation, and technical support.': 'AIYA의 서비스는 소프트웨어 개발, API 연결, 데이터 통합, 워크플로 자동화, 구현 및 기술 지원으로 제한됩니다.',
+    'TECHNICAL CONSULTATION': '기술 상담', 'Connect your systems with a clearly scoped integration plan.': '범위가 명확한 연동 계획으로 시스템을 연결하세요.',
+    'Request Technical Consultation': '기술 상담 요청',
+    'Software Engineering': '소프트웨어 엔지니어링', 'Integration & Automation': '연동 및 자동화', 'Product & Experience Design': '제품 및 경험 디자인',
+    'Web & Mobile Development': '웹 및 모바일 개발', 'Ecommerce Platform Development': '이커머스 플랫폼 개발',
+    'Enterprise & Cloud Platforms': '엔터프라이즈 및 클라우드 플랫폼', 'Performance & Reliability': '성능 및 안정성',
+    'API, Data & Payment Integration': 'API, 데이터 및 결제 연동', 'AI & Workflow Automation': 'AI 및 워크플로 자동화',
+    'CRM Systems': 'CRM 시스템', 'Digital Marketing': '디지털 마케팅', 'SEO & Content': 'SEO 및 콘텐츠', 'Campaign Development': '캠페인 개발',
+    'Plan, design, build, and strengthen reliable digital products on one engineering foundation.': '하나의 엔지니어링 기반에서 신뢰할 수 있는 디지털 제품을 기획, 설계, 구축하고 강화합니다.',
+    'Connect systems and automate repetitive work across the business.': '비즈니스 전반의 시스템을 연결하고 반복 업무를 자동화합니다.',
+    'Bring brand, content, and campaigns together around measurable customer action.': '측정 가능한 고객 행동을 중심으로 브랜드, 콘텐츠, 캠페인을 통합합니다.',
+    'By Industry': '산업별', 'By Use Case': '활용 사례별', 'Food & Hospitality': '외식 및 호스피탈리티', 'Retail': '리테일',
+    'Beauty, Wellness & Fitness': '뷰티, 웰니스 및 피트니스', 'Healthcare & Education': '헬스케어 및 교육', 'Automotive': '자동차',
+    'Home & Field Services': '홈 및 현장 서비스', 'Professional Services': '전문 서비스', 'Entertainment': '엔터테인먼트',
+    'Manufacturing & Wholesale': '제조 및 도매', 'Digital & Agentic Commerce': '디지털 및 에이전틱 커머스', 'Crypto': '크립토',
+    'Embedded Finance & Payments': '임베디드 금융 및 결제', 'Finance Automation & Management': '재무 자동화 및 관리',
+    'Global Business': '글로벌 비즈니스', 'Platforms & SaaS': '플랫폼 및 SaaS',
+    'Restaurants, cafes, hotels, venues, and guest experiences.': '레스토랑, 카페, 호텔, 행사장 및 고객 경험.',
+    'Grocery, convenience, specialty, and consumer retail.': '식료품, 편의점, 전문점 및 소비자 리테일.',
+    'Salons, spas, studios, gyms, and membership businesses.': '살롱, 스파, 스튜디오, 피트니스 센터 및 멤버십 비즈니스.',
+    'Clinics, care providers, schools, and training organizations.': '클리닉, 케어 제공업체, 학교 및 교육 기관.',
+    'Repair, car care, dealerships, parts, and EV services.': '정비, 차량 관리, 딜러십, 부품 및 전기차 서비스.',
+    'HVAC, plumbing, electrical, construction, and mobile teams.': '냉난방, 배관, 전기, 건설 및 이동형 현장 팀.',
+    'Accounting, legal, insurance, real estate, and consulting.': '회계, 법률, 보험, 부동산 및 컨설팅.',
+    'Arcades, theaters, recreation, ticketing, and venues.': '오락실, 극장, 레저, 티켓 및 행사장.',
+    'Manufacturers, distributors, warehousing, and logistics.': '제조업체, 유통업체, 창고 및 물류.',
+    'Connect online buying with AI-assisted discovery and action.': '온라인 구매를 AI 기반 탐색 및 실행과 연결합니다.',
+    'Build digital asset payment and infrastructure experiences.': '디지털 자산 결제 및 인프라 경험을 구축합니다.',
+    'Add payments and financial capabilities inside digital products.': '디지털 제품 안에 결제 및 금융 기능을 추가합니다.',
+    'Connect billing, reporting, reconciliation, and financial visibility.': '청구, 보고, 정산 및 재무 가시성을 연결합니다.',
+    'Support connected commerce and operations across markets.': '여러 시장의 연결형 커머스와 운영을 지원합니다.',
+    'Connect buyers, sellers, payments, and multi-party operations.': '구매자, 판매자, 결제 및 다자간 운영을 연결합니다.',
+    'Build, monetize, and operate scalable software platforms.': '확장 가능한 소프트웨어 플랫폼을 구축하고 수익화하며 운영합니다.',
+    'AIYA SOLUTIONS': 'AIYA 솔루션', 'Built around': '중심으로 설계', 'how business works': '실제 비즈니스 운영 방식',
+    'Explore connected technology by industry or by the outcome your business needs to achieve.': '산업 또는 달성하려는 비즈니스 성과에 따라 연결형 기술을 살펴보세요.',
+    'Solutions sections': '솔루션 섹션', 'BY INDUSTRY': '산업별', 'BY USE CASE': '활용 사례별',
+    'Technology shaped for': '기술을 설계합니다', 'the way your industry operates': '산업의 실제 운영 방식에 맞춰',
+    'Industry groupings are designed as demo navigation and can be refined as AIYA confirms its final market coverage.': '산업 분류는 데모 내비게이션용이며 AIYA의 최종 시장 범위가 확정되면 조정할 수 있습니다.',
+    'Start with the outcome': '성과에서 시작하세요', 'Connect products and services around a clear operational, commercial, or financial goal.': '명확한 운영, 상업 또는 재무 목표를 중심으로 제품과 서비스를 연결합니다.',
+    'NEED A DIFFERENT FIT?': '다른 구성이 필요하신가요?', 'Tell us how your business operates.': '비즈니스 운영 방식을 알려주세요.', 'Explore solution': '솔루션 살펴보기',
+    'All Products': '모든 제품', 'All Services': '모든 서비스', 'All Industries': '모든 산업', 'All Use Cases': '모든 활용 사례',
+    'Explore Product': '제품 살펴보기', 'Explore Service': '서비스 살펴보기', 'CORE CAPABILITIES': '핵심 역량',
+    'Three ways this product moves work forward': '이 제품이 업무를 발전시키는 세 가지 방식',
+    'Three ways this service moves work forward': '이 서비스가 업무를 발전시키는 세 가지 방식',
+    'Focused capabilities that can be configured around the way your business operates.': '비즈니스 운영 방식에 맞게 구성할 수 있는 핵심 역량입니다.',
+    'WHAT AIYA CAN BUILD': 'AIYA가 구축할 수 있는 것', 'Designed around your operation': '운영 방식을 중심으로 설계',
+    'BEST FOR': '적합한 활용 분야', 'Where it creates value': '가치를 만드는 영역', 'CONNECTED PRODUCTS': '연결된 제품', 'RELATED SERVICES': '관련 서비스',
+    'Build a broader AIYA system': '더 넓은 AIYA 시스템 구축', 'Bring the right team together': '적합한 팀을 하나로 연결',
+    'Explore related capabilities from the same product family.': '같은 제품군의 관련 역량을 살펴보세요.',
+    'Explore complementary expertise for planning, building, and growing your next initiative.': '다음 프로젝트의 기획, 구축, 성장을 위한 상호 보완적 전문성을 살펴보세요.',
+    'DEMO PRODUCT CONTENT': '제품 데모 콘텐츠', 'DEMO SERVICE CONTENT': '서비스 데모 콘텐츠',
+    'Explore how this capability could fit your business.': '이 역량이 비즈니스에 어떻게 적용될 수 있는지 알아보세요.',
+    'FUTURE CHAT PREVIEW': '향후 채팅 기능 미리보기', 'Have a question?': '궁금한 점이 있으신가요?', 'Tell our team what you are building.': '구축하려는 내용을 팀에 알려주세요.',
+    'AIYA ACCOUNT ACCESS': 'AIYA 계정 접속', 'One place for': '하나의 공간에서', 'connected work': '연결된 업무',
+    'The customer portal is represented here for design review. Authentication and account functionality will be connected during production development.': '이 고객 포털은 디자인 검토용으로 표시됩니다. 인증 및 계정 기능은 실제 개발 단계에서 연결됩니다.',
+    'DEMO PORTAL': '데모 포털', 'Work email': '업무용 이메일', 'Continue': '계속',
+    'Portal access is not active in this frontend demo.': '이 프런트엔드 데모에서는 포털 접속이 활성화되어 있지 않습니다.',
+    'Request access from AIYA': 'AIYA에 접속 요청', 'Back to website': '웹사이트로 돌아가기',
+    'INDUSTRY SOLUTION': '산업 솔루션', 'USE CASE': '활용 사례', 'WHAT THIS SOLUTION CONNECTS': '이 솔루션이 연결하는 역량',
+    'A focused system,': '집중된 하나의 시스템,', 'not a list of disconnected tools': '분리된 도구의 나열이 아닙니다', 'BUSINESS OUTCOMES': '비즈니스 성과',
+    'Designed around': '중심으로 설계', 'work that needs to move': '앞으로 나아가야 할 업무',
+    'CONNECTED AIYA PRODUCTS & SERVICES': '연결된 AIYA 제품 및 서비스', 'CONNECTED AIYA CAPABILITY': '연결된 AIYA 역량',
+    'Build the right capability mix': '적합한 역량 조합 구축',
+    'These related AIYA capabilities provide a starting point for this demo solution.': '관련 AIYA 역량은 이 데모 솔루션을 위한 출발점을 제공합니다.',
+    'START WITH YOUR OPERATING MODEL': '운영 모델에서 시작하세요', 'Shape this solution around your business.': '비즈니스에 맞게 이 솔루션을 구성하세요.',
+    'AIYA contact preview': 'AIYA 문의 기능 미리보기', 'Demo preview of a future AIYA customer support chat': '향후 AIYA 고객 지원 채팅 기능 데모 미리보기',
+    'AIYA TECHNOLOGY SYSTEM': 'AIYA 기술 시스템', 'AIYA Kiosk': 'AIYA 키오스크', 'AIYA Commerce': 'AIYA 커머스', 'AIYA Revenue': 'AIYA 매출', 'AIYA Marketing': 'AIYA 마케팅',
+    'CONNECTED': '연결', 'CONNECTED BY': '연결 플랫폼', 'PLATFORM': '플랫폼', 'PLATFORMS': '플랫폼', 'PAYMENTS': '결제',
+    'WORKFLOWS': '워크플로', 'INSIGHTS': '인사이트', 'SCALE': '확장', 'GROWTH': '성장', 'SECURITY': '보안', 'FINTECH': '핀테크', 'CLOVER': 'Clover', 'PAY': '결제',
+    'Payments and Commerce capabilities': '결제 및 커머스 역량', 'Product categories': '제품 카테고리', 'Service categories': '서비스 카테고리',
+    'AIYA connected technology ecosystem': 'AIYA 연결형 기술 생태계',
+    'Connected AI, API, payments, and cloud platform visualization': '연결된 AI, API, 결제 및 클라우드 플랫폼 시각화',
+    'AI, APIs, payment systems, and cloud services connected through one enterprise platform': '하나의 엔터프라이즈 플랫폼으로 연결된 AI, API, 결제 시스템 및 클라우드 서비스',
+    'AI automation': 'AI 자동화', 'Payment APIs': '결제 API', 'Cloud platform': '클라우드 플랫폼',
+    'AIYA Kiosk self-service restaurant ordering system': 'AIYA 키오스크 레스토랑 셀프 주문 시스템', 'Kiosk order flow': '키오스크 주문 흐름',
+    'AIYA Kiosk · Self-service ordering system': 'AIYA 키오스크 · 셀프 주문 시스템', 'capability preview': '역량 미리보기', 'capabilities': '역량', 'services': '서비스',
+    'Abstract technology visual for': '추상 기술 비주얼:', 'visual': '비주얼', 'Switch to English': '영어로 전환',
+    'Payment Links': '결제 링크', 'B2B Global Commerce': 'B2B 글로벌 커머스', '1 view': '하나의 뷰', '↓ work': '업무 감소',
+    '© 2026 AIYA Technology System, LLC': '© 2026 AIYA Technology System, LLC',
+    '100 East Broadway 12 FL New York NY 10002': '미국 뉴욕주 뉴욕시 이스트 브로드웨이 100, 12층, NY 10002',
+    'Switch language': '언어 변경', 'Languages': '언어', 'Let\'s Talk': '문의하기',
+    'CAPABILITIES': '역량', 'What it brings together': '함께 연결되는 역량', 'WHAT WE BUILD': 'AIYA가 구축하는 것',
+    'Build the right system for your business.': '비즈니스에 적합한 시스템을 구축하세요.', 'Talk to AIYA': 'AIYA에 문의하기',
+    'Technology built around business.': '비즈니스를 중심으로 구축한 기술.', 'Section navigation': '섹션 내비게이션',
+    'Ecosystem': '생태계', 'Results': '성과', 'Why AIYA': 'AIYA를 선택하는 이유', 'Technology capabilities': '기술 역량',
+    'PURPOSE-BUILT SOFTWARE': '목적에 맞춘 소프트웨어', 'PAYMENTS · COMMERCE': '결제 · 커머스', 'DEV': '개발', 'DATA': '데이터', 'APIs': 'API'
+  };
+
+  const dictionary = { zh, ko }[language] || null;
+
   const translate = value => {
-    if (language !== 'zh' || typeof value !== 'string') return value;
+    if (!dictionary || typeof value !== 'string') return value;
     const match = value.match(/^(\s*)(.*?)(\s*)$/s);
     const core = match[2];
-    if (zh[core]) return `${match[1]}${zh[core]}${match[3]}`;
+    if (dictionary[core]) return `${match[1]}${dictionary[core]}${match[3]}`;
     const affixed = core.match(/^([←→↗↓⌄︎︎\s]*)(.*?)([←→↗↓⌄︎︎\s]*)$/);
-    if (affixed && zh[affixed[2]]) return `${match[1]}${affixed[1]}${zh[affixed[2]]}${affixed[3]}${match[3]}`;
+    if (affixed && dictionary[affixed[2]]) return `${match[1]}${affixed[1]}${dictionary[affixed[2]]}${affixed[3]}${match[3]}`;
     return value;
   };
 
   const translateCatalog = value => {
-    if (language !== 'zh' || !value) return value;
+    if (!dictionary || !value) return value;
     if (Array.isArray(value)) return value.forEach(translateCatalog);
     if (typeof value !== 'object') return value;
     Object.keys(value).forEach(key => {
@@ -331,8 +565,114 @@
     });
   };
 
+  const normalizeKoreanCatalog = catalog => {
+    if (language !== 'ko' || !catalog) return;
+    const categoryCopy = {
+      'payments-commerce': {
+        deliverables: ['브랜드 결제 및 커머스 경험', '고객 및 운영 시스템 연결', '보고 및 예외 처리 워크플로'],
+        useCases: ['새로운 판매 채널 출시', '분산된 결제 도구 교체', '온라인과 오프라인 커머스 연결']
+      },
+      'billing-revenue': {
+        deliverables: ['청구 및 매출 워크플로 구성', '고객용 청구 경험', '재무 및 보고 시스템 연결'],
+        useCases: ['구독 또는 사용량 기반 비즈니스 출시', '청구 운영 개선', '매출 및 재무 데이터 연결']
+      },
+      'treasury-finance': {
+        deliverables: ['자금 및 재무 워크플로 구성', '엔터프라이즈 시스템 연동', '운영 가시성 및 제어'],
+        useCases: ['복잡한 자금 흐름 조정', '금융 서비스 기능 추가', '재무 운영 개선']
+      },
+      'platforms-marketplaces': {
+        deliverables: ['플랫폼 브랜드 사용자 경험', '계정 및 거래 워크플로', '플랫폼 팀 운영 도구'],
+        useCases: ['소프트웨어 플랫폼 출시', '다자간 마켓플레이스 구축', '금융 서비스 기능 임베드']
+      },
+      'trust-business-tools': {
+        deliverables: ['비즈니스 중심 워크플로 설계', '시스템 및 데이터 연동', '명확한 팀 운영 도구'],
+        useCases: ['운영 위험 감소', '새로운 고객 경험 출시', '성장 및 비즈니스 시스템 연결']
+      }
+    };
+    const categoryMonograms = { 'payments-commerce': '결제', 'billing-revenue': '매출', 'treasury-finance': '재무', 'platforms-marketplaces': '플랫폼', 'trust-business-tools': '위험' };
+    catalog.productCategories?.forEach(category => {
+      category.kicker = category.title;
+      category.monogram = categoryMonograms[category.key] || '제품';
+      category.offerings.forEach(item => {
+        item.kicker = category.title;
+        item.monogram = '제품';
+        if (!/[\uac00-\ud7af]/.test(item.summary || '')) item.summary = `${item.title}은(는) ${item.description}을(를) 지원하며 비즈니스 요구에 따라 관련 운영 시스템과 연결할 수 있습니다.`;
+        item.capabilities = [`${item.title} 핵심 구성`, '고객 경험 및 워크플로', '비즈니스 데이터 및 시스템 연결'];
+        item.deliverables = categoryCopy[category.key].deliverables;
+        item.useCases = categoryCopy[category.key].useCases;
+        if (item.key === 'usage-billing') {
+          item.summary = '사용량 기반 청구는 확인된 상품, 서비스, 요금 및 계정 활동을 기준으로 명확한 고객 청구서를 생성합니다.';
+          item.capabilities = ['고객 청구서 생성', '유연한 청구 규칙', '청구 및 고객 계정 데이터 연결'];
+        }
+        if (item.key === 'financial-services-api-integration') {
+          item.summary = '안전한 API와 시스템 연동을 통해 비즈니스 소프트웨어 플랫폼을 독립적인 제3자 금융 서비스 제공업체와 연결합니다. AIYA는 소프트웨어 개발, API 연결, 데이터 통합, 워크플로 자동화 및 관련 기술 지원만 제공합니다.';
+          item.capabilities = ['API 시스템 연동', '안전한 데이터 연결', '워크플로 자동화', '테스트 및 기술 지원'];
+        }
+        if (item.key === 'aiya-gift-card') {
+          item.summary = 'AIYA 기프트카드 및 로열티 포인트는 충전식 기프트카드와 고객 리워드를 결합하여 반복 구매로 포인트를 적립하고 향후 구매에 사용할 수 있도록 합니다.';
+          item.capabilities = ['기프트카드 구매 및 잔액 관리', '로열티 포인트 적립 및 사용', '고객 리워드 프로그램 연결'];
+        }
+      });
+    });
+    const productMonograms = { commerce: '커머스', revenue: '매출', marketing: '마케팅' };
+    const productCapabilities = {
+      commerce: ['온라인 스토어', '맞춤형 체크아웃', '상품 및 재고', '고객 계정', 'B2B 및 글로벌 커머스'],
+      revenue: ['온라인 및 오프라인 결제', '청구 및 구독', '인보이스 및 결제 링크', '플랫폼 결제 및 지급', '위험 및 신원 인증 워크플로', '세금 및 매출 보고 연동'],
+      marketing: ['성장 전략', '콘텐츠 및 캠페인', 'AIYA 기프트카드 및 로열티 포인트']
+    };
+    catalog.products?.forEach(item => {
+      item.kicker = item.title;
+      item.monogram = productMonograms[item.key] || '제품';
+      item.summary = `${item.title}은(는) 고객 경험, 비즈니스 시스템, 일상 운영을 연결하여 지속적인 성장을 지원합니다.`;
+      item.capabilities = productCapabilities[item.key] || ['제품 구성', '시스템 연결', '운영 지원'];
+      item.deliverables = ['비즈니스 요구 중심의 제품 솔루션', '고객 경험 및 운영 시스템 연결', '유지보수와 확장이 가능한 결과물'];
+      item.useCases = ['새로운 디지털 비즈니스 출시', '분산된 비즈니스 도구 교체', '고객 경험과 내부 운영 연결'];
+    });
+    const serviceCategoryUseCases = {
+      engineering: ['새로운 디지털 제품 출시', '고객 및 내부 시스템 업그레이드', '플랫폼 확장성과 안정성 향상'],
+      integration: ['분산된 플랫폼 연결', '반복적인 백오피스 업무 감소', '판매 및 고객 운영 통합'],
+      growth: ['효과적인 고객 수요 창출', '자연 검색 노출 향상', '제품 또는 시장 출시 조정']
+    };
+    const serviceCapabilities = {
+      strategy: ['제품 전략', 'UX / UI 디자인', '전환율 최적화'],
+      engineering: ['제품 및 경험 디자인', '맞춤형 소프트웨어 개발', '웹 및 모바일 개발', '이커머스 플랫폼 개발', '엔터프라이즈 및 클라우드 플랫폼', '성능 및 안정성'],
+      integration: ['API, 데이터 및 결제 연동', 'AI 및 워크플로 자동화', 'CRM 시스템'],
+      cloud: ['클라우드 아키텍처', '플랫폼 현대화', '성능 및 안정성'],
+      growth: ['디지털 마케팅', 'SEO 및 콘텐츠', '캠페인 개발']
+    };
+    catalog.services?.forEach(item => {
+      item.kicker = item.title;
+      item.code = item.key === 'integration' ? 'API' : (item.key === 'engineering' ? '개발' : item.key === 'growth' ? '성장' : '서비스');
+      item.summary = `${item.title}은(는) 비즈니스 요구를 중심으로 기획, 구현, 제공 및 지속적인 최적화를 지원합니다.`;
+      item.capabilities = serviceCapabilities[item.key] || ['솔루션 기획', '구현 및 연동', '지속적인 최적화'];
+      item.deliverables = ['비즈니스 요구 및 구현 계획', '유지보수 가능한 시스템 및 워크플로', '테스트, 제공 및 지속적인 최적화'];
+      item.useCases = serviceCategoryUseCases[item.key] || ['새로운 디지털 역량 기획', '기존 비즈니스 워크플로 개선', '지속적인 운영 및 성장 지원'];
+    });
+    catalog.serviceCategories?.forEach(category => {
+      category.kicker = category.title;
+      category.code = category.key === 'integration' ? 'API' : (category.key === 'engineering' ? '개발' : '성장');
+      category.offerings.forEach(item => {
+        item.kicker = category.title;
+        item.monogram = '서비스';
+        item.summary = `${item.title}은(는) 실제 비즈니스 프로세스를 중심으로 기획, 구현 및 지속적인 최적화를 제공합니다.`;
+        item.description = item.summary;
+        item.capabilities = [`${item.title} 솔루션 설계`, `${item.title} 구현 및 연동`, '테스트, 제공 및 지속적인 최적화'];
+        item.deliverables = ['명확한 구현 경로와 요구사항', '유지보수 가능한 결과물', '테스트 및 출시 지원'];
+        item.useCases = serviceCategoryUseCases[category.key];
+      });
+    });
+    catalog.solutionCategories?.forEach(category => {
+      category.offerings.forEach(item => {
+        item.headline = `${item.title}을(를) 위한 연결된 디지털 경험을 구축합니다.`;
+        item.overview = `${item.description.replace(/[.]$/, '')}. 소프트웨어, 결제, 데이터 및 운영 워크플로를 연결하여 실제 비즈니스에 적합한 통합 솔루션을 제공합니다.`;
+        item.capabilities = ['고객 경험 및 디지털 채널', '결제, 데이터 및 시스템 연결', '운영 워크플로 및 자동화'];
+        item.outcomes = ['분산된 프로세스와 반복 업무 감소', '팀 및 고객 경험 향상', '지속적으로 확장 가능한 운영 기반 구축'];
+      });
+    });
+  };
+
   const applySolutionDetail = () => {
-    if (language !== 'zh') return;
+    if (!dictionary) return;
     const page = document.querySelector('[data-solution-key]');
     if (!page) return;
     const item = window.aiyaCatalog?.solutionCategories?.flatMap(category => category.offerings).find(candidate => candidate.key === page.dataset.solutionKey);
@@ -345,26 +685,30 @@
     document.querySelectorAll('.solution-outcome-section li span').forEach((element, index) => { element.textContent = item.outcomes[index] || ''; });
     document.querySelectorAll('.solution-connected-section strong').forEach((element, index) => { element.textContent = item.connected[index]?.title || element.textContent; });
     const visual = document.querySelector('.solution-detail-visual img');
-    if (visual) visual.alt = `${item.title}技术主题视觉图`;
+    if (visual) visual.alt = language === 'zh' ? `${item.title}技术主题视觉图` : `${item.title} 기술 비주얼`;
     const category = window.aiyaCatalog.solutionCategories.find(candidate => candidate.offerings.some(offering => offering.key === item.key));
-    setText('.solution-detail-visual>small', `${category?.title || '解决方案'} · ${item.title}`);
-    document.title = `${item.title}解决方案 | AIYA 科技系统`;
+    setText('.solution-detail-visual>small', `${category?.title || (language === 'zh' ? '解决方案' : '솔루션')} · ${item.title}`);
+    document.title = language === 'zh' ? `${item.title}解决方案 | AIYA 科技系统` : `${item.title} 솔루션 | AIYA 기술 시스템`;
     const meta = document.querySelector('meta[name="description"]');
     if (meta) meta.content = item.overview;
   };
 
   const applyDocument = () => {
-    if (language !== 'zh') return;
-    document.documentElement.lang = 'zh-CN';
+    if (!dictionary) return;
+    document.documentElement.lang = language === 'zh' ? 'zh-CN' : 'ko';
     const pageName = window.location.pathname.split('/').pop();
-    if (!pageName || pageName === 'index.html') document.title = 'AIYA 科技系统';
-    else if (pageName === 'solutions.html') document.title = '解决方案 | AIYA 科技系统';
-    else if (pageName === 'signin.html') document.title = '登录 | AIYA 科技系统';
-    else if (pageName === 'news.html') document.title = '新闻 | AIYA 科技系统';
-    else if (pageName === 'connected-business-technology.html') document.title = '互联商业科技 | AIYA 新闻';
-    else if (pageName === 'events.html') document.title = '活动 | AIYA 新闻';
-    else if (pageName === 'stories.html') document.title = '故事 | AIYA 新闻';
-    else if (pageName === 'financial-services-api-integration.html') document.title = '金融服务API技术对接 | AIYA 科技系统';
+    const titles = language === 'zh' ? {
+      '': 'AIYA 科技系统', 'index.html': 'AIYA 科技系统', 'solutions.html': '解决方案 | AIYA 科技系统',
+      'signin.html': '登录 | AIYA 科技系统', 'news.html': '新闻 | AIYA 科技系统',
+      'connected-business-technology.html': '互联商业科技 | AIYA 新闻', 'events.html': '活动 | AIYA 新闻',
+      'stories.html': '故事 | AIYA 新闻', 'financial-services-api-integration.html': '金融服务API技术对接 | AIYA 科技系统'
+    } : {
+      '': 'AIYA 기술 시스템', 'index.html': 'AIYA 기술 시스템', 'solutions.html': '솔루션 | AIYA 기술 시스템',
+      'signin.html': '로그인 | AIYA 기술 시스템', 'news.html': '뉴스 | AIYA 기술 시스템',
+      'connected-business-technology.html': '연결형 비즈니스 기술 | AIYA 뉴스', 'events.html': '이벤트 | AIYA 뉴스',
+      'stories.html': '스토리 | AIYA 뉴스', 'financial-services-api-integration.html': '금융 서비스 API 연동 | AIYA 기술 시스템'
+    };
+    if (Object.prototype.hasOwnProperty.call(titles, pageName)) document.title = titles[pageName];
     const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
       acceptNode(node) {
         return /^(SCRIPT|STYLE|NOSCRIPT)$/.test(node.parentElement?.tagName || '') || !node.nodeValue.trim()
@@ -400,7 +744,7 @@
       const trigger = document.createElement('button');
       trigger.type = 'button';
       trigger.className = 'language-switch';
-      trigger.setAttribute('aria-label', 'Switch language');
+      trigger.setAttribute('aria-label', translate('Switch language'));
       trigger.setAttribute('aria-haspopup', 'listbox');
       trigger.setAttribute('aria-expanded', 'false');
       trigger.innerHTML = `<span>${labels[language]}</span><i aria-hidden="true">⌄</i>`;
@@ -408,7 +752,7 @@
       const menu = document.createElement('div');
       menu.className = 'language-menu';
       menu.setAttribute('role', 'listbox');
-      menu.setAttribute('aria-label', 'Languages');
+      menu.setAttribute('aria-label', translate('Languages'));
       menu.hidden = true;
 
       const close = restoreFocus => {
@@ -455,12 +799,16 @@
     const header = document.querySelector('.site-header');
     if (actions) actions.prepend(makeSelector('language-selector-desktop'));
     if (nav) nav.append(makeSelector('language-selector-mobile'));
-    if (!actions && !nav && header) header.insertBefore(makeSelector('language-selector-standalone'), header.lastElementChild);
+    if (!actions && header) {
+      const classes = nav ? 'language-selector-desktop language-selector-standalone' : 'language-selector-standalone';
+      header.insertBefore(makeSelector(classes), header.lastElementChild);
+    }
   };
 
   window.aiyaI18n = { language, t: translate, applyDocument, switchLanguage };
   translateCatalog(window.aiyaCatalog);
   normalizeChineseCatalog(window.aiyaCatalog);
+  normalizeKoreanCatalog(window.aiyaCatalog);
   applyDocument();
   applySolutionDetail();
   injectSwitches();
