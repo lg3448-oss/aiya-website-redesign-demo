@@ -37,7 +37,6 @@ if ($html -notmatch '<script src="catalog\.js"></script>\s*<script src="mega-men
 $sceneIds = @(
   'home',
   'capabilities',
-  'kiosk',
   'products',
   'services',
   'ecosystem',
@@ -154,22 +153,8 @@ if ($contactSection -notmatch '(?s)<div class="partner-marquee".*?<footer>') {
 if ($heroSection -match '<div class="partner-marquee"') {
   throw 'The partner marquee must no longer appear in the hero.'
 }
-@(
-  'AIYA Kiosk',
-  'Self-Service Ordering',
-  'Customizable Menu',
-  'Integrated Payments',
-  'POS Order Sync'
-) | ForEach-Object {
-  if ($html -notmatch [regex]::Escape($_)) {
-    throw "Missing approved kiosk content: $_"
-  }
-}
-if ($html -match 'Online Ordering\.' -or $html -match 'Connected to Clover\.') {
-  throw 'The old featured online-ordering heading is still present.'
-}
-if (-not (Test-Path (Join-Path $root 'assets\aiya-kiosk.png'))) {
-  throw 'Missing AIYA Kiosk product image.'
+if ($html -match 'FEATURED PRODUCT' -or $html -match 'id=["'']kiosk["'']' -or $html -match 'href=["'']#kiosk["'']') {
+  throw 'The removed Featured Product scene is still present or linked.'
 }
 $primaryHeadings = [regex]::Matches($html, '(?s)<h[12][^>]*>(.*?)</h[12]>')
 foreach ($heading in $primaryHeadings) {
