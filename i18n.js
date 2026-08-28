@@ -1,9 +1,12 @@
 (() => {
   const params = new URLSearchParams(window.location.search);
+  const supportedLanguages = new Set(['en', 'zh', 'ko']);
   const requested = params.get('lang');
-  let stored = null;
+  let stored = '';
   try { stored = window.localStorage.getItem('aiya-language-v2'); } catch (_) {}
-  const language = requested === 'zh' || requested === 'en' ? requested : (stored === 'zh' ? 'zh' : 'en');
+  const language = requested !== null
+    ? (supportedLanguages.has(requested) ? requested : 'en')
+    : (supportedLanguages.has(stored) ? stored : 'en');
 
   const zh = {
     'Home': '首页', 'Products': '产品', 'Services': '服务', 'Solutions': '解决方案', 'News': '新闻', 'Company': '公司', 'Contact': '联系我们',
@@ -380,29 +383,79 @@
   };
 
   const switchLanguage = next => {
-    try { window.localStorage.setItem('aiya-language-v2', next); } catch (_) {}
+    const selected = supportedLanguages.has(next) ? next : 'en';
+    try { window.localStorage.setItem('aiya-language-v2', selected); } catch (_) {}
     const url = new URL(window.location.href);
-    if (next === 'zh') url.searchParams.set('lang', 'zh');
-    else url.searchParams.delete('lang');
+    if (selected === 'en') url.searchParams.delete('lang');
+    else url.searchParams.set('lang', selected);
     window.location.assign(url.toString());
   };
 
   const injectSwitches = () => {
-    const makeButton = extraClass => {
-      const button = document.createElement('button');
-      button.type = 'button';
-      button.className = `language-switch ${extraClass}`.trim();
-      button.textContent = language === 'zh' ? 'EN' : '中文';
-      button.setAttribute('aria-label', language === 'zh' ? 'Switch to English' : '切换到中文');
-      button.addEventListener('click', () => switchLanguage(language === 'zh' ? 'en' : 'zh'));
-      return button;
+    const labels = { en: 'English', zh: '中文', ko: '한국어' };
+    const makeSelector = extraClass => {
+      const selector = document.createElement('div');
+      selector.className = `language-selector ${extraClass}`.trim();
+
+      const trigger = document.createElement('button');
+      trigger.type = 'button';
+      trigger.className = 'language-switch';
+      trigger.setAttribute('aria-label', 'Switch language');
+      trigger.setAttribute('aria-haspopup', 'listbox');
+      trigger.setAttribute('aria-expanded', 'false');
+      trigger.innerHTML = `<span>${labels[language]}</span><i aria-hidden="true">⌄</i>`;
+
+      const menu = document.createElement('div');
+      menu.className = 'language-menu';
+      menu.setAttribute('role', 'listbox');
+      menu.setAttribute('aria-label', 'Languages');
+      menu.hidden = true;
+
+      const close = restoreFocus => {
+        menu.hidden = true;
+        selector.classList.remove('open');
+        trigger.setAttribute('aria-expanded', 'false');
+        if (restoreFocus) trigger.focus();
+      };
+
+      Object.entries(labels).forEach(([code, label]) => {
+        const option = document.createElement('button');
+        option.type = 'button';
+        option.setAttribute('role', 'option');
+        option.dataset.language = code;
+        option.textContent = label;
+        option.setAttribute('aria-selected', String(code === language));
+        if (code === language) {
+          option.setAttribute('aria-current', 'true');
+          option.disabled = true;
+        }
+        option.addEventListener('click', () => switchLanguage(code));
+        menu.append(option);
+      });
+
+      trigger.addEventListener('click', () => {
+        const willOpen = menu.hidden;
+        menu.hidden = !willOpen;
+        selector.classList.toggle('open', willOpen);
+        trigger.setAttribute('aria-expanded', String(willOpen));
+        if (willOpen) menu.querySelector('[data-language]:not(:disabled)')?.focus();
+      });
+      document.addEventListener('pointerdown', event => {
+        if (!selector.contains(event.target)) close(false);
+      });
+      document.addEventListener('keydown', event => {
+        if (event.key === 'Escape' && !menu.hidden) close(true);
+      });
+
+      selector.append(trigger, menu);
+      return selector;
     };
     const actions = document.querySelector('.header-actions');
     const nav = document.querySelector('.main-nav');
     const header = document.querySelector('.site-header');
-    if (actions) actions.prepend(makeButton('language-switch-desktop'));
-    if (nav) nav.append(makeButton('language-switch-mobile'));
-    if (!actions && !nav && header) header.insertBefore(makeButton('language-switch-standalone'), header.lastElementChild);
+    if (actions) actions.prepend(makeSelector('language-selector-desktop'));
+    if (nav) nav.append(makeSelector('language-selector-mobile'));
+    if (!actions && !nav && header) header.insertBefore(makeSelector('language-selector-standalone'), header.lastElementChild);
   };
 
   window.aiyaI18n = { language, t: translate, applyDocument, switchLanguage };
