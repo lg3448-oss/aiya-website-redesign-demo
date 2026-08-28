@@ -64,11 +64,11 @@
   };
 
   const categoryVisuals = {
-    'Payments & Commerce': '/assets/product-visual-payments-commerce.jpg',
-    'Billing & Revenue': '/assets/product-visual-billing-revenue.jpg',
-    'Treasury & Finance': '/assets/product-visual-treasury-finance.jpg',
-    'Platforms & Marketplaces': '/assets/product-visual-platforms-marketplaces.jpg',
-    'Trust & Business Tools': '/assets/product-visual-trust-business-tools.jpg'
+    'Payments & Commerce': 'assets/product-visual-payments-commerce.jpg',
+    'Billing & Revenue': 'assets/product-visual-billing-revenue.jpg',
+    'Treasury & Finance': 'assets/product-visual-treasury-finance.jpg',
+    'Platforms & Marketplaces': 'assets/product-visual-platforms-marketplaces.jpg',
+    'Trust & Business Tools': 'assets/product-visual-trust-business-tools.jpg'
   };
 
   const slugMonogram = slug => slug.split('-').map(part => part[0]).join('').slice(0, 3).toUpperCase();
@@ -81,7 +81,7 @@
       const shared = categoryCopy[category.title];
       Object.assign(offering, {
         key,
-        url: `/products/${key}.html`,
+        url: `products/${key}.html`,
         navCategory: category.title,
         kicker: category.kicker,
         monogram: slugMonogram(key),
