@@ -169,11 +169,12 @@ function Invoke-KoreanBrowserCheck {
 }
 
 try {
-  $htmlFiles = Get-ChildItem -LiteralPath $root -Recurse -Filter '*.html' | Where-Object { $_.FullName -notmatch '[\\/]\.worktrees[\\/]' }
-  foreach ($htmlFile in $htmlFiles) {
-    $htmlSource = [IO.File]::ReadAllText($htmlFile.FullName, [Text.Encoding]::UTF8)
-    if ($htmlSource -notmatch 'i18n\.js\?v=20260828-1') { throw "Missing current i18n script: $($htmlFile.FullName)" }
-    if ($htmlSource -notmatch 'styles\.css\?v=20260828-1') { throw "Missing current stylesheet cache version: $($htmlFile.FullName)" }
+  $htmlFiles = @(& git -C $root ls-files '*.html')
+  foreach ($relativeHtmlPath in $htmlFiles) {
+    $htmlPath = Join-Path $root $relativeHtmlPath
+    $htmlSource = [IO.File]::ReadAllText($htmlPath, [Text.Encoding]::UTF8)
+    if ($htmlSource -notmatch 'i18n\.js\?v=20260828-1') { throw "Missing current i18n script: $htmlPath" }
+    if ($htmlSource -notmatch 'styles\.css\?v=20260828-1') { throw "Missing current stylesheet cache version: $htmlPath" }
   }
 
   $i18nSource = [IO.File]::ReadAllText((Join-Path $root 'i18n.js'), [Text.Encoding]::UTF8)
