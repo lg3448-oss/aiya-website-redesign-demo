@@ -64,10 +64,10 @@ function activateProductCategory(categoryKey) {
   document.querySelector('#product-description').textContent = category.summary;
   const image = document.querySelector('#product-image');
   image.src = category.image;
-  image.alt = window.aiyaI18n?.language === 'zh' ? `${category.title}能力预览` : `${category.title} capability preview`;
+  image.alt = `${category.title} ${i18nText('capability preview')}`;
   document.querySelector('#product-monogram').textContent = category.monogram;
   const offerings = document.querySelector('#product-offerings');
-  offerings.setAttribute('aria-label', `${category.title} capabilities`);
+  offerings.setAttribute('aria-label', `${category.title} ${i18nText('capabilities')}`);
   renderOfferings(offerings, category.offerings.map(offering => ({ label: offering.title, ...offering })));
   const overview = document.querySelector('#product-overview');
   overview.hidden = false;
@@ -89,7 +89,7 @@ function activateService(key) {
   document.querySelector('#service-title').textContent = service.title;
   document.querySelector('#service-description').textContent = service.summary;
   const offerings = document.querySelector('#service-offerings');
-  offerings.setAttribute('aria-label', `${service.title} services`);
+  offerings.setAttribute('aria-label', `${service.title} ${i18nText('services')}`);
   const category = window.aiyaCatalog.serviceCategories.find(item => item.key === service.key);
   renderOfferings(offerings, category.offerings.map(item => ({ label: item.title, description: item.description, url: item.url })));
   const overview = document.querySelector('#service-overview');

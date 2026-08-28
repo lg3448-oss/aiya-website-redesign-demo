@@ -11,8 +11,9 @@ if (detailPage) {
   document.querySelector('#detail-kicker').textContent = item.kicker;
   document.querySelector('#detail-title').textContent = item.title;
   document.querySelector('#detail-summary').textContent = item.summary;
-  if (window.aiyaI18n?.language === 'zh') {
-    document.title = `${item.title} | AIYA 科技系统`;
+  if (window.aiyaI18n?.language !== 'en') {
+    const brandTitle = window.aiyaI18n.language === 'zh' ? 'AIYA 科技系统' : 'AIYA 기술 시스템';
+    document.title = `${item.title} | ${brandTitle}`;
     const metaDescription = document.querySelector('meta[name="description"]');
     if (metaDescription) metaDescription.content = item.summary;
   }
@@ -24,7 +25,7 @@ if (detailPage) {
     image.src = detailPage.dataset.detailKind.startsWith('service')
       ? `${imageUrl}?asset=20260820-9`
       : imageUrl;
-    image.alt = window.aiyaI18n?.language === 'zh' ? `${item.title}视觉图` : `${item.title} visual`;
+    image.alt = `${item.title} ${window.aiyaI18n?.t('visual') || 'visual'}`;
     image.decoding = 'async';
     image.fetchPriority = 'high';
   } else if (image) {
