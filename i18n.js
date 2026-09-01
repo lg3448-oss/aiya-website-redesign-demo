@@ -201,6 +201,37 @@
     'capability preview': '能力预览', 'capabilities': '能力', 'services': '服务',
     'Abstract technology visual for': '技术主题视觉图：', 'visual': '视觉图', 'Switch to English': '切换到英文',
     'Payment Links': '支付链接', 'B2B Global Commerce': 'B2B 全球商务', '1 view': '统一视图', '↓ work': '减少工作',
+    'White Label Products': '白标产品', 'AIYA-BUILT PLATFORMS': 'AIYA 打造的平台',
+    'AIYA Online Order': 'AIYA 在线点单', 'AIYA Travel Ticketing': 'AIYA 旅行票务', 'AIYA CRM': 'AIYA 客户关系管理', 'AIYA Gaming': 'AIYA 游戏系统', 'AIYA ERP': 'AIYA 企业资源管理',
+    'Launch customizable AIYA-built products with your brand, workflows, and connected business systems.': '使用您的品牌、工作流程和已连接的业务系统，推出可定制的 AIYA 产品。',
+    'Brand-ready product experience': '可直接体现品牌的产品体验', 'Configured business workflows': '配置完成的业务流程', 'Connected data, payments, and operations': '已连接的数据、支付与运营',
+    'Launching a branded digital product': '推出品牌化数字产品', 'Replacing disconnected operating tools': '替换分散的运营工具', 'Starting from a proven customizable platform': '从经过验证的可定制平台开始',
+    'Plan and run connected marketing that aligns your brand, campaigns, and customer journeys.': '规划并开展互联营销，使品牌、活动与客户旅程保持一致。',
+    'Growth Strategy': '增长战略', 'Content and Campaigns': '内容与营销活动', 'AIYA Gift Card & Loyalty Points': 'AIYA 礼品卡与会员积分',
+    'Digital growth planning': '数字化增长规划', 'Campaign creative and execution': '活动创意与执行', 'Gift-card customer experiences': '礼品卡客户体验',
+    'Launching a new offer': '推出新产品', 'Connecting marketing with conversion': '连接营销与转化', 'Building repeat-customer programs': '建立复购客户计划',
+    'Create a branded online ordering experience connected to the way your business fulfills and serves customers.': '打造与业务履约和客户服务方式相连的品牌化在线点单体验。',
+    'Branded Online Ordering': '品牌化在线点单', 'Order and Fulfillment Workflows': '订单与履约流程', 'Payment and Customer Connections': '支付与客户连接',
+    'Configured online ordering experience': '配置完成的在线点单体验', 'Connected order management workflows': '已连接的订单管理流程', 'Integrated payment and customer data': '集成的支付与客户数据',
+    'Launching online ordering': '上线在线点单', 'Replacing disconnected ordering tools': '替换分散的点单工具', 'Connecting orders with business operations': '将订单与业务运营连接',
+    'Launch a branded ticketing platform for travel services, bookings, and connected customer operations.': '为旅行服务、预订和互联客户运营推出品牌化票务平台。',
+    'Travel Booking Experiences': '旅行预订体验', 'Ticketing and Reservation Workflows': '票务与预订流程', 'Customer and Payment Connections': '客户与支付连接',
+    'Branded travel ticketing experience': '品牌化旅行票务体验', 'Configured booking workflows': '配置完成的预订流程', 'Connected payment and operational data': '已连接的支付与运营数据',
+    'Launching a travel booking platform': '推出旅行预订平台', 'Modernizing ticketing workflows': '升级票务工作流程', 'Connecting reservations with customer operations': '将预订与客户运营连接',
+    'Configure connected CRM systems that give sales, service, and operations teams a shared customer view.': '配置互联 CRM 系统，为销售、服务和运营团队提供统一的客户视图。',
+    'CRM Architecture': 'CRM 架构', 'Workflow Configuration': '工作流程配置', 'Customer Data Integration': '客户数据集成',
+    'Configured CRM workspace': '配置完成的 CRM 工作区', 'Sales and service workflows': '销售与服务流程', 'Connected customer data model': '已连接的客户数据模型',
+    'Organizing lead and account activity': '整理潜在客户与账户活动', 'Improving customer follow-up': '改进客户跟进', 'Connecting CRM with existing business tools': '将 CRM 与现有业务工具连接',
+    'Create a branded gaming platform with connected player, payment, and operational workflows.': '打造具有互联玩家、支付与运营流程的品牌化游戏平台。',
+    'Player Experiences': '玩家体验', 'Game and Membership Workflows': '游戏与会员工作流程', 'Payment and Engagement Connections': '支付与参与度连接',
+    'Branded gaming experience': '品牌化游戏体验', 'Configured player workflows': '配置完成的玩家工作流程', 'Connected payment and engagement data': '已连接的支付与参与度数据',
+    'Launching a gaming platform': '推出游戏平台', 'Modernizing player operations': '升级玩家运营', 'Connecting engagement with revenue workflows': '将参与度与营收工作流程连接',
+    'Unify core business processes in a branded ERP platform configured for your operational model.': '在适配您的运营模式的品牌化 ERP 平台中统一核心业务流程。',
+    'Operational Workflows': '运营工作流程', 'Business Data Management': '业务数据管理', 'Connected Finance and Inventory': '已连接的财务与库存',
+    'Configured ERP workspace': '配置完成的 ERP 工作区', 'Connected business workflows': '已连接的业务工作流程', 'Operational reporting foundation': '运营报表基础',
+    'Centralizing business data': '集中管理业务数据', 'Improving operational visibility': '提升运营可视性',
+    'PRODUCT INTERFACE': '产品界面', 'See the product experience': '查看产品体验', 'A current interface example that can be adapted around brand and workflow requirements.': '可根据品牌与工作流程需求进行调整的当前界面示例。',
+    'AIYA Marketing interface example': 'AIYA 营销界面示例', 'AIYA Online Order interface example': 'AIYA 在线点单界面示例', 'AIYA Travel Ticketing interface example': 'AIYA 旅行票务界面示例',
     '© 2026 AIYA Technology System, LLC': '© 2026 AIYA 科技系统有限公司', '100 East Broadway 12 FL New York NY 10002': '美国纽约州纽约市东百老汇街100号12层，邮编10002'
   };
 
@@ -433,7 +464,38 @@
     'Build the right system for your business.': '비즈니스에 적합한 시스템을 구축하세요.', 'Talk to AIYA': 'AIYA에 문의하기',
     'Technology built around business.': '비즈니스를 중심으로 구축한 기술.', 'Section navigation': '섹션 내비게이션',
     'Ecosystem': '생태계', 'Results': '성과', 'Why AIYA': 'AIYA를 선택하는 이유', 'Technology capabilities': '기술 역량',
-    'PURPOSE-BUILT SOFTWARE': '목적에 맞춘 소프트웨어', 'PAYMENTS · COMMERCE': '결제 · 커머스', 'DEV': '개발', 'DATA': '데이터', 'APIs': 'API'
+    'PURPOSE-BUILT SOFTWARE': '목적에 맞춘 소프트웨어', 'PAYMENTS · COMMERCE': '결제 · 커머스', 'DEV': '개발', 'DATA': '데이터', 'APIs': 'API',
+    'White Label Products': '화이트 라벨 제품', 'AIYA-BUILT PLATFORMS': 'AIYA 구축 플랫폼',
+    'AIYA Online Order': 'AIYA 온라인 주문', 'AIYA Travel Ticketing': 'AIYA 여행 티켓팅', 'AIYA CRM': 'AIYA CRM', 'AIYA Gaming': 'AIYA 게이밍', 'AIYA ERP': 'AIYA ERP',
+    'Launch customizable AIYA-built products with your brand, workflows, and connected business systems.': '브랜드, 워크플로, 연결된 비즈니스 시스템에 맞춘 맞춤형 AIYA 제품을 출시하세요.',
+    'Brand-ready product experience': '브랜드에 맞춘 제품 경험', 'Configured business workflows': '구성된 비즈니스 워크플로', 'Connected data, payments, and operations': '연결된 데이터, 결제 및 운영',
+    'Launching a branded digital product': '브랜드 디지털 제품 출시', 'Replacing disconnected operating tools': '분산된 운영 도구 교체', 'Starting from a proven customizable platform': '검증된 맞춤형 플랫폼에서 시작',
+    'Plan and run connected marketing that aligns your brand, campaigns, and customer journeys.': '브랜드, 캠페인 및 고객 여정을 연결하는 마케팅을 기획하고 운영하세요.',
+    'Growth Strategy': '성장 전략', 'Content and Campaigns': '콘텐츠 및 캠페인', 'AIYA Gift Card & Loyalty Points': 'AIYA 기프트카드 및 로열티 포인트',
+    'Digital growth planning': '디지털 성장 계획', 'Campaign creative and execution': '캠페인 크리에이티브 및 실행', 'Gift-card customer experiences': '기프트카드 고객 경험',
+    'Launching a new offer': '새로운 오퍼 출시', 'Connecting marketing with conversion': '마케팅과 전환 연결', 'Building repeat-customer programs': '재방문 고객 프로그램 구축',
+    'Create a branded online ordering experience connected to the way your business fulfills and serves customers.': '비즈니스의 주문 이행 및 고객 응대 방식과 연결된 브랜드 온라인 주문 경험을 구축하세요.',
+    'Branded Online Ordering': '브랜드 온라인 주문', 'Order and Fulfillment Workflows': '주문 및 이행 워크플로', 'Payment and Customer Connections': '결제 및 고객 연결',
+    'Configured online ordering experience': '구성된 온라인 주문 경험', 'Connected order management workflows': '연결된 주문 관리 워크플로', 'Integrated payment and customer data': '통합 결제 및 고객 데이터',
+    'Launching online ordering': '온라인 주문 출시', 'Replacing disconnected ordering tools': '분산된 주문 도구 교체', 'Connecting orders with business operations': '주문과 비즈니스 운영 연결',
+    'Launch a branded ticketing platform for travel services, bookings, and connected customer operations.': '여행 서비스, 예약 및 연결된 고객 운영을 위한 브랜드 티켓팅 플랫폼을 출시하세요.',
+    'Travel Booking Experiences': '여행 예약 경험', 'Ticketing and Reservation Workflows': '티켓팅 및 예약 워크플로', 'Customer and Payment Connections': '고객 및 결제 연결',
+    'Branded travel ticketing experience': '브랜드 여행 티켓팅 경험', 'Configured booking workflows': '구성된 예약 워크플로', 'Connected payment and operational data': '연결된 결제 및 운영 데이터',
+    'Launching a travel booking platform': '여행 예약 플랫폼 출시', 'Modernizing ticketing workflows': '티켓팅 워크플로 현대화', 'Connecting reservations with customer operations': '예약과 고객 운영 연결',
+    'Configure connected CRM systems that give sales, service, and operations teams a shared customer view.': '영업, 서비스 및 운영 팀이 공유하는 고객 보기를 제공하는 연결형 CRM 시스템을 구성하세요.',
+    'CRM Architecture': 'CRM 아키텍처', 'Workflow Configuration': '워크플로 구성', 'Customer Data Integration': '고객 데이터 통합',
+    'Configured CRM workspace': '구성된 CRM 작업 공간', 'Sales and service workflows': '영업 및 서비스 워크플로', 'Connected customer data model': '연결된 고객 데이터 모델',
+    'Organizing lead and account activity': '리드 및 계정 활동 정리', 'Improving customer follow-up': '고객 후속 조치 개선', 'Connecting CRM with existing business tools': 'CRM과 기존 비즈니스 도구 연결',
+    'Create a branded gaming platform with connected player, payment, and operational workflows.': '연결된 플레이어, 결제 및 운영 워크플로를 갖춘 브랜드 게이밍 플랫폼을 구축하세요.',
+    'Player Experiences': '플레이어 경험', 'Game and Membership Workflows': '게임 및 멤버십 워크플로', 'Payment and Engagement Connections': '결제 및 참여 연결',
+    'Branded gaming experience': '브랜드 게이밍 경험', 'Configured player workflows': '구성된 플레이어 워크플로', 'Connected payment and engagement data': '연결된 결제 및 참여 데이터',
+    'Launching a gaming platform': '게이밍 플랫폼 출시', 'Modernizing player operations': '플레이어 운영 현대화', 'Connecting engagement with revenue workflows': '참여와 매출 워크플로 연결',
+    'Unify core business processes in a branded ERP platform configured for your operational model.': '운영 모델에 맞춰 구성된 브랜드 ERP 플랫폼에서 핵심 비즈니스 프로세스를 통합하세요.',
+    'Operational Workflows': '운영 워크플로', 'Business Data Management': '비즈니스 데이터 관리', 'Connected Finance and Inventory': '연결된 재무 및 재고',
+    'Configured ERP workspace': '구성된 ERP 작업 공간', 'Connected business workflows': '연결된 비즈니스 워크플로', 'Operational reporting foundation': '운영 보고 기반',
+    'Centralizing business data': '비즈니스 데이터 중앙화', 'Improving operational visibility': '운영 가시성 향상',
+    'PRODUCT INTERFACE': '제품 인터페이스', 'See the product experience': '제품 경험 보기', 'A current interface example that can be adapted around brand and workflow requirements.': '브랜드와 워크플로 요구에 맞게 조정할 수 있는 현재 인터페이스 예시입니다.',
+    'AIYA Marketing interface example': 'AIYA 마케팅 인터페이스 예시', 'AIYA Online Order interface example': 'AIYA 온라인 주문 인터페이스 예시', 'AIYA Travel Ticketing interface example': 'AIYA 여행 티켓팅 인터페이스 예시'
   };
 
   const dictionary = { zh, ko }[language] || null;
@@ -514,6 +576,22 @@
       revenue: ['线上与线下支付', '计费与订阅', '发票与支付链接', '平台支付与付款', '风险与身份验证流程', '税务与营收报表集成'],
       marketing: ['增长战略', '内容与营销活动', 'AIYA 礼品卡与会员积分']
     };
+    const whiteLabel = {
+      title: '白标产品', kicker: 'AIYA 打造的平台', code: '白标',
+      summary: '使用您的品牌、工作流程和已连接的业务系统，推出可定制的 AIYA 产品。',
+      capabilities: ['AIYA 营销', 'AIYA 在线点单', 'AIYA 旅行票务', 'AIYA 客户关系管理', 'AIYA 游戏系统', 'AIYA 企业资源管理'],
+      deliverables: ['可直接体现品牌的产品体验', '配置完成的业务流程', '已连接的数据、支付与运营'],
+      useCases: ['推出品牌化数字产品', '替换分散的运营工具', '从经过验证的可定制平台开始'],
+      offerings: {
+        marketing: { title: 'AIYA 营销', summary: '规划并开展互联营销，使品牌、活动与客户旅程保持一致。', capabilities: ['增长战略', '内容与营销活动', 'AIYA 礼品卡与会员积分'], deliverables: ['数字化增长规划', '活动创意与执行', '礼品卡客户体验'], useCases: ['推出新产品', '连接营销与转化', '建立复购客户计划'] },
+        'aiya-online-order': { title: 'AIYA 在线点单', summary: '打造与业务履约和客户服务方式相连的品牌化在线点单体验。', capabilities: ['品牌化在线点单', '订单与履约流程', '支付与客户连接'], deliverables: ['配置完成的在线点单体验', '已连接的订单管理流程', '集成的支付与客户数据'], useCases: ['上线在线点单', '替换分散的点单工具', '将订单与业务运营连接'] },
+        'aiya-travel-ticketing': { title: 'AIYA 旅行票务', summary: '为旅行服务、预订和互联客户运营推出品牌化票务平台。', capabilities: ['旅行预订体验', '票务与预订流程', '客户与支付连接'], deliverables: ['品牌化旅行票务体验', '配置完成的预订流程', '已连接的支付与运营数据'], useCases: ['推出旅行预订平台', '升级票务工作流程', '将预订与客户运营连接'] },
+        'crm-systems': { title: 'AIYA 客户关系管理', summary: '配置互联 CRM 系统，为销售、服务和运营团队提供统一的客户视图。', capabilities: ['CRM 架构', '工作流程配置', '客户数据集成'], deliverables: ['配置完成的 CRM 工作区', '销售与服务流程', '已连接的客户数据模型'], useCases: ['整理潜在客户与账户活动', '改进客户跟进', '将 CRM 与现有业务工具连接'] },
+        'aiya-gaming': { title: 'AIYA 游戏系统', summary: '打造涵盖游戏体验设计、游戏支付、玩家账户和虚拟币或代币账本系统的品牌化游戏平台。', capabilities: ['游戏体验设计', '游戏支付流程', '虚拟币与代币账本系统'], deliverables: ['品牌化游戏体验', '玩家账户与管理控制', '运营与参与度报告'], useCases: ['推出游戏平台', '升级玩家运营', '将游戏参与度与运营流程连接'] },
+        'aiya-erp': { title: 'AIYA 企业资源管理', summary: '为业务运营模式配置品牌化 ERP 平台，统一订单、库存、采购、财务和审批流程。', capabilities: ['订单、库存与采购流程', '财务与内部审批流程', '企业系统集成'], deliverables: ['配置完成的 ERP 工作区', '已连接的企业运营流程', '运营报表基础'], useCases: ['替换分散的运营工具', '集中管理业务数据', '提升运营可视性'] }
+      }
+    };
+    const { offerings: whiteLabelOfferings, ...whiteLabelCategory } = whiteLabel;
     catalog.products?.forEach(item => {
       item.kicker = item.title;
       item.monogram = productMonograms[item.key] || '产品';
@@ -522,6 +600,8 @@
       item.deliverables = ['围绕业务需求设计的产品方案', '客户体验与运营系统连接', '可维护、可扩展的交付成果'];
       item.useCases = ['上线新的数字业务', '替换分散的业务工具', '连接客户体验与内部运营'];
     });
+    const marketing = catalog.products?.find(item => item.key === 'marketing');
+    if (marketing) Object.assign(marketing, whiteLabelOfferings.marketing, { kicker: whiteLabel.title, monogram: whiteLabel.code });
     const serviceCategoryUseCases = {
       engineering: ['上线新的数字产品', '升级客户与内部系统', '提升平台扩展性与可靠性'],
       integration: ['连接分散的平台', '减少重复后台工作', '统一销售与客户运营'],
@@ -542,7 +622,17 @@
       item.deliverables = ['业务需求与实施方案', '可维护的系统与工作流程', '测试、交付与持续优化'];
       item.useCases = serviceCategoryUseCases[item.key] || ['规划新的数字能力', '改进现有业务流程', '支持持续运营与增长'];
     });
+    const whiteLabelService = catalog.services?.find(item => item.key === 'white-label');
+    if (whiteLabelService) Object.assign(whiteLabelService, whiteLabelCategory);
     catalog.serviceCategories?.forEach(category => {
+      if (category.key === 'white-label') {
+        Object.assign(category, whiteLabelCategory);
+        category.offerings.forEach(item => {
+          const offering = whiteLabelOfferings[item.key];
+          if (offering) Object.assign(item, offering, { description: offering.summary, kicker: whiteLabel.title, monogram: whiteLabel.code, navCategory: whiteLabel.title });
+        });
+        return;
+      }
       category.kicker = category.title;
       category.code = category.key === 'integration' ? 'API' : (category.key === 'engineering' ? '开发' : '增长');
       category.offerings.forEach(item => {
@@ -620,6 +710,22 @@
       revenue: ['온라인 및 오프라인 결제', '청구 및 구독', '인보이스 및 결제 링크', '플랫폼 결제 및 지급', '위험 및 신원 인증 워크플로', '세금 및 매출 보고 연동'],
       marketing: ['성장 전략', '콘텐츠 및 캠페인', 'AIYA 기프트카드 및 로열티 포인트']
     };
+    const whiteLabel = {
+      title: '화이트 라벨 제품', kicker: 'AIYA 구축 플랫폼', code: '제품',
+      summary: '브랜드, 워크플로, 연결된 비즈니스 시스템에 맞춘 맞춤형 AIYA 제품을 출시하세요.',
+      capabilities: ['AIYA 마케팅', 'AIYA 온라인 주문', 'AIYA 여행 티켓팅', 'AIYA CRM', 'AIYA 게이밍', 'AIYA ERP'],
+      deliverables: ['브랜드에 맞춘 제품 경험', '구성된 비즈니스 워크플로', '연결된 데이터, 결제 및 운영'],
+      useCases: ['브랜드 디지털 제품 출시', '분산된 운영 도구 교체', '검증된 맞춤형 플랫폼에서 시작'],
+      offerings: {
+        marketing: { title: 'AIYA 마케팅', summary: '브랜드, 캠페인 및 고객 여정을 연결하는 마케팅을 기획하고 운영하세요.', capabilities: ['성장 전략', '콘텐츠 및 캠페인', 'AIYA 기프트카드 및 로열티 포인트'], deliverables: ['디지털 성장 계획', '캠페인 크리에이티브 및 실행', '기프트카드 고객 경험'], useCases: ['새로운 오퍼 출시', '마케팅과 전환 연결', '재방문 고객 프로그램 구축'] },
+        'aiya-online-order': { title: 'AIYA 온라인 주문', summary: '비즈니스의 주문 이행 및 고객 응대 방식과 연결된 브랜드 온라인 주문 경험을 구축하세요.', capabilities: ['브랜드 온라인 주문', '주문 및 이행 워크플로', '결제 및 고객 연결'], deliverables: ['구성된 온라인 주문 경험', '연결된 주문 관리 워크플로', '통합 결제 및 고객 데이터'], useCases: ['온라인 주문 출시', '분산된 주문 도구 교체', '주문과 비즈니스 운영 연결'] },
+        'aiya-travel-ticketing': { title: 'AIYA 여행 티켓팅', summary: '여행 서비스, 예약 및 연결된 고객 운영을 위한 브랜드 티켓팅 플랫폼을 출시하세요.', capabilities: ['여행 예약 경험', '티켓팅 및 예약 워크플로', '고객 및 결제 연결'], deliverables: ['브랜드 여행 티켓팅 경험', '구성된 예약 워크플로', '연결된 결제 및 운영 데이터'], useCases: ['여행 예약 플랫폼 출시', '티켓팅 워크플로 현대화', '예약과 고객 운영 연결'] },
+        'crm-systems': { title: 'AIYA CRM', summary: '영업, 서비스 및 운영 팀이 공유하는 고객 보기를 제공하는 연결형 CRM 시스템을 구성하세요.', capabilities: ['CRM 아키텍처', '워크플로 구성', '고객 데이터 통합'], deliverables: ['구성된 CRM 작업 공간', '영업 및 서비스 워크플로', '연결된 고객 데이터 모델'], useCases: ['리드 및 계정 활동 정리', '고객 후속 조치 개선', 'CRM과 기존 비즈니스 도구 연결'] },
+        'aiya-gaming': { title: 'AIYA 게이밍', summary: '게임 경험 설계, 게임 결제, 플레이어 계정, 가상 코인 또는 토큰 원장 시스템을 갖춘 브랜드 게이밍 플랫폼을 구축하세요.', capabilities: ['게임 경험 설계', '게임 결제 워크플로', '가상 코인 및 토큰 원장 시스템'], deliverables: ['브랜드 게이밍 경험', '플레이어 계정 및 관리 제어', '운영 및 참여 보고'], useCases: ['게이밍 플랫폼 출시', '플레이어 운영 현대화', '게임 참여와 운영 워크플로 연결'] },
+        'aiya-erp': { title: 'AIYA ERP', summary: '운영 모델에 맞춘 브랜드 ERP 플랫폼에서 주문, 재고, 구매, 재무 및 승인 프로세스를 통합하세요.', capabilities: ['주문, 재고 및 구매 워크플로', '재무 및 내부 승인 워크플로', '엔터프라이즈 시스템 연동'], deliverables: ['구성된 ERP 작업 공간', '연결된 엔터프라이즈 운영 워크플로', '운영 보고 기반'], useCases: ['분산된 운영 도구 교체', '비즈니스 데이터 중앙화', '운영 가시성 향상'] }
+      }
+    };
+    const { offerings: whiteLabelOfferings, ...whiteLabelCategory } = whiteLabel;
     catalog.products?.forEach(item => {
       item.kicker = item.title;
       item.monogram = productMonograms[item.key] || '제품';
@@ -628,6 +734,8 @@
       item.deliverables = ['비즈니스 요구 중심의 제품 솔루션', '고객 경험 및 운영 시스템 연결', '유지보수와 확장이 가능한 결과물'];
       item.useCases = ['새로운 디지털 비즈니스 출시', '분산된 비즈니스 도구 교체', '고객 경험과 내부 운영 연결'];
     });
+    const marketing = catalog.products?.find(item => item.key === 'marketing');
+    if (marketing) Object.assign(marketing, whiteLabelOfferings.marketing, { kicker: whiteLabel.title, monogram: whiteLabel.code });
     const serviceCategoryUseCases = {
       engineering: ['새로운 디지털 제품 출시', '고객 및 내부 시스템 업그레이드', '플랫폼 확장성과 안정성 향상'],
       integration: ['분산된 플랫폼 연결', '반복적인 백오피스 업무 감소', '판매 및 고객 운영 통합'],
@@ -648,7 +756,17 @@
       item.deliverables = ['비즈니스 요구 및 구현 계획', '유지보수 가능한 시스템 및 워크플로', '테스트, 제공 및 지속적인 최적화'];
       item.useCases = serviceCategoryUseCases[item.key] || ['새로운 디지털 역량 기획', '기존 비즈니스 워크플로 개선', '지속적인 운영 및 성장 지원'];
     });
+    const whiteLabelService = catalog.services?.find(item => item.key === 'white-label');
+    if (whiteLabelService) Object.assign(whiteLabelService, whiteLabelCategory);
     catalog.serviceCategories?.forEach(category => {
+      if (category.key === 'white-label') {
+        Object.assign(category, whiteLabelCategory);
+        category.offerings.forEach(item => {
+          const offering = whiteLabelOfferings[item.key];
+          if (offering) Object.assign(item, offering, { description: offering.summary, kicker: whiteLabel.title, monogram: whiteLabel.code, navCategory: whiteLabel.title });
+        });
+        return;
+      }
       category.kicker = category.title;
       category.code = category.key === 'integration' ? 'API' : (category.key === 'engineering' ? '개발' : '성장');
       category.offerings.forEach(item => {
@@ -709,6 +827,15 @@
       'stories.html': '스토리 | AIYA 뉴스', 'financial-services-api-integration.html': '금융 서비스 API 연동 | AIYA 기술 시스템'
     };
     if (Object.prototype.hasOwnProperty.call(titles, pageName)) document.title = titles[pageName];
+    const detailPage = document.querySelector('[data-detail-kind][data-detail-key]');
+    if (detailPage) {
+      const item = window.getCatalogItem?.(detailPage.dataset.detailKind, detailPage.dataset.detailKey);
+      if (item) {
+        document.title = `${item.title} | ${language === 'zh' ? 'AIYA 科技系统' : 'AIYA 기술 시스템'}`;
+        const meta = document.querySelector('meta[name="description"]');
+        if (meta) meta.content = item.summary;
+      }
+    }
     const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
       acceptNode(node) {
         return /^(SCRIPT|STYLE|NOSCRIPT)$/.test(node.parentElement?.tagName || '') || !node.nodeValue.trim()
@@ -719,8 +846,8 @@
     const nodes = [];
     while (walker.nextNode()) nodes.push(walker.currentNode);
     nodes.forEach(node => { node.nodeValue = translate(node.nodeValue); });
-    document.querySelectorAll('[aria-label],[title],[placeholder]').forEach(element => {
-      ['aria-label', 'title', 'placeholder'].forEach(attribute => {
+    document.querySelectorAll('[alt],[aria-label],[title],[placeholder]').forEach(element => {
+      ['alt', 'aria-label', 'title', 'placeholder'].forEach(attribute => {
         if (element.hasAttribute(attribute)) element.setAttribute(attribute, translate(element.getAttribute(attribute)));
       });
     });

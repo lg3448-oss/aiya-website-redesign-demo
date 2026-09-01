@@ -5,7 +5,7 @@ $read = @{}
 foreach ($name in @('catalog.js', 'service-pages.js', 'index.html', 'i18n.js')) {
   $path = Join-Path $root $name
   if (-not (Test-Path -LiteralPath $path)) { throw "Missing required source file: $name" }
-  $read[$name] = Get-Content -LiteralPath $path -Raw
+  $read[$name] = Get-Content -LiteralPath $path -Raw -Encoding UTF8
 }
 
 $expectedOfferings = @(
@@ -21,7 +21,7 @@ $canonicalPages = $expectedOfferings.Url
 foreach ($page in $canonicalPages) {
   $path = Join-Path $root $page
   if (-not (Test-Path -LiteralPath $path)) { throw "Missing canonical page: $page" }
-  $read[$page] = Get-Content -LiteralPath $path -Raw
+  $read[$page] = Get-Content -LiteralPath $path -Raw -Encoding UTF8
 }
 
 $catalog = $read['catalog.js']
