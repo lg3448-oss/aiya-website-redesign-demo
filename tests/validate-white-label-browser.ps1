@@ -30,6 +30,13 @@ $runner = @'
     const assert = (condition, message) => { if (!condition) throw new Error(message); };
     const text = element => (element?.textContent || '').replace(/\s+/g, ' ').trim();
     const assertList = (actual, expected, message) => assert(JSON.stringify(actual) === JSON.stringify(expected), `${message}; expected ${expected.join(' | ')}, observed ${actual.join(' | ')}`);
+    const isVisible = element => {
+      for (let current = element; current && current !== document.documentElement; current = current.parentElement) {
+        const style = getComputedStyle(current);
+        if (style.display === 'none' || style.visibility === 'hidden' || Number(style.opacity) === 0) return false;
+      }
+      return Boolean(element?.getClientRects().length);
+    };
     const language = new URLSearchParams(location.search).get('lang') || 'en';
     const expected = {
       en: {
@@ -54,6 +61,9 @@ $runner = @'
         erp: /\uc5d4\ud130\ud504\ub77c\uc774\uc988 \uc6b4\uc601 \uc6cc\ud06c\ud50c\ub85c/
       }
     }[language];
+    const rootUri = '__ROOT_URI__';
+    const canonicalPath = path => new URL(path, rootUri).pathname;
+    const resolvedUrl = link => new URL(link.getAttribute('href'), location.href);
     const canonicalUrls = ['products/aiya-marketing.html', 'products/aiya-online-order.html', 'products/aiya-travel-ticketing.html', 'services/crm-systems.html', 'products/aiya-gaming.html', 'products/aiya-erp.html'];
     const offeringPages = {
       marketing: { title: expected.labels[0], back: 'services/white-label-products.html' },
@@ -64,6 +74,13 @@ $runner = @'
       'aiya-erp': { title: expected.labels[5], back: 'services/white-label-products.html' }
     };
 
+    if (__IS_HOME__) {
+      await new Promise(resolve => window.setTimeout(resolve, 250));
+      assert(location.search === `?lang=${language}`, 'Homepage lang query parameter was not preserved');
+      assert(location.hash === '#services', 'Homepage browser URL must retain #services');
+    } else {
+      await new Promise(resolve => window.setTimeout(resolve, 250));
+    }
     assert(window.aiyaI18n?.language === language, `expected ${language} to be active`);
     assert(document.documentElement.scrollWidth <= document.documentElement.clientWidth, 'horizontal overflow detected');
 
@@ -71,13 +88,14 @@ $runner = @'
     if (!__IS_HOME__) assert(detailKey === '__PAGE_KEY__', `expected canonical key __PAGE_KEY__, observed ${detailKey}`);
     if (detailKey === 'white-label') {
       assert(text(document.querySelector('#detail-title')) === expected.category, `White Label overview title is wrong; expected ${expected.category}, observed ${text(document.querySelector('#detail-title'))}`);
-      assert(document.querySelector('.detail-back')?.getAttribute('href') === '../index.html#services', 'White Label overview back link is wrong');
+      const overviewBack = resolvedUrl(document.querySelector('.detail-back'));
+      assert(overviewBack.pathname === canonicalPath('index.html') && overviewBack.hash === '#services', 'White Label overview back link is wrong');
       assertList([...document.querySelectorAll('#detail-capabilities li span')].map(text), expected.labels, 'White Label overview offerings are wrong');
     }
     if (offeringPages[detailKey]) {
       const offering = offeringPages[detailKey];
       assert(text(document.querySelector('#detail-title')) === offering.title, `${detailKey} title is wrong`);
-      assert(new URL(document.querySelector('.detail-back')?.getAttribute('href'), location.href).pathname.endsWith(`/${offering.back}`), `${detailKey} back link is wrong`);
+      assert(resolvedUrl(document.querySelector('.detail-back')).pathname === canonicalPath(offering.back), `${detailKey} back link is wrong`);
     }
 
     const interfaces = [...document.querySelectorAll('.interface-frame img')];
@@ -90,44 +108,56 @@ $runner = @'
     interfaces.forEach(image => assert(image.complete && image.naturalWidth > 0, 'interface image is incomplete'));
 
     if (detailKey === 'aiya-gaming') {
-      const visibleCopy = text(document.querySelector('main'));
-      expected.gaming.forEach(coverage => assert(coverage.test(visibleCopy), `Gaming copy is missing ${coverage}`));
+      document.querySelector('#detail-summary')?.scrollIntoView({ block: 'center' });
+      await new Promise(resolve => window.setTimeout(resolve, 250));
+      const visibleCopy = [document.querySelector('#detail-summary'), ...document.querySelectorAll('#detail-capabilities span'), ...document.querySelectorAll('#detail-deliverables span')]
+        .filter(isVisible)
+        .map(text);
+      expected.gaming.forEach(coverage => assert(visibleCopy.some(copy => coverage.test(copy)), `Gaming copy is missing ${coverage} from a visible rendered element`));
     }
     if (detailKey === 'aiya-erp') {
-      assert(expected.erp.test(text(document.querySelector('main'))), 'ERP copy does not cover enterprise operational workflows');
+      document.querySelector('#detail-summary')?.scrollIntoView({ block: 'center' });
+      await new Promise(resolve => window.setTimeout(resolve, 250));
+      const visibleCopy = [document.querySelector('#detail-summary'), ...document.querySelectorAll('#detail-capabilities span'), ...document.querySelectorAll('#detail-deliverables span')]
+        .filter(isVisible)
+        .map(text);
+      assert(visibleCopy.some(copy => expected.erp.test(copy)), 'ERP copy does not cover enterprise operational workflows in a visible rendered element');
     }
 
-    if (__IS_HOME__) {
-      const servicesMenu = document.querySelector('[data-mega-menu="services"]');
-      const serviceGroups = [...servicesMenu.querySelectorAll('.mega-menu-group')];
-      assert(serviceGroups.length === 4, 'Services mega menu must contain exactly four groups');
-      assertList(serviceGroups.map(group => group.querySelector('.mega-menu-category').textContent), expected.groups, 'Services mega-menu group order is wrong');
-      const whiteLabelGroup = serviceGroups[2];
-      assertList([...whiteLabelGroup.querySelectorAll('[data-mega-item]')].map(item => text(item.querySelector('strong'))), expected.labels, 'White Label mega-menu offerings are wrong');
-      assertList([...whiteLabelGroup.querySelectorAll('[data-mega-item]')].map(item => item.getAttribute('href')), canonicalUrls, 'White Label mega-menu offering links are wrong');
-      assert([...whiteLabelGroup.querySelectorAll('[data-mega-item]')].filter(item => text(item.querySelector('strong')) === expected.labels[3]).length === 1, 'CRM must appear once under White Label');
-      assert(!serviceGroups[1].textContent.includes(expected.labels[3]), 'CRM must be absent from Integration');
-      assert(whiteLabelGroup.querySelector('.mega-menu-overview')?.getAttribute('href') === 'services/white-label-products.html', 'White Label mega-menu overview link is wrong');
+    const servicesMenu = document.querySelector('[data-mega-menu="services"]');
+    const serviceGroups = [...servicesMenu.querySelectorAll('.mega-menu-group')];
+    assert(serviceGroups.length === 4, 'Services mega menu must contain exactly four groups');
+    assertList(serviceGroups.map(group => group.querySelector('.mega-menu-category').textContent), expected.groups, 'Services mega-menu group order is wrong');
+    const whiteLabelGroup = serviceGroups[2];
+    assertList([...whiteLabelGroup.querySelectorAll('[data-mega-item]')].map(item => text(item.querySelector('strong'))), expected.labels, 'White Label mega-menu offerings are wrong');
+    assertList([...whiteLabelGroup.querySelectorAll('[data-mega-item]')].map(item => resolvedUrl(item).pathname), canonicalUrls.map(canonicalPath), 'White Label mega-menu offering links are wrong');
+    assert([...whiteLabelGroup.querySelectorAll('[data-mega-item]')].filter(item => text(item.querySelector('strong')) === expected.labels[3]).length === 1, 'CRM must appear once under White Label');
+    assert(!serviceGroups[1].textContent.includes(expected.labels[3]), 'CRM must be absent from Integration');
+    assert(resolvedUrl(whiteLabelGroup.querySelector('.mega-menu-overview')).pathname === canonicalPath('services/white-label-products.html'), 'White Label mega-menu overview link is wrong');
 
+    const menuLink = document.querySelector('[data-mega-link="services"]');
+    const menuToggle = document.querySelector('[data-mega-trigger="services"]');
+    const menuPanel = servicesMenu.querySelector('[data-menu-panel="services"]');
+    if (innerWidth > 760) {
+      menuLink.dispatchEvent(new PointerEvent('pointerenter', { pointerType: 'mouse', bubbles: false }));
+    } else {
+      document.querySelector('.nav-toggle').click();
+      menuToggle.click();
+    }
+    menuPanel.getAnimations().forEach(animation => animation.finish());
+    assert(menuToggle.getAttribute('aria-expanded') === 'true', 'Services menu did not open for the active viewport');
+    assert(servicesMenu.classList.contains('open') && !menuPanel.hidden && isVisible(menuPanel), 'Services menu panel is not visibly open');
+    assert(document.documentElement.scrollWidth <= document.documentElement.clientWidth, 'opened Services menu has horizontal overflow');
+
+    if (__IS_HOME__) {
       const selectors = [...document.querySelectorAll('.service-selector [data-service]')];
       assertList(selectors.map(selector => selector.dataset.service), ['engineering', 'integration', 'white-label', 'growth'], 'Homepage service selector order is wrong');
       const whiteLabelSelector = selectors[2];
       whiteLabelSelector.click();
       assert(text(document.querySelector('#service-title')) === expected.category, 'Homepage White Label selector did not activate the category');
       assertList([...document.querySelectorAll('#service-offerings strong')].map(text), expected.labels, 'Homepage White Label offerings are wrong');
-      assertList([...document.querySelectorAll('#service-offerings a')].map(link => link.getAttribute('href')), canonicalUrls, 'Homepage White Label offering links are wrong');
-      assert(document.querySelector('#service-overview')?.getAttribute('href') === 'services/white-label-products.html', 'Homepage White Label overview link is wrong');
-
-      const menuLink = document.querySelector('[data-mega-link="services"]');
-      const menuToggle = document.querySelector('[data-mega-trigger="services"]');
-      if (innerWidth > 760) {
-        menuLink.dispatchEvent(new PointerEvent('pointerenter', { pointerType: 'mouse', bubbles: false }));
-      } else {
-        document.querySelector('.nav-toggle').click();
-        menuToggle.click();
-      }
-      assert(menuToggle.getAttribute('aria-expanded') === 'true', 'Services menu did not open for the active viewport');
-      assert(document.documentElement.scrollWidth <= document.documentElement.clientWidth, 'opened Services menu has horizontal overflow');
+      assertList([...document.querySelectorAll('#service-offerings a')].map(resolvedUrl).map(url => url.pathname), canonicalUrls.map(canonicalPath), 'Homepage White Label offering links are wrong');
+      assert(resolvedUrl(document.querySelector('#service-overview')).pathname === canonicalPath('services/white-label-products.html'), 'Homepage White Label overview link is wrong');
     }
 
     document.body.dataset.whiteLabelBrowserTest = 'PASS';
@@ -152,7 +182,8 @@ function Invoke-WhiteLabelBrowserCheck {
 
   $sourceHtml = [IO.File]::ReadAllText($source, [Text.Encoding]::UTF8)
   if (-not $sourceHtml.Contains('</body>')) { throw "Could not inject browser test into $($Page.Path)." }
-  $pageRunner = $runner.Replace('__IS_HOME__', $(if ($Page.Key -eq 'homepage') { 'true' } else { 'false' })).Replace('__PAGE_KEY__', $Page.Key)
+  $rootUri = ([uri]::new("$root\")).AbsoluteUri
+  $pageRunner = $runner.Replace('__IS_HOME__', $(if ($Page.Key -eq 'homepage') { 'true' } else { 'false' })).Replace('__PAGE_KEY__', $Page.Key).Replace('__ROOT_URI__', $rootUri)
   [IO.File]::WriteAllText($fixture, $sourceHtml.Replace('</body>', "$pageRunner`r`n</body>"), [Text.UTF8Encoding]::new($false))
 
   $arguments = @(
@@ -161,11 +192,12 @@ function Invoke-WhiteLabelBrowserCheck {
     '--no-sandbox',
     '--disable-crash-reporter',
     '--disable-breakpad',
+    '--force-prefers-reduced-motion',
     "--user-data-dir=`"$profile`"",
     "--window-size=$($Viewport.Size)",
     '--virtual-time-budget=2000',
     '--dump-dom',
-    "$([uri]::new($fixture).AbsoluteUri)?lang=$Language"
+    $(if ($Page.Key -eq 'homepage') { "$([uri]::new($fixture).AbsoluteUri)?lang=$Language#services" } else { "$([uri]::new($fixture).AbsoluteUri)?lang=$Language" })
   )
   $process = Start-Process -FilePath $chrome -ArgumentList $arguments -WindowStyle Hidden -Wait -PassThru -RedirectStandardOutput $stdout -RedirectStandardError $stderr
   if ($process.ExitCode -ne 0) { throw "Chrome failed for $($Page.Path) [$Language/$($Viewport.Name)]: $(Get-Content -Raw -LiteralPath $stderr)" }
