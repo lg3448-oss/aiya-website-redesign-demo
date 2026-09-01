@@ -116,13 +116,13 @@
       useCases: ['Organizing lead and account activity', 'Improving customer follow-up', 'Connecting CRM with existing business tools']
     },
     'AIYA Gaming': {
-      key: 'aiya-gaming', url: 'products/aiya-gaming.html', summary: 'Create a branded gaming platform with connected player, payment, and operational workflows.',
+      key: 'aiya-gaming', url: 'products/aiya-gaming.html', summary: 'Create a branded gaming platform with game experience design, game payment workflows, player accounts, and virtual coin or token ledger systems.',
       capabilities: ['Player Experiences', 'Game and Membership Workflows', 'Payment and Engagement Connections'],
       deliverables: ['Branded gaming experience', 'Configured player workflows', 'Connected payment and engagement data'],
       useCases: ['Launching a gaming platform', 'Modernizing player operations', 'Connecting engagement with revenue workflows']
     },
     'AIYA ERP': {
-      key: 'aiya-erp', url: 'products/aiya-erp.html', summary: 'Unify core business processes in a branded ERP platform configured for your operational model.',
+      key: 'aiya-erp', url: 'products/aiya-erp.html', summary: 'Unify enterprise operational workflows for orders, inventory, purchasing, finance, and approvals in a branded ERP platform configured for your operational model.',
       capabilities: ['Operational Workflows', 'Business Data Management', 'Connected Finance and Inventory'],
       deliverables: ['Configured ERP workspace', 'Connected business workflows', 'Operational reporting foundation'],
       useCases: ['Replacing disconnected operating tools', 'Centralizing business data', 'Improving operational visibility']
