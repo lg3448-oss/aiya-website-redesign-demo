@@ -91,19 +91,19 @@
       useCases: ['Connecting legacy and modern systems', 'Adding a payment gateway to a product', 'Sharing reliable data across teams']
     },
     'AIYA Marketing': {
-      key: 'marketing', url: 'products/aiya-marketing.html', summary: 'Plan and run connected marketing that aligns your brand, campaigns, and customer journeys.',
+      key: 'marketing', url: 'products/aiya-marketing.html', image: 'assets/aiya-marketing-interface.jpg', summary: 'Plan and run connected marketing that aligns your brand, campaigns, and customer journeys.',
       capabilities: ['Growth Strategy', 'Content and Campaigns', 'AIYA Gift Card & Loyalty Points'],
       deliverables: ['Digital growth planning', 'Campaign creative and execution', 'Gift-card customer experiences'],
       useCases: ['Launching a new offer', 'Connecting marketing with conversion', 'Building repeat-customer programs']
     },
     'AIYA Online Order': {
-      key: 'aiya-online-order', url: 'products/aiya-online-order.html', summary: 'Create a branded online ordering experience connected to the way your business fulfills and serves customers.',
+      key: 'aiya-online-order', url: 'products/aiya-online-order.html', image: 'assets/aiya-online-order-interface.jpg', summary: 'Create a branded online ordering experience connected to the way your business fulfills and serves customers.',
       capabilities: ['Branded Online Ordering', 'Order and Fulfillment Workflows', 'Payment and Customer Connections'],
       deliverables: ['Configured online ordering experience', 'Connected order management workflows', 'Integrated payment and customer data'],
       useCases: ['Launching online ordering', 'Replacing disconnected ordering tools', 'Connecting orders with business operations']
     },
     'AIYA Travel Ticketing': {
-      key: 'aiya-travel-ticketing', url: 'products/aiya-travel-ticketing.html', summary: 'Launch a branded ticketing platform for travel services, bookings, and connected customer operations.',
+      key: 'aiya-travel-ticketing', url: 'products/aiya-travel-ticketing.html', image: 'assets/aiya-travel-ticketing-interface.jpg', summary: 'Launch a branded ticketing platform for travel services, bookings, and connected customer operations.',
       capabilities: ['Travel Booking Experiences', 'Ticketing and Reservation Workflows', 'Customer and Payment Connections'],
       deliverables: ['Branded travel ticketing experience', 'Configured booking workflows', 'Connected payment and operational data'],
       useCases: ['Launching a travel booking platform', 'Modernizing ticketing workflows', 'Connecting reservations with customer operations']
