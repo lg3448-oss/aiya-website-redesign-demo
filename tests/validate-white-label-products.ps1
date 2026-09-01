@@ -127,7 +127,7 @@ $zh = $i18n.Substring($zhStart, $koStart - $zhStart)
 $ko = $i18n.Substring($koStart)
 $decode = { param([string]$base64) [Text.Encoding]::UTF8.GetString([Convert]::FromBase64String($base64)) }
 $exactTranslations = @{
-  'AIYA Marketing' = @{ zh = (&$decode 'QUlZQSDokKXplIA='); ko = (&$decode 'QUlZQSDDrp4jsvIDtjIU=') }
+  'AIYA Marketing' = @{ zh = (&$decode 'QUlZQSDokKXplIA='); ko = (&$decode 'QUlZQSDrp4jsvIDtjIU=') }
   'AIYA Online Order' = @{ zh = (&$decode 'QUlZQSDlnKjnur/ngrnljZU='); ko = (&$decode 'QUlZQSDsmKjrnbzsnbgg7KO866y4') }
   'AIYA Travel Ticketing' = @{ zh = (&$decode 'QUlZQSDml4XooYznpajliqE='); ko = (&$decode 'QUlZQSDsl6ztlokg7Yuw7LyT7YyF') }
   'AIYA CRM' = @{ zh = (&$decode 'QUlZQSDlrqLmiLflhbPns7vnrqHnkIY='); ko = 'AIYA CRM' }
