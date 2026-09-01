@@ -32,10 +32,14 @@ $allCatalogSource = "$catalog`n$servicePages"
 
 function Get-JsObjectBlock {
   param([string]$source, [string]$key)
-  $keyIndex = $source.IndexOf("key: '$key'")
-  if ($keyIndex -lt 0) { $keyIndex = $source.IndexOf('key: "' + $key + '"') }
-  if ($keyIndex -lt 0) { return '' }
-  $start = $source.LastIndexOf('{', $keyIndex)
+  if ($key -eq '') { $start = $source.IndexOf('{') }
+  else {
+    $keyIndex = $source.IndexOf("key: '$key'")
+    if ($keyIndex -lt 0) { $keyIndex = $source.IndexOf('key: "' + $key + '"') }
+    if ($keyIndex -lt 0) { return '' }
+    $start = $source.LastIndexOf('{', $keyIndex)
+  }
+  if ($start -lt 0) { return '' }
   $depth = 0
   $quote = [char]0
   $escaped = $false
@@ -57,13 +61,12 @@ function Get-JsObjectBlock {
   return ''
 }
 
-foreach ($offering in $expectedOfferings) {
-  $title = [regex]::Escape($offering.Title)
-  $url = [regex]::Escape($offering.Url)
-  $offeringPattern = 'title:\s*["'']' + $title + '["''][\s\S]{0,400}url:\s*["'']' + $url + '["'']'
-  if ($allCatalogSource -notmatch $offeringPattern) {
-    throw "Missing offering contract: $($offering.Title) -> $($offering.Url)"
-  }
+function Get-JsProfileBlock {
+  param([string]$source, [string]$title)
+  $start = $source.IndexOf("'$title': {")
+  if ($start -lt 0) { $start = $source.IndexOf('"' + $title + '": {') }
+  if ($start -lt 0) { return '' }
+  return Get-JsObjectBlock ($source.Substring($start)) ''
 }
 
 $serviceOrder = @('engineering', 'integration', 'white-label', 'growth')
@@ -91,23 +94,22 @@ if ($integrationBlock -match 'AIYA CRM|CRM Systems') { throw 'Integration capabi
 
 $whiteLabelBlock = Get-JsObjectBlock $allCatalogSource 'white-label'
 if (-not $whiteLabelBlock) { throw 'Missing White Label category definition.' }
+$capabilitiesMatch = [regex]::Match($whiteLabelBlock, 'capabilities:\s*\[([^\]]+)\]')
+if (-not $capabilitiesMatch.Success) { throw 'White Label category is missing its capability list.' }
+$actualTitles = @([regex]::Matches($capabilitiesMatch.Groups[1].Value, '["'']([^"'']+)["'']') | ForEach-Object { $_.Groups[1].Value })
+if (($actualTitles -join '|') -ne (($expectedOfferings | ForEach-Object Title) -join '|')) { throw 'White Label capability order or membership is incorrect.' }
 $assetByTitle = @{
   'AIYA Marketing' = 'assets/aiya-marketing-interface.jpg'
   'AIYA Online Order' = 'assets/aiya-online-order-interface.jpg'
   'AIYA Travel Ticketing' = 'assets/aiya-travel-ticketing-interface.jpg'
 }
-$lastOfferingIndex = -1
 foreach ($offering in $expectedOfferings) {
-  $title = [regex]::Escape($offering.Title)
-  $url = [regex]::Escape($offering.Url)
-  $tuple = [regex]::Match($whiteLabelBlock, 'title:\s*["'']' + $title + '["''][\s\S]{0,600}?url:\s*["'']' + $url + '["'']')
-  if (-not $tuple.Success) { throw "White Label offering is missing or has the wrong URL: $($offering.Title)." }
-  if ($tuple.Index -le $lastOfferingIndex) { throw 'White Label offerings are not in the approved order.' }
-  $lastOfferingIndex = $tuple.Index
-  if ($offering.Title -eq 'AIYA Marketing' -or $offering.Title -eq 'AIYA Online Order' -or $offering.Title -eq 'AIYA Travel Ticketing') {
-    $asset = [regex]::Escape($assetByTitle[$offering.Title])
-    $assetContext = [regex]::Match($whiteLabelBlock.Substring($tuple.Index), '^[\s\S]{0,600}?(?=title:\s*["'']|$)').Value
-    if ($assetContext -notmatch 'image:\s*["'']' + $asset + '["'']') { throw "Wrong interface asset for $($offering.Title)." }
+  $profile = Get-JsProfileBlock $servicePages $offering.Title
+  if (-not $profile) { throw "Missing offering profile: $($offering.Title)." }
+  if ($profile -notmatch ('url:\s*["'']' + [regex]::Escape($offering.Url) + '["'']')) { throw "Wrong URL in profile: $($offering.Title)." }
+  if ($assetByTitle.ContainsKey($offering.Title)) {
+    $pageHtml = $read[$offering.Url]
+    if ($pageHtml -notmatch [regex]::Escape($assetByTitle[$offering.Title])) { throw "Wrong interface asset on page: $($offering.Title)." }
   }
 }
 
@@ -123,14 +125,23 @@ $koStart = $i18n.IndexOf('const ko = {')
 if ($zhStart -lt 0 -or $koStart -lt 0) { throw 'Missing Chinese or Korean translation dictionary.' }
 $zh = $i18n.Substring($zhStart, $koStart - $zhStart)
 $ko = $i18n.Substring($koStart)
+$decode = { param([string]$base64) [Text.Encoding]::UTF8.GetString([Convert]::FromBase64String($base64)) }
+$exactTranslations = @{
+  'AIYA Marketing' = @{ zh = (&$decode 'QUlZQSDokKXplIA='); ko = (&$decode 'QUlZQSDDrp4jsvIDtjIU=') }
+  'AIYA Online Order' = @{ zh = (&$decode 'QUlZQSDlnKjnur/ngrnljZU='); ko = (&$decode 'QUlZQSDsmKjrnbzsnbgg7KO866y4') }
+  'AIYA Travel Ticketing' = @{ zh = (&$decode 'QUlZQSDml4XooYznpajliqE='); ko = (&$decode 'QUlZQSDsl6ztlokg7Yuw7LyT7YyF') }
+  'AIYA CRM' = @{ zh = (&$decode 'QUlZQSDlrqLmiLflhbPns7vnrqHnkIY='); ko = 'AIYA CRM' }
+  'AIYA Gaming' = @{ zh = (&$decode 'QUlZQSDmuLjmiI/ns7vnu58='); ko = (&$decode 'QUlZQSDqsozsnbTrsI0=') }
+  'AIYA ERP' = @{ zh = (&$decode 'QUlZQSDkvIHkuJrotYTmupDnrqHnkIY='); ko = 'AIYA ERP' }
+}
 foreach ($offering in $expectedOfferings) {
   $key = [regex]::Escape($offering.Title)
   $translationPattern = '["'']' + $key + '["'']\s*:\s*["''][^"'']+["'']'
-  foreach ($language in @(@{ Name = 'Chinese'; Source = $zh }, @{ Name = 'Korean'; Source = $ko })) {
+  foreach ($language in @(@{ Name = 'Chinese'; Code = 'zh'; Source = $zh }, @{ Name = 'Korean'; Code = 'ko'; Source = $ko })) {
     $translation = [regex]::Match($language.Source, $translationPattern)
     if (-not $translation.Success) { throw "Missing $($language.Name) translation for $($offering.Title)." }
     $value = [regex]::Match($translation.Value, ':\s*["'']([^"'']+)["'']').Groups[1].Value
-    if ($value -eq $offering.Title) { throw "Untranslated $($language.Name) value for $($offering.Title)." }
+    if ($value -ne $exactTranslations[$offering.Title][$language.Code]) { throw "Incorrect $($language.Name) translation for $($offering.Title)." }
   }
 }
 
