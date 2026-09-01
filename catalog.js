@@ -119,7 +119,7 @@ window.aiyaCatalog = {
     {
       key: 'integration', navCategory: 'Build', title: 'Integration & Automation', url: 'services/integration-automation.html', code: 'API', kicker: 'CONNECTED OPERATIONS', image: 'assets/service-visual-integration-automation.jpg',
       summary: 'Connect systems and automate repetitive work across the business.',
-      capabilities: ['API, Data & Payment Integration', 'AI & Workflow Automation', 'CRM Systems'],
+      capabilities: ['API, Data & Payment Integration', 'AI & Workflow Automation'],
       deliverables: ['Connected APIs and synchronized business data', 'AI-assisted and rule-based workflows', 'Configured customer relationship platforms'],
       useCases: ['Connecting disconnected platforms', 'Reducing repetitive back-office work', 'Organizing sales and customer operations']
     },
@@ -130,6 +130,13 @@ window.aiyaCatalog = {
       capabilities: ['Cloud Architecture', 'Platform Modernization', 'Performance & Reliability'],
       deliverables: ['Cloud-ready application architecture', 'Legacy platform modernization', 'Performance, deployment, and observability improvements'],
       useCases: ['Preparing a product for growth', 'Reducing fragile infrastructure', 'Improving deployment and operational visibility']
+    },
+    {
+      key: 'white-label', navCategory: 'Build', title: 'White Label Products', url: 'services/white-label-products.html', code: 'WLP', kicker: 'AIYA-BUILT PLATFORMS', image: 'assets/service-platform.png',
+      summary: 'Launch customizable AIYA-built products with your brand, workflows, and connected business systems.',
+      capabilities: ['AIYA Marketing', 'AIYA Online Order', 'AIYA Travel Ticketing', 'AIYA CRM', 'AIYA Gaming', 'AIYA ERP'],
+      deliverables: ['Brand-ready product experience', 'Configured business workflows', 'Connected data, payments, and operations'],
+      useCases: ['Launching a branded digital product', 'Replacing disconnected operating tools', 'Starting from a proven customizable platform']
     },
     {
       key: 'growth', navCategory: 'Operate & Grow', title: 'Growth', url: 'services/growth.html', code: 'GRW', kicker: 'CONNECTED GROWTH', image: 'assets/service-visual-growth-marketing.jpg',

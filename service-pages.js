@@ -90,11 +90,42 @@
       deliverables: ['Documented integration design', 'Connected application and payment workflows', 'Validation, monitoring, and error visibility'],
       useCases: ['Connecting legacy and modern systems', 'Adding a payment gateway to a product', 'Sharing reliable data across teams']
     },
-    'CRM Systems': {
+    'AIYA Marketing': {
+      key: 'marketing', url: 'products/aiya-marketing.html', summary: 'Plan and run connected marketing that aligns your brand, campaigns, and customer journeys.',
+      capabilities: ['Growth Strategy', 'Content and Campaigns', 'AIYA Gift Card & Loyalty Points'],
+      deliverables: ['Digital growth planning', 'Campaign creative and execution', 'Gift-card customer experiences'],
+      useCases: ['Launching a new offer', 'Connecting marketing with conversion', 'Building repeat-customer programs']
+    },
+    'AIYA Online Order': {
+      key: 'aiya-online-order', url: 'products/aiya-online-order.html', summary: 'Create a branded online ordering experience connected to the way your business fulfills and serves customers.',
+      capabilities: ['Branded Online Ordering', 'Order and Fulfillment Workflows', 'Payment and Customer Connections'],
+      deliverables: ['Configured online ordering experience', 'Connected order management workflows', 'Integrated payment and customer data'],
+      useCases: ['Launching online ordering', 'Replacing disconnected ordering tools', 'Connecting orders with business operations']
+    },
+    'AIYA Travel Ticketing': {
+      key: 'aiya-travel-ticketing', url: 'products/aiya-travel-ticketing.html', summary: 'Launch a branded ticketing platform for travel services, bookings, and connected customer operations.',
+      capabilities: ['Travel Booking Experiences', 'Ticketing and Reservation Workflows', 'Customer and Payment Connections'],
+      deliverables: ['Branded travel ticketing experience', 'Configured booking workflows', 'Connected payment and operational data'],
+      useCases: ['Launching a travel booking platform', 'Modernizing ticketing workflows', 'Connecting reservations with customer operations']
+    },
+    'AIYA CRM': {
       key: 'crm-systems', summary: 'Configure connected CRM systems that give sales, service, and operations teams a shared customer view.',
+      url: 'services/crm-systems.html',
       capabilities: ['CRM Architecture', 'Workflow Configuration', 'Customer Data Integration'],
       deliverables: ['Configured CRM workspace', 'Sales and service workflows', 'Connected customer data model'],
       useCases: ['Organizing lead and account activity', 'Improving customer follow-up', 'Connecting CRM with existing business tools']
+    },
+    'AIYA Gaming': {
+      key: 'aiya-gaming', url: 'products/aiya-gaming.html', summary: 'Create a branded gaming platform with connected player, payment, and operational workflows.',
+      capabilities: ['Player Experiences', 'Game and Membership Workflows', 'Payment and Engagement Connections'],
+      deliverables: ['Branded gaming experience', 'Configured player workflows', 'Connected payment and engagement data'],
+      useCases: ['Launching a gaming platform', 'Modernizing player operations', 'Connecting engagement with revenue workflows']
+    },
+    'AIYA ERP': {
+      key: 'aiya-erp', url: 'products/aiya-erp.html', summary: 'Unify core business processes in a branded ERP platform configured for your operational model.',
+      capabilities: ['Operational Workflows', 'Business Data Management', 'Connected Finance and Inventory'],
+      deliverables: ['Configured ERP workspace', 'Connected business workflows', 'Operational reporting foundation'],
+      useCases: ['Replacing disconnected operating tools', 'Centralizing business data', 'Improving operational visibility']
     },
     'Cloud Architecture': {
       key: 'cloud-architecture', summary: 'Create a secure cloud foundation that can support reliable product growth.',
@@ -143,7 +174,7 @@
         ...profile,
         title,
         description: profile.summary,
-        url: `services/${profile.key}.html`,
+        url: profile.url || `services/${profile.key}.html`,
         navCategory: category.title,
         kicker: category.kicker,
         monogram: profile.key.split('-').map(part => part[0]).join('').slice(0, 3).toUpperCase(),
