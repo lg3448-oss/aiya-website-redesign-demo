@@ -85,6 +85,7 @@ $interfaceAssets = @(
   'assets/aiya-travel-ticketing-interface.jpg'
 )
 foreach ($asset in $interfaceAssets) {
+  if (-not (Test-Path -LiteralPath (Join-Path $root $asset))) { throw "Missing interface asset file: $asset" }
   if ($allCatalogSource -notmatch [regex]::Escape($asset)) { throw "Missing interface asset contract: $asset" }
 }
 
